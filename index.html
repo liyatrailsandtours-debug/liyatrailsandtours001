@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liya Trails and Tours | Coast & Marine Adventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Poppins', sans-serif; background: #F0F4F8; }
+
+.hero {
+    height: 48vh;
+    background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5') center/cover;
+    position: relative;
+    color: white;
+}
+.overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+.hero-content {
+    position: absolute; bottom: 20px; left: 15px; right: 15px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+}
+.tag { border: 1px solid rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 20px; font-size: 11px; display: inline-block; background: rgba(0,0,0,0.4); }
+.hero h1 { font-size: 22px; margin: 10px 0 0 0; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+
+header { background: #004B23; color: white; padding: 15px; text-align: center; }
+header h2 { margin: 0; font-size: 20px; letter-spacing: 0.5px; }
+
+.nav-slashes-bar {
+  background: #003015; color: white; text-align: center; padding: 10px 15px; font-size: 13px; overflow-x: auto; white-space: nowrap;
+}
+.nav-slashes-bar a { color: #E9D8A6; text-decoration: none; margin: 0 6px; }
+.nav-slashes-bar a:hover { text-decoration: underline; }
+.nav-slashes-bar span { color: #EE9B00; font-weight: bold; }
+
+.controls-bar { max-width: 800px; margin: 15px auto; padding: 0 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { background: #e0e0e0; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; font-family: 'Poppins', sans-serif; }
+.filter-btn.active { background: #004B23; color: white; }
+.currency-selector select { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; font-family: 'Poppins', sans-serif; background: white; cursor: pointer; }
+
+.container { padding: 0 15px 15px 15px; max-width: 800px; margin: auto; }
+.card { background: white; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); cursor: pointer; overflow: hidden; transition: transform 0.2s; }
+.card:hover { transform: translateY(-3px); }
+.card-img { width: 100%; height: 180px; object-fit: cover; }
+.card-body { padding: 15px; }
+.title { font-size: 18px; font-weight: 600; color: #004B23; }
+.price { color: #D4A373; font-size: 18px; margin-top: 5px; font-weight: bold; }
+.desc { color: #555; margin-top: 5px; font-size: 13px; }
+
+button { padding: 8px 14px; border: none; border-radius: 6px; margin-right: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 12px; }
+.whatsapp { background: #25D366; color: white; }
+.email { background: #004B23; color: white; }
+.inquiry-btn { background: #D4A373; color: white; }
+
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px; box-sizing: border-box; }
+.modal-content { background: white; width: 100%; max-width: 650px; max-height: 85vh; border-radius: 12px; padding: 20px; overflow-y: auto; position: relative; }
+.modal-img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+.close-btn { position: absolute; top: 15px; right: 15px; background: #e76f51; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; }
+
+.excursions-section { max-width: 800px; margin: 20px auto 10px auto; padding: 0 15px; }
+.excursions-section h3 { color: #004B23; margin-bottom: 10px; }
+.excursions-scroll-container { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; scroll-snap-type: x mandatory; }
+.excursion-card { background: white; min-width: 240px; max-width: 240px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); flex-shrink: 0; scroll-snap-align: start; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+.excursion-img { width: 100%; height: 120px; object-fit: cover; }
+.excursion-body { padding: 10px; }
+.excursion-title { font-size: 14px; font-weight: 600; color: #004B23; margin-bottom: 4px; }
+.excursion-desc { font-size: 12px; color: #555; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.excursion-price { font-size: 12px; font-weight: 600; color: #D4A373; font-style: italic; margin-bottom: 8px; }
+.excursion-btn { background: #004B23; color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; width: 100%; }
+
+.day-box { background: #f4f6f8; padding: 12px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #004B23; }
+.day-title { font-weight: 600; color: #004B23; margin-bottom: 4px; font-size: 13px; }
+.inclusion-section { display: flex; gap: 15px; margin-top: 15px; font-size: 13px; flex-wrap: wrap; }
+.included { background: #e8f5e9; padding: 10px; border-radius: 6px; flex: 1; min-width: 200px; }
+.excluded { background: #ffebee; padding: 10px; border-radius: 6px; flex: 1; min-width: 200px; }
+
+.faq-item { background: #fdfcdc; margin: 10px 0; border-radius: 6px; padding: 12px 15px; border-left: 3px solid #D4A373; }
+.faq-q { font-weight: 600; color: #004B23; cursor: pointer; font-size: 13px; }
+.faq-a { font-size: 12px; color: #555; margin-top: 6px; }
+
+.inquiry-form input, .inquiry-form textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 13px; }
+.submit-inquiry-btn { background: #004B23; color: white; width: 100%; padding: 14px; border: none; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+.testimonials-section, .contact-section { background: white; padding: 20px; margin: 20px auto; max-width: 800px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); text-align: center; }
+.testimonial-card { border-left: 3px solid #D4A373; padding-left: 12px; margin: 15px 0; font-style: italic; color: #444; text-align: left; font-size: 13px; }
+.btn { display: inline-block; background: #D4A373; padding: 10px 20px; border-radius: 25px; color: white; text-decoration: none; margin: 5px; font-weight: bold; font-size: 13px; }
+.btn-whatsapp { background: #25D366; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <div>
+      <div class="tag">LIYA TRAILS AND TOURS — COAST BASE</div>
+      <h1>Coastal Marine Safaris & Island Excursions</h1>
+      <a href="#safariList" class="btn" style="background:#E9D8A6; color:#004B23; margin-top:8px;">Explore Packages</a>
+    </div>
+    <div>
+      <button class="btn inquiry-btn" onclick="openGeneralInquiryModal()">Inquiry</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <h2>🌊 Liya Trails and Tours</h2>
+  <p style="margin:2px 0 0 0; font-size:12px; color:#E9D8A6;">Based in the Heart of Kenya's Coast</p>
+</header>
+
+<div class="nav-slashes-bar">
+  <a href="#safariList">Home</a> <span>/</span>
+  <a href="#excursionsSection">Marine Excursions</a> <span>/</span>
+  <a href="#safariContainer">Itineraries</a> <span>/</span>
+  <a href="#" onclick="openFaqModal(); return false;">FAQ</a> <span>/</span>
+  <a href="#" onclick="openAboutModal(); return false;">About Us</a> <span>/</span>
+  <a href="#" onclick="openGeneralInquiryModal(); return false;">Contact</a>
+</div>
+
+<div class="controls-bar" id="safariList">
+  <div class="filter-buttons">
+    <button class="filter-btn active" onclick="filterSafaris('all', this)">All Itineraries</button>
+    <button class="filter-btn" onclick="filterSafaris('short', this)">Day & Short Trips (1-3 Days)</button>
+    <button class="filter-btn" onclick="filterSafaris('multi', this)">Grand Multi-Day (4+ Days)</button>
+  </div>
+  <div class="currency-selector">
+    <label style="font-size: 13px; font-weight:600;">Currency: </label>
+    <select id="currencySelect" onchange="changeCurrency()">
+      <option value="EUR">EUR (€)</option>
+      <option value="USD">USD ($)</option>
+      <option value="GBP">GBP (£)</option>
+    </select>
+  </div>
+</div>
+
+<div class="excursions-section" id="excursionsSection">
+  <h3>🌊 Featured Coastal & Marine Excursions</h3>
+  <div class="excursions-scroll-container">
+    
+    <div class="excursion-card">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5" alt="Wasini" class="excursion-img">
+      <div class="excursion-body">
+        <div class="excursion-title">Wasini Island Dolphin & Snorkeling</div>
+        <div class="excursion-desc">Dolphin encounters, world-class snorkeling in Kisite Marine Park, and Swahili dhow cruise.</div>
+        <div class="excursion-price">Price upon request</div>
+        <button class="excursion-btn" onclick="openExcursionModal('Wasini Island Dolphin & Snorkeling Experience')">View Details</button>
+      </div>
+    </div>
+
+    <div class="excursion-card">
+      <img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18" alt="Marine Park" class="excursion-img">
+      <div class="excursion-body">
+        <div class="excursion-title">Mombasa Marine Park Glass Bottom Boat</div>
+        <div class="excursion-desc">Discover coral gardens, tropical fish, and marine biodiversity without getting fully wet.</div>
+        <div class="excursion-price">Price upon request</div>
+        <button class="excursion-btn" onclick="openExcursionModal('Mombasa Marine Park Glass Bottom Boat')">View Details</button>
+      </div>
+    </div>
+
+    <div class="excursion-card">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Deep Sea Fishing" class="excursion-img">
+      <div class="excursion-body">
+        <div class="excursion-title">Deep Sea Fishing & Marlin Quest</div>
+        <div class="excursion-desc">Head into the deep Indian Ocean channels for big-game sports fishing with expert crew.</div>
+        <div class="excursion-price">Price upon request</div>
+        <button class="excursion-btn" onclick="openExcursionModal('Deep Sea Fishing & Marlin Quest')">View Details</button>
+      </div>
+    </div>
+
+    <div class="excursion-card">
+      <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090" alt="Sunset Dhow" class="excursion-img">
+      <div class="excursion-body">
+        <div class="excursion-title">Romantic Sunset Dhow Cruise</div>
+        <div class="excursion-desc">Sail across Tudor Creek or Diani waters on a traditional wooden dhow with sunset cocktails.</div>
+        <div class="excursion-price">Price upon request</div>
+        <button class="excursion-btn" onclick="openExcursionModal('Romantic Sunset Dhow Cruise')">View Details</button>
+      </div>
+    </div>
+
+    <div class="excursion-card">
+      <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf" alt="Quad Bike" class="excursion-img">
+      <div class="excursion-body">
+        <div class="excursion-title">Diani Coastal Quad Bike Adventure</div>
+        <div class="excursion-desc">Explore coastal trails, local villages, baobabs, and coconut groves off-road.</div>
+        <div class="excursion-price">Price upon request</div>
+        <button class="excursion-btn" onclick="openExcursionModal('Diani Coastal Quad Bike Adventure')">View Details</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container" id="safariContainer"></div>
+
+<div class="testimonials-section">
+  <h3 style="color: #004B23; margin-top:0;">Traveler Reviews</h3>
+  <div class="testimonial-card">
+    "Liya Trails and Tours arranged the most breathtaking marine excursions and island trips for us right from the coast. Unmatched hospitality!" <br><strong>— Claudia & Marcus (Switzerland)</strong>
+  </div>
+  
+  <div class="testimonial-card">
+   "Liya Trails and Tours delivered an amazing experience. The team was professional, knowledgeable, and made every moment enjoyable. Excellent service, well-organized tours, and unforgettable wildlife encounters. Highly recommended for anyone visiting East Africa!"  <br><strong>— Stephen Melita Koshal (Kenya)</strong>
+  </div>
+</div>
+
+<div class="container">
+  <div class="contact-section">
+    <h3>Get in Touch with Liya Trails and Tours</h3>
+    <p>Ready to book your coastal adventure or safari? Reach out directly:</p>
+    <p>📞 <strong>+254 743 331 598</strong><br>📧 <strong>info.liyatrailsandtours@zohomail.com</strong></p>
+    <div class="btn-container">
+        <a href="tel:+254743331598" class="btn">Call Us</a>
+        <a href="mailto:info.liyatrailsandtours@zohomail.com" class="btn">Email Us</a>
+        <a href="https://wa.me/254743331598" target="_blank" class="btn btn-whatsapp">WhatsApp Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('modal')">×</button>
+    <img id="modalImg" class="modal-img" src="" alt="Image">
+    <h2 id="modalTitle" style="color:#004B23; font-size:20px;"></h2>
+    <p id="modalDest" style="font-weight: 600; color: #555; font-size:13px;"></p>
+    <p id="modalDesc" style="font-size:13px;"></p>
+    <div id="modalItinerary"></div>
+    <div class="inclusion-section" id="inclusionSectionBox"></div>
+    <div id="modalButtons" style="margin-top: 20px;"></div>
+  </div>
+</div>
+
+<div class="modal" id="infoModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('infoModal')">×</button>
+    <h2 id="infoModalTitle" style="margin-top:0; color:#004B23; font-size:20px;"></h2>
+    <div id="infoModalBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="inquiryModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('inquiryModal')">×</button>
+    <h2 style="margin-top:0; color:#004B23; font-size:20px;">Tour & Itinerary Inquiry</h2>
+    <p id="inquiryPackageSubtitle" style="font-size:13px; color:#555;"></p>
+    <form class="inquiry-form" onsubmit="submitInquiryForm(event)">
+      <input type="text" id="iName" placeholder="Full Name" required>
+      <input type="email" id="iEmail" placeholder="Email Address" required>
+      <input type="tel" id="iPhone" placeholder="Phone Number" required>
+      <input type="text" id="iDates" placeholder="Travel Dates" required>
+      <input type="number" id="iTravelers" placeholder="Number of Travelers" min="1" required>
+      <textarea id="iRequests" placeholder="Special Requests" rows="3"></textarea>
+      <button type="submit" class="submit-inquiry-btn">Send Inquiry via Email</button>
+    </form>
+  </div>
+</div>
+
+<script>
+let selectedSafariForInquiry = "General Coastal Inquiry";
+let selectedPriceForInquiry = "Custom";
+
+const CURRENCIES = {
+  EUR: { symbol: "€", rate: 1 },
+  USD: { symbol: "$", rate: 1.08 },
+  GBP: { symbol: "£", rate: 0.85 }
+};
+
+const EXCURSIONS_DATA = {
+  "Wasini Island Dolphin & Snorkeling Experience": {
+    name: "Wasini Island Dolphin & Snorkeling Experience",
+    destination: "Kisite Mpunguti Marine Park & Wasini Island",
+    duration: "Full Day",
+    desc: "An unforgettable day on the Indian Ocean combining wild dolphin encounters, world-class snorkeling, pristine coral reefs, and a traditional Swahili seafood lunch.",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5",
+    highlights: ["Wild Dolphin Watching", "Snorkeling in Kisite Marine Park", "Swahili Dhow Cruise", "Wasini Island Seafood Lunch"],
+    includedList: ["Hotel Transfers", "Boat Fees", "Snorkeling Gear", "Marine Park Fees", "Seafood Lunch"],
+    excludedList: ["Alcoholic beverages", "Tips"]
+  },
+  "Mombasa Marine Park Glass Bottom Boat": {
+    name: "Mombasa Marine Park Glass Bottom Boat",
+    destination: "Mombasa Marine National Park",
+    duration: "Half Day (~4 Hours)",
+    desc: "Peer through crystal-clear glass bottoms at colorful coral gardens and tropical marine life, with opportunities to swim and snorkel.",
+    image: "https://images.unsplash.com/photo-1512100356356-de1b84283e18",
+    highlights: ["Glass Bottom Viewing", "Coral Garden Snorkeling", "Tropical Fish Feeding", "Beach Relaxation"],
+    includedList: ["Boat charter", "Guide", "Snorkeling equipment", "Park entry"],
+    excludedList: ["Personal expenses", "Tips"]
+  },
+  "Deep Sea Fishing & Marlin Quest": {
+    name: "Deep Sea Fishing & Marlin Quest",
+    destination: "Indian Ocean Deep Channels",
+    duration: "Full Day",
+    desc: "Test your skills against heavy game fish such as Marlin, Tuna, and Sailfish with experienced local deep-sea captains.",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    highlights: ["Big Game Fishing", "Professional Rods & Tackle", "Experienced Crew", "Refreshments on Board"],
+    includedList: ["Boat charter", "Fishing gear & bait", "Experienced captain", "Cooler with drinks"],
+    excludedList: ["Gratuities", "Lunch packs (can be arranged)"]
+  },
+  "Romantic Sunset Dhow Cruise": {
+    name: "Romantic Sunset Dhow Cruise",
+    destination: "Coast Creeks & Ocean Waters",
+    duration: "Evening (~3 Hours)",
+    desc: "Glide gently over calm ocean waves as the sun sets over the Kenyan coast, complete with light snacks and drinks.",
+    image: "https://images.unsplash.com/photo-1518684079-3c830dcef090",
+    highlights: ["Traditional Dhow Sailing", "Breathtaking Coastal Sunsets", "Acoustic Breeze & Relaxation", "Snacks & Refreshments"],
+    includedList: ["Dhow cruise", "Captain & crew", "Light snacks & drinks"],
+    excludedList: ["Personal items", "Tips"]
+  },
+  "Diani Coastal Quad Bike Adventure": {
+    name: "Diani Coastal Quad Bike Adventure",
+    destination: "Diani Beach Hinterlands",
+    duration: "2 to 3 Hours",
+    desc: "Roar through local villages, palm groves, and ancient baobab forest trails on an adrenaline-pumping off-road quad tour.",
+    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf",
+    highlights: ["Off-road Quad Biking", "Baobab Forest Trails", "Local Village Interaction", "Professional Safety Guide"],
+    includedList: ["Quad bike rental", "Safety gear", "Professional guide", "Water"],
+    excludedList: ["Gratuities"]
+  }
+};
+
+const SAFARI_PACKAGES = [
+  {
+    name: "1-Day Mombasa Historic City & Fort Jesus Tour",
+    destination: "Mombasa Island & Old Town",
+    days: 1,
+    type: "short",
+    basePriceEUR: 120,
+    desc: "Immerse yourself in centuries of Swahili, Portuguese, and Arab history, narrow alleys, and spice markets.",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1512100356356-de1b84283e18",
+    itinerary: [
+      { day: "Day 1", title: "Mombasa Cultural & Heritage Discovery", details: "Morning pickup from your coastal hotel. Guided tour of the historic Fort Jesus UNESCO site, walk through Mombasa Old Town's winding alleys, view the iconic Tusks monument, and visit the bustling spice market with lunch at a traditional Swahili restaurant." }
+    ],
+    includedList: ["Hotel transfers", "Professional tour guide", "Fort Jesus entrance fee", "Swahili lunch"],
+    excludedList: ["Personal souvenirs", "Tips"]
+  },
+  {
+    name: "2-Day Shimba Hills & Mwaluganje Elephant Sanctuary",
+    destination: "Shimba Hills National Reserve",
+    days: 2,
+    type: "short",
+    basePriceEUR: 380,
+    desc: "A lush coastal rainforest safari featuring rare sable antelopes, waterfalls, and panoramic coastal viewpoints.",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d",
+    itinerary: [
+      { day: "Day 1", title: "Rainforest Game Drive & Sheldrick Falls", details: "Depart from your coastal hotel to Shimba Hills. Afternoon game drive searching for sable antelope, elephants, and leopards. Short guided hike down to the scenic Sheldrick Falls." },
+      { day: "Day 2", title: "Elephant Sanctuary & Ocean Return", details: "Early morning nature walk, breakfast at Shimba Hills Lodge, final game viewing across Mwaluganje sanctuary, and afternoon return to the coast." }
+    ],
+    includedList: ["Park entry fees", "Guide and transport", "Full board accommodation", "Water"],
+    excludedList: ["Drinks", "Tips"]
+  },
+  {
+    name: "3-Day Tsavo East Red Elephants Coastal Getaway",
+    destination: "Tsavo East National Park",
+    days: 3,
+    type: "multi",
+    basePriceEUR: 790,
+    desc: "Quick escape from the beach into Kenya's largest national park to witness the famous dust-red elephants.",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+    itinerary: [
+      { day: "Day 1", title: "Coast to Tsavo East Wilderness", details: "Early morning departure from the coast via Bachuma Gate. Check-in and lunch at Voi Wildlife Lodge, followed by an afternoon game drive tracking herds of red elephants near Aruba Dam." },
+      { day: "Day 2", title: "Galana River & Full-Day Savannah Explorer", details: "Full-day game drive along the scenic Galana River. Spot hippos, crocodiles, lions, and diverse bird species with a picnic lunch under the acacia trees." },
+      { day: "Day 3", title: "Sunrise Game Drive & Coastal Return", details: "Sunrise game drive in Tsavo East, hearty breakfast at the lodge, and return transfer back to your beach hotel." }
+    ],
+    includedList: ["Park entrance fees", "Professional driver/guide", "4x4 Safari vehicle", "Full board lodge stay"],
+    excludedList: ["Alcoholic drinks", "Tips"]
+  },
+  {
+    name: "4-Day Tsavo West, Amboseli & Kilimanjaro Views",
+    destination: "Tsavo West & Amboseli National Park",
+    days: 4,
+    type: "multi",
+    basePriceEUR: 1250,
+    desc: "Volcanic springs, underground subterranean streams, and majestic views of Mount Kilimanjaro.",
+    rating: 5.0,
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801",
+    itinerary: [
+      { day: "Day 1", title: "Coast to Tsavo West Mzima Springs", details: "Depart from the coast to Tsavo West. Visit Mzima Springs to watch hippos and crocodiles through underwater viewing glass. Afternoon game drive." },
+      { day: "Day 2", title: "Into Amboseli National Park", details: "Drive north towards Amboseli, arriving in time for lunch with clear views of Mount Kilimanjaro's snowy peak. Afternoon elephant tracking game drive." },
+      { day: "Day 3", title: "Amboseli Swamps & Observation Hill", details: "Full-day exploring Amboseli's marshlands, swamps, and climbing Observation Hill for panoramic views of elephant families." },
+      { day: "Day 4", title: "Final Sunrise & Return Transfer", details: "Early morning game drive, breakfast, and return journey to your coastal base." }
+    ],
+    includedList: ["Park fees", "Guide and 4x4 transport", "Full board accommodation", "Water"],
+    excludedList: ["International flights", "Tips"]
+  },
+  {
+    name: "5-Day Tsavo East, Taita Hills Salt Lick & Amboseli Safari",
+    destination: "Tsavo East, Taita Hills & Amboseli",
+    days: 5,
+    type: "multi",
+    basePriceEUR: 1600,
+    desc: "The ultimate southern circuit combination featuring stilted luxury lodges and massive elephant herds.",
+    rating: 5.0,
+    image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53",
+    itinerary: [
+      { day: "Day 1", title: "Tsavo East Red Elephants", details: "Pick up from coastal hotel, drive to Tsavo East for afternoon game drive and overnight stay." },
+      { day: "Day 2", title: "Taita Hills Salt Lick Sanctuary", details: "Transfer to Taita Hills Wildlife Sanctuary. Check-in at Salt Lick Safari Lodge for unique stilted viewing of wildlife at night." },
+      { day: "Day 3", title: "Journey to Amboseli under Kilimanjaro", details: "Drive to Amboseli National Park, afternoon game drive across dusty plains framed by Kilimanjaro." },
+      { day: "Day 4", title: "Amboseli Full-Day Exploration", details: "Full-day game drive tracking large bull elephants, lions, and cheetahs." },
+      { day: "Day 5", title: "Return to Coastal Base", details: "Morning game drive, breakfast, and drive back to the Indian Ocean coast." }
+    ],
+    includedList: ["All park entry fees", "Full board stay", "4x4 transport", "Professional guide"],
+    excludedList: ["Drinks", "Gratuities"]
+  },
+  {
+    name: "6-Day Kenya Coastal Explorer & Tsavo Safari",
+    destination: "Watamu, Malindi, Tsavo East & Marine Reserves",
+    days: 6,
+    type: "multi",
+    basePriceEUR: 1950,
+    desc: "Combining the best of coastal marine wonders with an immersive wildlife safari.",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5",
+    itinerary: [
+      { day: "Day 1", title: "Watamu & Malindi Marine Discovery", details: "Explore Malindi Marine Park and Gede Ruins historic site." },
+      { day: "Day 2", title: "Wasini Island Day Trip", details: "Dolphin spotting and snorkeling in Kisite Mpunguti Marine Park." },
+      { day: "Day 3", title: "Tsavo East Safari Transition", details: "Leave the coast and check into Tsavo East for afternoon game drives." },
+      { day: "Day 4", title: "Tsavo East Big Game Tracking", details: "Full day tracking lions, leopards, and herds of red elephants." },
+      { day: "Day 5", title: "Return to the Coast & Sunset Cruise", details: "Drive back to coastal resort, evening sunset dhow cruise." },
+      { day: "Day 6", title: "Departure / Beach Relaxation", details: "Relax on Diani/Watamu white sands before departure." }
+    ],
+    includedList: ["All marine park & safari park fees", "Accommodation", "Transport", "Guide"],
+    excludedList: ["Tips", "Personal expenses"]
+  },
+  {
+    name: "7-Day Masai Mara, Nakuru & Amboseli Grand Safari",
+    destination: "Masai Mara, Lake Nakuru & Amboseli",
+    days: 7,
+    type: "multi",
+    basePriceEUR: 2450,
+    desc: "The classic Kenyan safari tour covering the country's most iconic wildlife sanctuaries.",
+    rating: 5.0,
+    image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9",
+    itinerary: [
+      { day: "Day 1", title: "Coast to Nairobi / Karen", details: "Flight or transfer from coast to Nairobi, visit Giraffe Centre." },
+      { day: "Day 2", title: "Nairobi to Masai Mara Reserve", details: "Drive to Masai Mara, check-in and evening game drive." },
+      { day: "Day 3", title: "Masai Mara Full-Day Big Cats", details: "Full day game drive across the Mara river basins." },
+      { day: "Day 4", title: "Masai Mara to Lake Nakuru", details: "Drive to Lake Nakuru for rhinos and birdlife." },
+      { day: "Day 5", title: "Lake Nakuru to Amboseli", details: "Transfer to Amboseli National Park under Kilimanjaro." },
+      { day: "Day 6", title: "Amboseli Elephant Herds", details: "Full day game drive in Amboseli marshes." },
+      { day: "Day 7", title: "Return to Nairobi / Coast", details: "Morning game drive and departure transfer." }
+    ],
+    includedList: ["All park entrance fees", "Full board safari lodges", "4x4 Safari Landcruiser", "Professional driver/guide"],
+    excludedList: ["International flights", "Tips"]
+  },
+  {
+    name: "9-Day Kenya Coastal & Savannah Master Expedition",
+    destination: "Coast, Tsavo, Amboseli, Nairobi & Masai Mara",
+    days: 9,
+    type: "multi",
+    basePriceEUR: 3200,
+    desc: "The ultimate 9-day journey starting from the warm Indian Ocean shores through all major wildlife capitals.",
+    rating: 5.0,
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801",
+    itinerary: [
+      { day: "Day 1", title: "Coastal Arrival & Marine Tour", details: "Arrival in Mombasa/Diani, glass-bottom boat tour." },
+      { day: "Day 2", title: "Wasini Island Excursion", details: "Dolphin safari and snorkeling day trip." },
+      { day: "Day 3", title: "Tsavo East National Park", details: "Transfer to Tsavo East for red elephant tracking." },
+      { day: "Day 4", title: "Taita Hills Salt Lick Lodge", details: "Overnight animal viewing at Salt Lick waterhole." },
+      { day: "Day 5", title: "Amboseli National Park", details: "Travel to Amboseli for Kilimanjaro sunset views." },
+      { day: "Day 6", title: "Amboseli Full-Day Game Drive", details: "Explore swamps, marshes, and elephant families." },
+      { day: "Day 7", title: "Nairobi Transit & Culture", details: "Drive to Nairobi, visit David Sheldrick Elephant Orphanage." },
+      { day: "Day 8", title: "Masai Mara Big Cats", details: "Drive to Masai Mara for afternoon and evening game drives." },
+      { day: "Day 9", title: "Sunrise Mara Drive & Farewell", details: "Sunrise game drive and transfer back to Nairobi or coast." }
+    ],
+    includedList: ["All park entrance fees", "All marine excursion tickets", "Full board accommodation", "4x4 transport", "Professional guide"],
+    excludedList: ["International flights", "Tips"]
+  }
+];
+
+let currentFilter = 'all';
+
+function renderSafaris(filter = 'all') {
+  const container = document.getElementById("safariContainer");
+  container.innerHTML = "";
+  const currKey = document.getElementById("currencySelect").value;
+  const currency = CURRENCIES[currKey];
+
+  const filtered = SAFARI_PACKAGES.filter(pkg => filter === 'all' || pkg.type === filter);
+
+  filtered.forEach(pkg => {
+    const price = Math.round(pkg.basePriceEUR * currency.rate);
+    const originalIndex = SAFARI_PACKAGES.findIndex(p => p.name === pkg.name);
+    const card = document.createElement("div");
+    card.className = "card";
+    card.onclick = () => openModal(originalIndex);
+
+    card.innerHTML = `
+      <img src="${pkg.image}" alt="${pkg.name}" class="card-img">
+      <div class="card-body">
+        <div class="title">${pkg.name}</div>
+        <div style="color:#666; font-size:13px;">📍 ${pkg.destination} | ⏳ ${pkg.days} Days</div>
+        <div class="price">${currency.symbol}${price} <span style="font-size:11px; color:#555; font-weight:normal;">per person</span></div>
+        <div class="desc">${pkg.desc}</div>
+        <div style="font-size: 12px; color: #004B23; margin-top: 6px; font-weight: 600;">👆 Click for full itinerary</div>
+        <div class="buttons" style="margin-top:10px;" onclick="event.stopPropagation()">
+          <button class="whatsapp" onclick="bookWhatsApp('${pkg.name}', '${currency.symbol}${price}')">WhatsApp</button>
+          <button class="email" onclick="sendEmail('${pkg.name}', '${currency.symbol}${price}')">Email</button>
+          <button class="inquiry-btn" onclick="openInquiryModal('${pkg.name}', '${currency.symbol}${price}')">Inquiry</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function filterSafaris(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSafaris(type);
+}
+
+function changeCurrency() { renderSafaris(currentFilter); }
+
+function openModal(index) {
+  const pkg = SAFARI_PACKAGES[index];
+  const currKey = document.getElementById("currencySelect").value;
+  const currency = CURRENCIES[currKey];
+  const price = Math.round(pkg.basePriceEUR * currency.rate);
+
+  document.getElementById("modalImg").src = pkg.image;
+  document.getElementById("modalTitle").innerText = pkg.name;
+  document.getElementById("modalDest").innerText = `${pkg.destination} (${pkg.days} Days) — ${currency.symbol}${price} per person`;
+  document.getElementById("modalDesc").innerText = pkg.desc;
+
+  let html = "<h4 style='color:#004B23; margin:15px 0 5px 0;'>Day-by-Day Itinerary</h4>";
+  pkg.itinerary.forEach(i => {
+    html += `<div class="day-box"><div class="day-title">${i.day}: ${i.title}</div><div style="font-size:12px; color:#444;">${i.details}</div></div>`;
+  });
+  document.getElementById("modalItinerary").innerHTML = html;
+
+  document.getElementById("inclusionSectionBox").innerHTML = `
+    <div class="included"><strong>✅ Included:</strong><ul style="margin:5px 0 0 15px; padding:0;">${pkg.includedList.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+    <div class="excluded"><strong>❌ Excluded:</strong><ul style="margin:5px 0 0 15px; padding:0;">${pkg.excludedList.map(e=>`<li>${e}</li>`).join('')}</ul></div>
+  `;
+
+  document.getElementById("modalButtons").innerHTML = `
+    <button class="whatsapp" onclick="bookWhatsApp('${pkg.name}', '${currency.symbol}${price}')">Book via WhatsApp</button>
+    <button class="email" onclick="sendEmail('${pkg.name}', '${currency.symbol}${price}')">Book via Email</button>
+    <button class="inquiry-btn" onclick="openInquiryModal('${pkg.name}', '${currency.symbol}${price}')">Inquiry</button>
+  `;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function openExcursionModal(name) {
+  const exc = EXCURSIONS_DATA[name];
+  if(!exc) return;
+  document.getElementById("modalImg").src = exc.image;
+  document.getElementById("modalTitle").innerText = exc.name;
+  document.getElementById("modalDest").innerText = `${exc.destination} (${exc.duration})`;
+  document.getElementById("modalDesc").innerText = exc.desc;
+
+  let html = "<h4 style='color:#004B23; margin:15px 0 5px 0;'>Highlights</h4><ul style='margin:0 0 15px 20px; font-size:12px;'>";
+  exc.highlights.forEach(h => html += `<li>${h}</li>`);
+  html += "</ul>";
+  document.getElementById("modalItinerary").innerHTML = html;
+
+  document.getElementById("inclusionSectionBox").innerHTML = `
+    <div class="included"><strong>✅ Included:</strong><ul style="margin:5px 0 0 15px; padding:0;">${exc.includedList.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+    <div class="excluded"><strong>❌ Excluded:</strong><ul style="margin:5px 0 0 15px; padding:0;">${exc.excludedList.map(e=>`<li>${e}</li>`).join('')}</ul></div>
+  `;
+
+  document.getElementById("modalButtons").innerHTML = `
+    <button class="whatsapp" onclick="bookWhatsApp('${exc.name}', 'Price on Request')">Book via WhatsApp</button>
+    <button class="email" onclick="sendEmail('${exc.name}', 'Price on Request')">Book via Email</button>
+    <button class="inquiry-btn" onclick="openInquiryModal('${exc.name}', 'Price on Request')">Inquiry</button>
+  `;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function openFaqModal() {
+  document.getElementById("infoModalTitle").innerText = "Frequently Asked Questions";
+  document.getElementById("infoModalBody").innerHTML = `
+    <div class="faq-item"><div class="faq-q">How do I book an excursion or safari?</div><div class="faq-a">Contact Liya Trails and Tours via WhatsApp (+254 743 331 598) or email (info.liyatrailsandtours@zohomail.com).</div></div>
+    <div class="faq-item"><div class="faq-q">Where are your pick-up points?</div><div class="faq-a">We pick up clients directly from all hotels and resorts across Mombasa, Diani, Watamu, and Malindi.</div></div>
+  `;
+  document.getElementById("infoModal").style.display = "flex";
+}
+
+function openAboutModal() {
+  document.getElementById("infoModalTitle").innerText = "About Liya Trails and Tours";
+  document.getElementById("infoModalBody").innerHTML = `<p style="font-size:13px; color:#444;">Based at the coast of Kenya, <strong>Liya Trails and Tours</strong> specializes in premium marine excursions, island dhow cruises, water sports, and custom wildlife safaris across East Africa.</p>`;
+  document.getElementById("infoModal").style.display = "flex";
+}
+
+function openInquiryModal(name, price) {
+  closeModal('modal'); closeModal('infoModal');
+  selectedSafariForInquiry = name; selectedPriceForInquiry = price;
+  document.getElementById("inquiryPackageSubtitle").innerText = `${name} (${price})`;
+  document.getElementById("inquiryModal").style.display = "flex";
+}
+
+function openGeneralInquiryModal() {
+  selectedSafariForInquiry = "General Coastal Inquiry"; selectedPriceForInquiry = "Custom";
+  document.getElementById("inquiryPackageSubtitle").innerText = "General Custom Tour Inquiry";
+  document.getElementById("inquiryModal").style.display = "flex";
+}
+
+function closeModal(id = 'modal') { document.getElementById(id).style.display = "none"; }
+
+function submitInquiryForm(e) {
+  e.preventDefault();
+  const name = document.getElementById("iName").value;
+  const email = document.getElementById("iEmail").value;
+  const phone = document.getElementById("iPhone").value;
+  const dates = document.getElementById("iDates").value;
+  const travelers = document.getElementById("iTravelers").value;
+  const requests = document.getElementById("iRequests").value;
+
+  const subject = `Inquiry: ${selectedSafariForInquiry} - Liya Trails and Tours`;
+  const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nDates: ${dates}\nTravelers: ${travelers}\nRequests: ${requests}\nPackage: ${selectedSafariForInquiry} (${selectedPriceForInquiry})`;
+  window.location.href = `mailto:info.liyatrailsandtours@zohomail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  closeModal('inquiryModal');
+}
+
+function bookWhatsApp(name, price) {
+  window.open(`https://wa.me/254743331598?text=${encodeURIComponent("Hello Liya Trails and Tours, I want to book: " + name + " (" + price + ")")}`);
+}
+
+function sendEmail(name, price) {
+  window.location.href = `mailto:info.liyatrailsandtours@zohomail.com?subject=${encodeURIComponent("Booking: " + name)}&body=${encodeURIComponent("Hello Liya Trails and Tours,\n\nI want to book " + name + " (" + price + "). Please share the next steps.")}`;
+}
+
+renderSafaris('all');
+</script>
+</body>
+</html>
