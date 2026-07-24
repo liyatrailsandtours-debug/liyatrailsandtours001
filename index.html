@@ -586,11 +586,24 @@ function openFaqModal() {
 
 function openAboutModal() {
   document.getElementById("infoModalTitle").innerText = "About Liya Trails and Tours";
-  document.getElementById("infoModalBody").innerHTML = `<p style="font-size:13px; color:#444;">Liya Trails and Tours is a premier tour company based in Kenya's coastal region, dedicated to creating unforgettable travel experiences across Kenya and East Africa. We specialize in wildlife safaris, marine excursions, island tours, cultural experiences, beach holidays, and tailor made itineraries designed to suit every traveler.
-Our passion is to showcase the breathtaking beauty of East Africa while delivering exceptional service, professionalism, and authentic experiences. Whether you're exploring the iconic national parks, relaxing along the Kenyan coast, or discovering hidden gems, we ensure every journey is carefully planned to provide comfort, adventure, and lasting memories.
-At Liya Trails and Tours, we believe that travel is more than visiting destinations. It's about creating meaningful experiences, connecting with nature and local cultures, and making memories that last a lifetime.
-<strong>Leadership</strong> - Liya Trails and Tours is proudly owned and managed by Victor Mwania, whose passion for tourism and commitment to excellence continue to shape the company's vision and dedication to outstanding customer service.</p>`;
+  document.getElementById("infoModalBody").innerHTML = `
+    <div style="font-size: 13px; color: #444; line-height: 1.6;">
+      <p style="margin-top: 0;">
+        <strong>Liya Trails and Tours</strong> is a premier tour operator based in Kenya's coastal region, dedicated to crafting exceptional travel experiences across Kenya and East Africa. We specialize in wildlife safaris, marine excursions, island getaways, cultural tours, and tailor-made itineraries tailored to every style of traveler.
+      </p>
+      
+      <p>
+        Our passion lies in showcasing the breathtaking landscapes and rich biodiversity of East Africa while upholding the highest standards of safety, comfort, and authentic adventure. Whether you are tracking the Big Five in the savannah or cruising along the Indian Ocean, every journey is meticulously curated.
+      </p>
+      
+      <p style="background: #f4f6f8; padding: 12px; border-left: 4px solid #004B23; border-radius: 4px; margin-top: 15px;">
+        <strong style="color: #004B23; display: block; margin-bottom: 4px;">Leadership & Vision</strong>
+        Liya Trails and Tours is proudly founded and directed by <strong>Victor Mwania</strong>, whose deep industry expertise, passion for wildlife conservation, and unwavering commitment to client satisfaction drive the company's excellence.
+      </p>
+    </div>
+  `;
   document.getElementById("infoModal").style.display = "flex";
+
 }
 
 function openInquiryModal(name, price) {
