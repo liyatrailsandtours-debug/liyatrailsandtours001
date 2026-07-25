@@ -424,23 +424,7 @@
     <button onclick="openReviewsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Reviews</button>
     <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Blog</button>
     <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Concierge</a>
-    <form action="https://api.web3forms.com/submit" method="POST" class="inquiry-form">
-    <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
-    
-    <input type="hidden" name="subject" value="New VIP Safari Inquiry - Liya Trails">
-    <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?success=true">
-
-    <div id="inquiryPackageSubtitle" style="font-size: 13px; color: var(--accent-gold); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;"></div>
-
-    <input type="text" name="name" id="iName" placeholder="Full Name *" required>
-    <input type="email" name="email" id="iEmail" placeholder="Email Address *" required>
-    <input type="text" name="phone" id="iPhone" placeholder="Phone / WhatsApp Number">
-    <input type="text" name="dates" id="iDates" placeholder="Estimated Travel Dates">
-    <input type="text" name="travelers" id="iTravelers" placeholder="Number of Travelers (e.g., 2 Adults)">
-    <textarea name="message" id="iRequests" rows="3" placeholder="Special Requests or Custom Itinerary Notes"></textarea>
-
-    <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 15px; padding: 15px;">Send VIP Inquiry</button>
-</form>
+    <button onclick="openGeneralInquiryModal()" class="btn btn-gold" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Send Inquiry</button>
 
 </div>
 <div class="section-header reveal" id="journalsSection" style="margin-top: 60px;">
@@ -599,17 +583,23 @@
     <h3 class="playfair" style="margin-top:0; color:var(--primary-dark); font-size:32px;">Trip Inquiry</h3>
     <p id="inquiryPackageSubtitle" style="font-size:11px; text-transform: uppercase; letter-spacing: 2px; color:var(--accent-gold); margin-bottom: 30px;"></p>
     
-    <form class="inquiry-form" onsubmit="submitInquiryForm(event)">
-      <input type="text" id="iName" placeholder="Full Name" required>
-      <input type="email" id="iEmail" placeholder="Email Address" required>
-      <input type="tel" id="iPhone" placeholder="Phone Number" required>
-      <input type="text" id="iDates" placeholder="Estimated Travel Dates" required>
-      <input type="number" id="iTravelers" placeholder="Number of Guests" min="1" required>
-      <textarea id="iRequests" placeholder="Special Requests or Dietary Requirements" rows="4"></textarea>
+    <form action="https://api.web3forms.com/submit" method="POST" class="inquiry-form">
+      <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
+      <input type="hidden" name="subject" value="New VIP Safari Inquiry - Liya Trails">
+      <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?success=true">
+
+      <input type="text" name="name" placeholder="Full Name *" required>
+      <input type="email" name="email" placeholder="Email Address *" required>
+      <input type="text" name="phone" placeholder="Phone / WhatsApp Number">
+      <input type="text" name="dates" placeholder="Estimated Travel Dates">
+      <input type="text" name="travelers" placeholder="Number of Travelers (e.g., 2 Adults)">
+      <textarea name="message" rows="4" placeholder="Special Requests or Custom Itinerary Notes"></textarea>
+
       <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 20px; padding: 18px; font-size: 13px;">Send Secure Inquiry</button>
     </form>
   </div>
 </div>
+
 
 <script>
   /* --- PRELOADER & SAFETY FALLBACK --- */
