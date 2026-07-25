@@ -422,10 +422,9 @@
     <button onclick="openGalleryModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Gallery</button>
     <button onclick="openFaqModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">FAQ</button>
     <button onclick="openReviewsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Reviews</button>
-  <button onclick="openInquiryModal('General Inquiry', 'Custom')" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Inquiry</button>
-
     <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Blog</button>
     <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Concierge</a>
+      <button onclick="openInquiryModal('General Inquiry', 'Custom')" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Inquiry</button>
 </div>
 <div class="section-header reveal" id="journalsSection" style="margin-top: 60px;">
     <h2>Travel Journals</h2>
@@ -952,8 +951,7 @@ function closeModal(id) {
     setTimeout(() => modal.style.display = "none", 400);
 }
 
-function submitInquiryForm(e) {
-  e.preventDefault();
+function submitInquiry() {
   const name = document.getElementById("iName").value;
   const email = document.getElementById("iEmail").value;
   const phone = document.getElementById("iPhone").value;
@@ -961,11 +959,55 @@ function submitInquiryForm(e) {
   const travelers = document.getElementById("iTravelers").value;
   const requests = document.getElementById("iRequests").value;
 
-  const subject = `VIP Inquiry: ${selectedSafariForInquiry}`;
-  const body = `Guest Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nEstimated Dates: ${dates}\nGuests: ${travelers}\n\nSpecial Requests: ${requests}\n\nPackage Interest: ${selectedSafariForInquiry} (${selectedPriceForInquiry})`;
-  window.location.href = `mailto:info.liyatrailsandtours@zohomail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  closeModal('inquiryModal');
+  // Validate required fields
+  if (!name || !email) {
+    alert("Please fill in your name and email.");
+    return;
+  }
+
+  // Package details collected from your site
+  const packageInterest = selectedSafariForInquiry + " (" + selectedPriceForInquiry + ")";
+
+  // Show a loading/sending state on the button
+  const submitBtn = document.querySelector("#inquiryModal button[type='button']");
+  const originalText = submitBtn.innerText;
+  submitBtn.innerText = "Sending Inquiry...";
+  submitBtn.disabled = true;
+
+  // Send data silently in the background to your Zoho email via FormSubmit
+  fetch("https://formsubmit.co/ajax/info.liyatrailsandtours@zohomail.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone,
+          dates: dates,
+          travelers: travelers,
+          package: packageInterest,
+          message: requests,
+          _subject: "New VIP Safari Inquiry from " + name
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      alert("Thank you, " + name + "! Your VIP inquiry has been sent successfully. Our concierge will reach out to you shortly.");
+      closeModal('inquiryModal');
+      // Reset button
+      submitBtn.innerText = originalText;
+      submitBtn.disabled = false;
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert("There was an error sending your inquiry. Please try using our WhatsApp button instead.");
+      submitBtn.innerText = originalText;
+      submitBtn.disabled = false;
+  });
 }
+
 
 function bookWhatsApp(name, price) { window.open(`https://wa.me/254743331598?text=${encodeURIComponent("Hello Liya Trails Concierge, I am interested in booking: " + name + " (" + price + ")")}`); }
 function sendEmail(name, price) { window.location.href = `mailto:info.liyatrailsandtours@zohomail.com?subject=${encodeURIComponent("Booking Request: " + name)}&body=${encodeURIComponent("Hello Liya Trails Concierge,\n\nI am interested in booking the " + name + " (" + price + "). Please share availability and next steps.")}`; }
