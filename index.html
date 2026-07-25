@@ -424,8 +424,23 @@
     <button onclick="openReviewsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Reviews</button>
     <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Blog</button>
     <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Concierge</a>
-<button onclick="openInquiryModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Inquiry</button>
+    <form action="https://api.web3forms.com/submit" method="POST" class="inquiry-form">
+    <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
+    
+    <input type="hidden" name="subject" value="New VIP Safari Inquiry - Liya Trails">
+    <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?success=true">
 
+    <div id="inquiryPackageSubtitle" style="font-size: 13px; color: var(--accent-gold); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;"></div>
+
+    <input type="text" name="name" id="iName" placeholder="Full Name *" required>
+    <input type="email" name="email" id="iEmail" placeholder="Email Address *" required>
+    <input type="text" name="phone" id="iPhone" placeholder="Phone / WhatsApp Number">
+    <input type="text" name="dates" id="iDates" placeholder="Estimated Travel Dates">
+    <input type="text" name="travelers" id="iTravelers" placeholder="Number of Travelers (e.g., 2 Adults)">
+    <textarea name="message" id="iRequests" rows="3" placeholder="Special Requests or Custom Itinerary Notes"></textarea>
+
+    <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 15px; padding: 15px;">Send VIP Inquiry</button>
+</form>
 
 </div>
 <div class="section-header reveal" id="journalsSection" style="margin-top: 60px;">
@@ -1018,29 +1033,5 @@ window.onclick = function(event) { if (event.target.classList.contains('modal'))
 
 renderSafaris('all');
 </script>
-        </div> </div> <div id="inquiryModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('inquiryModal')">&times;</span>
-        
-        <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 5px; color: var(--primary-dark);">VIP Safari Inquiry</h2>
-        <p style="font-size: 13px; color: var(--accent-gold); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Fill out details below for our concierge</p>
-
-        <form action="https://api.web3forms.com/submit" method="POST" class="inquiry-form">
-            <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
-            <input type="hidden" name="subject" value="New VIP Safari Inquiry - Liya Trails">
-            <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?success=true">
-
-            <input type="text" name="name" id="iName" placeholder="Full Name *" required>
-            <input type="email" name="email" id="iEmail" placeholder="Email Address *" required>
-            <input type="text" name="phone" id="iPhone" placeholder="Phone / WhatsApp Number">
-            <input type="text" name="dates" id="iDates" placeholder="Estimated Travel Dates">
-            <input type="text" name="travelers" id="iTravelers" placeholder="Number of Travelers (e.g., 2 Adults)">
-            <textarea name="message" id="iRequests" rows="3" placeholder="Special Requests or Custom Itinerary Notes"></textarea>
-
-            <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 15px; padding: 15px; cursor: pointer;">Send VIP Inquiry</button>
-        </form>
-    </div>
-</div>
-
 </body>
 </html>
