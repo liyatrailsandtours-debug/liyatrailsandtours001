@@ -73,9 +73,9 @@
         :root {
             --primary-dark: #0A2F1D;
             --accent-gold: #C5A059;
-            --bg-light: #F9F9F7;
+            --bg-light: #F9F9FF;
             --text-main: #2C2C2C;
-            --text-muted: #666666;
+            --text-muted: #6666;
             --white: #FFFFFF;
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -289,6 +289,80 @@
         }
         footer { background: var(--primary-dark); color: var(--white); text-align: center; padding: 60px 20px; font-size: 12px; letter-spacing: 2px; margin-top: 80px; text-transform: uppercase; }
     </style>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,sw,fr,de,es,it',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function changeLanguage(langCode) {
+    var selectField = document.querySelector(".goog-te-combo");
+    if (selectField) {
+      selectField.value = langCode;
+      selectField.dispatchEvent(new Event('change'));
+    }
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <style>
+      .goog-te-combo {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        padding: 5px 10px !important;
+        border-radius: 4px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        outline: none;
+        cursor: pointer;
+      }
+      .goog-te-combo option {
+        background: #0A2F1D !important;
+        color: #fff !important;
+      }
+      .goog-logo-link, .goog-te-gadget span {
+        display: none !important;
+      }
+       .goog-te-gadget {
+        color: transparent !important;
+        font-size: 0 !important;
+      }
+    </style>
+
+    <style>
+      /* Custom Luxury Language Dropdown Styling */
+      .custom-lang-select {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        padding: 6px 12px !important;
+        border-radius: 4px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        outline: none;
+        cursor: pointer;
+        margin-left: auto;
+      }
+      .custom-lang-select option {
+        background: #0A2F1D !important;
+        color: #fff !important;
+      }
+      /* Hide the default bulky Google Translate banner/gadget */
+      .goog-te-banner-frame, .goog-logo-link, .goog-te-gadget span {
+        display: none !important;
+      }
+      body {
+        top: 0 !important;
+      }
+    </style>
+
 </head>
 <body>
 
@@ -303,8 +377,18 @@
 
 <nav class="glass-nav" id="navbar">
   <a href="#" style="color: var(--accent-gold); font-family: 'Playfair Display', serif; font-size: 14px; letter-spacing: 2px; text-decoration: none; text-transform: none;">Liya Trails & Tours</a>
-</nav>
 
+  <select id="customLangDropdown" class="custom-lang-select" onchange="changeLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="sw">Swahili</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="es">Spanish</option>
+    <option value="it">Italian</option>
+  </select>
+
+  <div id="google_translate_element" style="display:none;"></div>
+</nav>
 
 <div style="max-width: 1350px; margin: 20px auto; padding: 0 20px; box-sizing: border-box;">
 <div class="hero" style="position: relative; height: 500px; width: 100vw; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; overflow: hidden; padding-bottom: 35px; box-sizing: border-box;">
@@ -333,12 +417,13 @@
     <a href="#excursionsSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Excursions</a>
     <a href="#safariList" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Itineraries</a>
     <button onclick="openAboutModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">About Us</button>
-    <button onclick="openInquiryModal('General Inquiry', 'Custom')" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Inquiry</button>
     <button onclick="openWhyUsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Why Us</button>
     <button onclick="openSeasonalityModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Best Time to Visit</button>
     <button onclick="openGalleryModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Gallery</button>
     <button onclick="openFaqModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">FAQ</button>
     <button onclick="openReviewsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Reviews</button>
+  <button onclick="openInquiryModal('General Inquiry', 'Custom')" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Inquiry</button>
+
     <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Blog</button>
     <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Concierge</a>
 </div>
@@ -523,7 +608,7 @@ function dismissPreloader() {
 
 window.addEventListener('load', dismissPreloader);
 setTimeout(dismissPreloader, 1500);
-    
+
 window.addEventListener('scroll', function() {
     const nav = document.getElementById('navbar');
     if(window.scrollY > 50) { nav.classList.add('scrolled'); } 
@@ -703,32 +788,6 @@ function openExcursionModal(key) {
   `;
   showModal('modal');
 }
-function openJournalModal(title, imgSrc, contentText) {
-  document.getElementById("infoModalTitle").innerText = title;
-  document.getElementById("infoModalBody").innerHTML = `
-    <img src="${imgSrc}" style="width:100%; height:280px; object-fit:cover; border-radius:8px; margin-bottom:20px;" alt="${title}">
-    <p style="font-size:15px; line-height:1.9; color:var(--text-muted);">${contentText}</p>
-  `;
-  showModal('infoModal');
-}
-
-function openAboutModal() {
-  document.getElementById("infoModalTitle").innerText = "About Liya Trails & Tours";
-  document.getElementById("infoModalBody").innerHTML = `
-    <p><strong>Liya Trails and Tours</strong> is a premier luxury tour operator based in Kenya's coastal region, dedicated to crafting exceptional travel experiences across East Africa. We specialize in bespoke wildlife safaris, exclusive marine excursions, and tailor-made itineraries.</p>
-    <p>Our passion lies in showcasing the breathtaking landscapes and rich biodiversity of East Africa while upholding the highest standards of safety, comfort, and authentic luxury adventure.</p>
-    <div style="background: #fdfdfd; padding: 25px; border-left: 3px solid var(--accent-gold); margin-top: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.02);">
-      <strong style="color: var(--primary-dark); display: block; margin-bottom: 12px; font-family:'Playfair Display', serif; font-size:22px;">Leadership & Vision</strong>
-      Liya Trails and Tours is proudly founded and directed by <strong>Victor Mwania</strong>, whose deep industry expertise, passion for wildlife conservation, and unwavering commitment to client excellence drive the company's prestige.
-    </div>
-  `;
-  showModal('infoModal');
-}
-function scrollJournals(direction) {
-    const container = document.getElementById('journalsScroll');
-    container.scrollBy({ left: direction * 300, behavior: 'smooth' });
-}
-
 function openJournalModal(title, imgSrc, contentText) {
   document.getElementById("infoModalTitle").innerText = title;
   document.getElementById("infoModalBody").innerHTML = `
