@@ -969,63 +969,6 @@ function closeModal(id) {
     setTimeout(() => modal.style.display = "none", 400);
 }
 
-function submitInquiry() {
-  const name = document.getElementById("iName").value;
-  const email = document.getElementById("iEmail").value;
-  const phone = document.getElementById("iPhone").value;
-  const dates = document.getElementById("iDates").value;
-  const travelers = document.getElementById("iTravelers").value;
-  const requests = document.getElementById("iRequests").value;
-
-  // Validate required fields
-  if (!name || !email) {
-    alert("Please fill in your name and email.");
-    return;
-  }
-
-  // Package details collected from your site
-  const packageInterest = selectedSafariForInquiry + " (" + selectedPriceForInquiry + ")";
-
-  // Show a loading/sending state on the button
-  const submitBtn = document.querySelector("#inquiryModal button[type='button']");
-  const originalText = submitBtn.innerText;
-  submitBtn.innerText = "Sending Inquiry...";
-  submitBtn.disabled = true;
-
-  // Send data silently in the background to your Zoho email via FormSubmit
-  fetch("https://formsubmit.co/ajax/info.liyatrailsandtours@zohomail.com", {
-      method: "POST",
-      headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: phone,
-          dates: dates,
-          travelers: travelers,
-          package: packageInterest,
-          message: requests,
-          _subject: "New VIP Safari Inquiry from " + name
-      })
-  })
-  .then(response => response.json())
-  .then(data => {
-      alert("Thank you, " + name + "! Your VIP inquiry has been sent successfully. Our concierge will reach out to you shortly.");
-      closeModal('inquiryModal');
-      // Reset button
-      submitBtn.innerText = originalText;
-      submitBtn.disabled = false;
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      alert("There was an error sending your inquiry. Please try using our WhatsApp button instead.");
-      submitBtn.innerText = originalText;
-      submitBtn.disabled = false;
-  });
-}
-
 function bookWhatsApp(name, price) { 
     window.open(`https://wa.me/254743331598?text=${encodeURIComponent("Hello Liya Trails Concierge, I am interested in booking: " + name + " (" + price + ")")}`); 
 }
