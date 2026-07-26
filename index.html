@@ -999,5 +999,40 @@ window.onclick = function(event) {
 
 renderSafaris('all');
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch('packages.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(packages => {
+                const container = document.getElementById('packagesContainer');
+                if (!container) return;
+                
+                container.innerHTML = packages.map(pkg => `
+                    <div class="card reveal active">
+                        <div class="card-img-wrap">
+                            <img src="${pkg.image}" alt="${pkg.title}" class="card-img">
+                        </div>
+                        <div class="card-body">
+                            <div class="meta-info">${pkg.duration}</div>
+                            <h3 class="title">${pkg.title}</h3>
+                            <div class="price">${pkg.price}</div>
+                            <p class="desc">${pkg.description}</p>
+                            <div class="card-actions">
+                                <button class="btn-dark" onclick="bookWhatsApp('${pkg.title}', '${pkg.price}')">WhatsApp</button>
+                                <button class="btn-gold" onclick="sendEmail('${pkg.title}', '${pkg.price}')">Inquire</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            })
+            .catch(err => console.error('Error loading packages:', err));
+    });
+</script>
+
 </body>
 </html>
