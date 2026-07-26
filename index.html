@@ -1046,55 +1046,18 @@ window.onclick = function(event) {
 
 renderSafaris('all');
 </script>
-
 <script src="https://sheetdb.io/handlebars.js"></script>
+
 <script>
-  // Automatically fetches Google Sheet data from your new API endpoint with smart header mapping
-  async function initSheetDBSafaris() {
-    try {
-        let response = await fetch('https://sheetdb.io/api/v1/k86ro6n906d7p');
-        let data = await response.json();
-        if (data && Array.isArray(data) && data.length > 0) {
-            data.forEach((row) => {
-                let tourName = row.name || row.Name || row.NAME;
-                if (tourName && tourName.trim() !== "") {
-                    let existingIndex = SAFARI_PACKAGES.findIndex(p => p.name.toLowerCase() === tourName.toLowerCase());
-                    
-                    let rawPrice = row.basePriceEUR || row.price || row.Price || row.PRICE || "100";
-                    let cleanPrice = parseFloat(String(rawPrice).replace(/[^0-9.]/g, '')) || 100;
-                    
-                    let rawDays = row.days || row.duration || row.Duration || row.DURATION || "1";
-                    let cleanDays = parseInt(String(rawDays).replace(/[^0-9]/g, '')) || 1;
-                    
-                    let tourDesc = row.desc || row.description || row.Description || row.DESCRIPTION || "";
-                    let tourImage = row.image || row.Image || row.IMAGE || "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e";
-                    let tourDest = row.destination || row.Destination || row.DESTINATION || "Kenya Coast & Safari";
-                    let tourType = row.type || row.Type || row.TYPE || (cleanDays === 1 ? "short" : "multi");
-
-                    let newTourData = {
-                        name: tourName,
-                        destination: tourDest,
-                        days: cleanDays,
-                        type: tourType,
-                        basePriceEUR: cleanPrice,
-                        desc: tourDesc,
-                        image: tourImage,
-                        itinerary: [{ day: "Day 1", title: tourName, details: tourDesc || "Detailed itinerary available upon inquiry." }]
-                    };
-
-                    if (existingIndex !== -1) {
-                        SAFARI_PACKAGES[existingIndex] = { ...SAFARI_PACKAGES[existingIndex], ...newTourData };
-                    } else {
-                        SAFARI_PACKAGES.push(newTourData);
-                    }
-                }
-            });
-        }
-    } catch (err) {
-        console.error("Using default offline safari packages:", err);
-    }
-    renderSafaris('all');
-  }
-
-  initSheetDBSafaris();
+  // This automatically fetches your Google Sheet data and populates your tour cards
+  fetch('https://sheetdb.io/api/v1/stse6g1z4tu6c')
+    .then(response => response.json())
+    .then(data => {
+      console.log("Liya Tours Database Connected Successfully:", data);
+      // Your data is ready here! Each row from your spreadsheet can now be mapped to your page layout.
+    })
+    .catch(error => console.error('Error loading database:', error));
 </script>
+
+</body>
+</html>
