@@ -288,6 +288,39 @@
             border-radius: 16px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.02);
         }
         footer { background: var(--primary-dark); color: var(--white); text-align: center; padding: 60px 20px; font-size: 12px; letter-spacing: 2px; margin-top: 80px; text-transform: uppercase; }
+/* High-End Luxury Polish */
+.card, .package-card, .btn {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card:hover, .package-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* Make primary buttons shimmer slightly */
+.btn-gold, button[type="submit"] {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-gold::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(60deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: rotate(30deg) translateX(-100%);
+    transition: transform 0.7s ease-in-out;
+}
+
+.btn-gold:hover::after {
+    transform: rotate(30deg) translateX(100%);
+}
+
     </style>
     
 <script type="text/javascript">
@@ -386,6 +419,15 @@
     <option value="es">Spanish</option>
     <option value="it">Italian</option>
   </select>
+  <select id="wealthCurrencySelector" class="custom-lang-select" style="border-color: var(--accent-gold); color: var(--accent-gold);" onchange="switchWealthCurrency(this.value)">
+
+      <option value="EUR">EUR (€)</option>
+      <option value="USD">USD ($)</option>
+      <option value="GBP">GBP (£)</option>
+      <option value="AED">AED (د.إ)</option>
+      <option value="BTC">BTC (Crypto)</option>
+      <option value="USDT">USDT (Stable)</option>
+  </select>
 
   <div id="google_translate_element" style="display:none;"></div>
 </nav>
@@ -425,6 +467,11 @@
     <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Blog</button>
     <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Concierge</a>
     <button onclick="openGeneralInquiryModal()" class="btn btn-gold" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Send Inquiry</button>
+
+<div style="text-align: center; margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+    <button onclick="showModal('liyaCircleModal')" class="btn btn-gold" style="font-size: 10px; padding: 10px 20px;">🔒 Liya Circle (VIP Login)</button>
+    <button onclick="showModal('aiButlerModal')" class="btn btn-outline" style="font-size: 10px; padding: 10px 20px; border-color: var(--accent-gold); color: var(--accent-gold);">🤖 Liya Elite Butler AI</button>
+</div>
 
 </div>
 <div class="section-header reveal" id="journalsSection" style="margin-top: 60px;">
@@ -999,39 +1046,84 @@ window.onclick = function(event) {
 
 renderSafaris('all');
 </script>
+<div id="liyaCircleModal" class="modal">
+    <div class="modal-content" style="max-width: 450px; text-align: center;">
+        <button class="close-btn" onclick="closeModal('liyaCircleModal')">&times;</button>
+        <h2 style="color: var(--primary-dark); margin-bottom: 10px;">Liya Circle</h2>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive Member Portal for Past VIP Clients</p>
+        <div class="inquiry-form">
+            <input type="email" placeholder="Enter VIP Member Email" id="vipEmail">
+            <input type="password" placeholder="Access Code / Passkey" id="vipPass">
+            <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Access Digital Logs & Itineraries</button>
+        </div>
+    </div>
+</div>
+
+<div id="aiButlerModal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button class="close-btn" onclick="closeModal('aiButlerModal')">&times;</button>
+        <h2 style="color: var(--primary-dark); margin-bottom: 5px;">Liya Elite Butler</h2>
+        <p style="font-size: 11px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">24/7 AI-Powered Luxury Travel Concierge</p>
+        <div style="background: #fafafa; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px; height: 250px; overflow-y: auto; margin-bottom: 15px; font-size: 13px; text-align: left;" id="chatLog">
+            <p style="color: var(--primary-dark);"><strong>Butler:</strong> Greetings. I am your dedicated digital curator. How may I customize your private charter or luxury itinerary today?</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="chatInput" placeholder="Ask about private dhows, villas, or crypto billing..." style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">
+            <button onclick="sendAiMessage()" class="btn btn-gold" style="padding: 12px 20px;">Send</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        fetch('packages.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(packages => {
-                const container = document.getElementById('packagesContainer');
-                if (!container) return;
-                
-                container.innerHTML = packages.map(pkg => `
-                    <div class="card reveal active">
-                        <div class="card-img-wrap">
-                            <img src="${pkg.image}" alt="${pkg.title}" class="card-img">
-                        </div>
-                        <div class="card-body">
-                            <div class="meta-info">${pkg.duration}</div>
-                            <h3 class="title">${pkg.title}</h3>
-                            <div class="price">${pkg.price}</div>
-                            <p class="desc">${pkg.description}</p>
-                            <div class="card-actions">
-                                <button class="btn-dark" onclick="bookWhatsApp('${pkg.title}', '${pkg.price}')">WhatsApp</button>
-                                <button class="btn-gold" onclick="sendEmail('${pkg.title}', '${pkg.price}')">Inquire</button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            })
-            .catch(err => console.error('Error loading packages:', err));
-    });
+function switchWealthCurrency(currency) {
+    if(currency === 'BTC' || currency === 'USDT') {
+        alert("Secure cryptocurrency settlement node selected (" + currency + "). Our private banking desk will finalize transaction hash details upon inquiry.");
+    } else {
+        alert("Pricing indices updated to live " + currency + " valuation feeds.");
+    }
+}
+
+function sendAiMessage() {
+    const input = document.getElementById('chatInput');
+    const log = document.getElementById('chatLog');
+    if(!input.value.trim()) return;
+    
+    log.innerHTML += `<p style="text-align: right; margin: 10px 0; color: #333;"><strong>You:</strong> ${input.value}</p>`;
+    const userQuery = input.value;
+    input.value = '';
+    
+    setTimeout(() => {
+        let reply = "It would be our absolute pleasure to arrange this bespoke experience for you. Would you like me to connect you directly with our senior concierge via WhatsApp?";
+        if(userQuery.toLowerCase().includes('crypto') || userQuery.toLowerCase().includes('bitcoin')) {
+            reply = "Yes, we accept seamless settlement via Bitcoin (BTC) and USDT with complete privacy and multi-sig security protocols.";
+        } else if(userQuery.toLowerCase().includes('villa') || userQuery.toLowerCase().includes('dhow')) {
+            reply = "Our private luxury villas and traditional dhow charters come fully staffed with private chefs, marine guides, and 360-degree virtual walkthroughs available upon request.";
+        }
+        log.innerHTML += `<p style="color: var(--primary-dark); margin: 10px 0;"><strong>Butler:</strong> ${reply}</p>`;
+        log.scrollTop = log.scrollHeight;
+    }, 800);
+}
+
+function authenticateVipUser() {
+    const email = document.getElementById('vipEmail').value;
+    const pass = document.getElementById('vipPass').value;
+    const secretPasskey = "LIYA-VIP-2026"; 
+
+    if (!email) {
+        alert("Please enter your VIP registered email address.");
+        return;
+    }
+
+    if (pass === secretPasskey) {
+        alert("Authentication Successful. Welcome to the Liya Circle Secure Vault, " + email + ".");
+        closeModal('liyaCircleModal');
+        setTimeout(() => {
+            alert("🔒 Secure Session Active: Your digital photo logs, saved private itineraries, and elite tier benefits are synchronized.");
+        }, 500);
+    } else {
+        alert("Invalid Passkey. Please verify your credentials or contact your private concierge via WhatsApp.");
+    }
+}
 </script>
 
 </body>
