@@ -1045,31 +1045,45 @@ window.onclick = function(event) {
 }
 
 
-// Fetch tours dynamically from Google Sheet via SheetDB
+// --- SECURE GOOGLE SHEET DATABASE SYNC ---
 async function initSheetDBSafaris() {
     try {
         let response = await fetch('https://sheetdb.io/api/v1/stse6g1z4tu6c');
         let data = await response.json();
         if (data && Array.isArray(data) && data.length > 0) {
-            // Map SheetDB rows to SAFARI_PACKAGES format
-            SAFARI_PACKAGES.length = 0; // clear existing
-            data.forEach(row => {
-                SAFARI_PACKAGES.push({
-                    name: row.name || "Custom Tour",
-                    destination: row.destination || "Kenya Coast",
-                    days: parseInt(row.days) || 1,
-                    type: row.type || "short",
-                    basePriceEUR: parseFloat(row.basePriceEUR) || 100,
-                    desc: row.description || row.desc || "",
-                    image: row.image || "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
-                    itinerary: [{ day: "Day 1", title: row.name || "Excursion", details: row.description || "Guided experience." }],
-                    includedList: ["Professional Guide", "Transfers"],
-                    excludedList: ["Tips"]
-                });
+            // Map SheetDB rows and preserve itinerary fallback structures
+            data.forEach((row, index) => {
+                if (row.name) {
+                    // Check if this tour already exists in SAFARI_PACKAGES by name
+                    let existingIndex = SAFARI_PACKAGES.findIndex(p => p.name.toLowerCase() === row.name.toLowerCase());
+                    let newTourData = {
+                        name: row.name,
+                        destination: row.destination || "Kenya Coast & Safari",
+                        days: parseInt(row.days) || 1,
+                        type: row.type || "short",
+                        basePriceEUR: parseFloat(row.basePriceEUR) || 100,
+                        desc: row.description || row.desc || "",
+                        image: row.image || "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+                        itinerary: [{ day: "Day 1", title: row.name, details: row.description || row.desc || "Guided tour experience." }],
+                        includedList: ["Professional Guide", "Park Fees / Transfers", "Bottled Water"],
+                        excludedList: ["Personal Tips", "Gratuities"]
+                    };
+                    
+                    if (existingIndex !== -1) {
+                        // Update existing with sheet values
+                        SAFARI_PACKAGES[existingIndex].basePriceEUR = newTourData.basePriceEUR;
+                        SAFARI_PACKAGES[existingIndex].desc = newTourData.desc;
+                        SAFARI_PACKAGES[existingIndex].image = newTourData.image;
+                        SAFARI_PACKAGES[existingIndex].destination = newTourData.destination;
+                    } else {
+                        // Add new row from Google Sheets
+                        SAFARI_PACKAGES.push(newTourData);
+                    }
+                }
             });
         }
-    } catch (e) {
-        console.error("Using default static packages due to fetch error:", e);
+    } catch (err) {
+        console.error("Using default offline safari packages:", err);
     }
     renderSafaris('all');
 }
