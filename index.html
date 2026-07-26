@@ -73,7 +73,7 @@
         :root {
             --primary-dark: #0A2F1D;
             --accent-gold: #C5A059;
-            --bg-light: #F9F9FF;
+            --bg-light: #E8F1E9;
             --text-main: #2C2C2C;
             --text-muted: #6666;
             --white: #FFFFFF;
@@ -543,6 +543,7 @@
     <p style="font-size: 16px; line-height: 2.2;">
         <strong>Phone:</strong> +254 743 331 598 / +254 790 077 602<br>
         <strong>Email:</strong> info.liyatrailsandtours@zohomail.com
+        <strong>Web:</strong> liyatrailandtours.vercel.app
     </p>
 
     <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
@@ -1015,13 +1016,79 @@ function submitInquiry() {
   });
 }
 
+function bookWhatsApp(name, price) { 
+    window.open(`https://wa.me/254743331598?text=${encodeURIComponent("Hello Liya Trails Concierge, I am interested in booking: " + name + " (" + price + ")")}`); 
+}
 
-function bookWhatsApp(name, price) { window.open(`https://wa.me/254743331598?text=${encodeURIComponent("Hello Liya Trails Concierge, I am interested in booking: " + name + " (" + price + ")")}`); }
-function sendEmail(name, price) { window.location.href = `mailto:info.liyatrailsandtours@zohomail.com?subject=${encodeURIComponent("Booking Request: " + name)}&body=${encodeURIComponent("Hello Liya Trails Concierge,\n\nI am interested in booking the " + name + " (" + price + "). Please share availability and next steps.")}`; }
+function sendEmail(name, price) { 
+    window.location.href = `mailto:info.liyatrailsandtours@zohomail.com?subject=${encodeURIComponent("Booking Request: " + name)}&body=${encodeURIComponent("Hello Liya Trails Concierge,\n\nI am interested in booking the " + name + " (" + price + "). Please share availability and next steps.")}`; 
+}
 
-window.onclick = function(event) { if (event.target.classList.contains('modal')) { closeModal(event.target.id); } }
+// --- ADD YOUR TOGGLE FAQ FUNCTION RIGHT HERE ---
+function toggleFaq(button) {
+    const item = button.parentElement;
+    const isActive = item.classList.contains('active');
+    
+    document.querySelectorAll('.faq-item').forEach(faq => {
+        faq.classList.remove('active');
+    });
+    
+    if (!isActive) {
+        item.classList.add('active');
+    }
+}
 
-renderSafaris('all');
+window.onclick = function(event) { 
+    if (event.target.classList.contains('modal')) { 
+        closeModal(event.target.id); 
+    } 
+}
+
+
+// Fetch tours dynamically from Google Sheet via SheetDB
+async function initSheetDBSafaris() {
+    try {
+        let response = await fetch('https://sheetdb.io/api/v1/stse6g1z4tu6c');
+        let data = await response.json();
+        if (data && Array.isArray(data) && data.length > 0) {
+            // Map SheetDB rows to SAFARI_PACKAGES format
+            SAFARI_PACKAGES.length = 0; // clear existing
+            data.forEach(row => {
+                SAFARI_PACKAGES.push({
+                    name: row.name || "Custom Tour",
+                    destination: row.destination || "Kenya Coast",
+                    days: parseInt(row.days) || 1,
+                    type: row.type || "short",
+                    basePriceEUR: parseFloat(row.basePriceEUR) || 100,
+                    desc: row.description || row.desc || "",
+                    image: row.image || "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+                    itinerary: [{ day: "Day 1", title: row.name || "Excursion", details: row.description || "Guided experience." }],
+                    includedList: ["Professional Guide", "Transfers"],
+                    excludedList: ["Tips"]
+                });
+            });
+        }
+    } catch (e) {
+        console.error("Using default static packages due to fetch error:", e);
+    }
+    renderSafaris('all');
+}
+
+initSheetDBSafaris();
+
 </script>
+<script src="https://sheetdb.io/handlebars.js"></script>
+
+<script>
+  // This automatically fetches your Google Sheet data and populates your tour cards
+  fetch('https://sheetdb.io/api/v1/stse6g1z4tu6c')
+    .then(response => response.json())
+    .then(data => {
+      console.log("Liya Tours Database Connected Successfully:", data);
+      // Your data is ready here! Each row from your spreadsheet can now be mapped to your page layout.
+    })
+    .catch(error => console.error('Error loading database:', error));
+</script>
+
 </body>
 </html>
