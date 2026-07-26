@@ -425,7 +425,7 @@
       <option value="USD">USD ($)</option>
       <option value="GBP">GBP (£)</option>
       <option value="AED">AED (د.إ)</option>
-      <option value="BTC">BTC (Crypto)</option>
+      <option value="KES">KES (KSH)</option>
       <option value="USDT">USDT (Stable)</option>
   </select>
 
@@ -571,15 +571,23 @@
     <button class="filter-btn" onclick="filterSafaris('short', this)">Short Escapes (1-3 Days)</button>
     <button class="filter-btn" onclick="filterSafaris('multi', this)">Grand Expeditions (4+ Days)</button>
   </div>
-  <div class="currency-selector">
-    <select id="currencySelect" onchange="changeCurrency()">
-      <option value="EUR">EUR (€)</option>
-      <option value="USD">USD ($)</option>
-      <option value="GBP">GBP (£)</option>
-      <option value="KES">KES (KSh)</option>
-    </select>
-  </div>
+
 </div>
+<div class="section-header reveal" id="safariList">
+    <h2>Signature Itineraries</h2>
+    <p>Curated Multi-Day Expeditions & Coastal Safaris</p>
+</div>
+
+<div class="controls-bar reveal">
+    <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterSafaris('all', this)">All Experiences</button>
+        <button class="filter-btn" onclick="filterSafaris('short', this)">Short Escapes</button>
+        <button class="filter-btn" onclick="filterSafaris('multi', this)">Multi-Day Safaris</button>
+    </div>
+</div>
+
+<div class="grid-container" id="safariContainer">
+    </div>
 
 <div class="grid-container" id="safariContainer"></div>
 
@@ -741,41 +749,45 @@ const SAFARI_PACKAGES = [
 let currentFilter = 'all';
 
 function renderSafaris(filter = 'all') {
-  const container = document.getElementById("safariContainer");
-  container.innerHTML = "";
-  const currency = CURRENCIES[document.getElementById("currencySelect").value];
-
-  const filtered = SAFARI_PACKAGES.filter(pkg => filter === 'all' || pkg.type === filter);
-
-  filtered.forEach((pkg, index) => {
-    const price = Math.round(pkg.basePriceEUR * currency.rate);
-    const originalIndex = SAFARI_PACKAGES.findIndex(p => p.name === pkg.name);
+    const container = document.getElementById("safariContainer");
+    if (!container) return; // Safeguard if container isn't loaded yet
     
-    const card = document.createElement("div");
-    card.className = "card reveal"; 
-    card.style.transitionDelay = `${index * 0.1}s`;
-    card.onclick = () => openModal(originalIndex);
-
-    card.innerHTML = `
-      <div class="card-img-wrap"><img src="${pkg.image}" alt="${pkg.name}" class="card-img"></div>
-      <div class="card-body">
-        <div class="meta-info">${pkg.destination} • ${pkg.days} Days</div>
-        <div class="title">${pkg.name}</div>
-        <div class="price">${currency.symbol}${price.toLocaleString()} <span style="font-size:10px; color:#999; font-weight:normal; letter-spacing:1px; text-transform:uppercase;">/ person</span></div>
-        <div class="desc">${pkg.desc}</div>
-        <div class="card-actions" onclick="event.stopPropagation()">
-          <button class="btn-whatsapp" onclick="bookWhatsApp('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">WhatsApp</button>
-          <button class="btn-dark" onclick="openInquiryModal('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">Inquire</button>
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
+    container.innerHTML = "";
     
-    setTimeout(() => {
-        const windowHeight = window.innerHeight;
-        if (card.getBoundingClientRect().top < windowHeight - 50) card.classList.add('active');
-    }, 100);
-  });
+    const currencySelectorElem = document.getElementById("wealthCurrencySelector") || document.getElementById("currencySelect");
+    const currencyKey = currencySelectorElem ? currencySelectorElem.value : 'EUR';
+    const currency = (typeof WEALTH_CURRENCIES !== 'undefined' ? WEALTH_CURRENCIES[currencyKey] : null) || { symbol: '€', rate: 1.0 };
+    
+    if (typeof SAFARI_PACKAGES === 'undefined') return;
+    
+    const filtered = SAFARI_PACKAGES.filter(pkg => filter === 'all' || pkg.type === filter);
+    
+    filtered.forEach((pkg, index) => {
+        const price = Math.round(pkg.basePriceEUR * currency.rate);
+        const originalIndex = SAFARI_PACKAGES.findIndex(p => p.name === pkg.name);
+        const card = document.createElement("div");
+        card.className = "card reveal";
+        card.style.transitionDelay = `${index * 0.1}s`;
+        card.onclick = () => openModal(originalIndex);
+        card.innerHTML = `
+            <div class="card-img-wrap"><img src="${pkg.image}" alt="${pkg.name}" class="card-img"></div>
+            <div class="card-body">
+                <div class="meta-info">${pkg.destination} • ${pkg.days} Days</div>
+                <div class="title">${pkg.name}</div>
+                <div class="price">${currency.symbol}${price.toLocaleString()} <span style="font-size:10px; color:#999; font-weight:normal; letter-spacing:1px; text-transform:uppercase;">/ person</span></div>
+                <div class="desc">${pkg.desc}</div>
+                <div class="card-actions" onclick="event.stopPropagation()">
+                    <button class="btn-whatsapp" onclick="bookWhatsApp('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">WhatsApp</button>
+                    <button class="btn-dark" onclick="openInquiryModal('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">Inquire</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+        setTimeout(() => {
+            const windowHeight = window.innerHeight;
+            if (card.getBoundingClientRect().top < windowHeight - 50) card.classList.add('active');
+        }, 100);
+    });
 }
 
 function filterSafaris(type, btn) {
@@ -1075,13 +1087,31 @@ renderSafaris('all');
 </div>
 
 <script>
+// Define conversion rates and symbols relative to EUR (Base currency)
+const WEALTH_CURRENCIES = {
+    'EUR': { symbol: '€', rate: 1.0, decimals: 0 },
+    'USD': { symbol: '$', rate: 1.08, decimals: 0 },
+    'GBP': { symbol: '£', rate: 0.85, decimals: 0 },
+    'KES': { symbol: 'KSh ', rate: 147.0, decimals: 0 },
+    'AED': { symbol: 'AED ', rate: 3.97, decimals: 0 },
+    'USDT': { symbol: 'USDT ', rate: 1.08, decimals: 2 }
+};
+
+
 function switchWealthCurrency(currency) {
+    // If crypto is selected, show the secure node alert as before
     if(currency === 'BTC' || currency === 'USDT') {
         alert("Secure cryptocurrency settlement node selected (" + currency + "). Our private banking desk will finalize transaction hash details upon inquiry.");
     } else {
         alert("Pricing indices updated to live " + currency + " valuation feeds.");
     }
+    
+    // Refresh the safari cards grid with the new currency rates
+    if (typeof renderSafaris === 'function') {
+        renderSafaris(currentFilter);
+    }
 }
+
 
 function sendAiMessage() {
     const input = document.getElementById('chatInput');
