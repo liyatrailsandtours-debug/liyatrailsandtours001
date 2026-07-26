@@ -566,11 +566,6 @@
 </div>
 
 <div class="controls-bar reveal" id="safariList">
-  <div class="filter-buttons">
-    <button class="filter-btn active" onclick="filterSafaris('all', this)">The Complete Portfolio</button>
-    <button class="filter-btn" onclick="filterSafaris('short', this)">Short Escapes (1-3 Days)</button>
-    <button class="filter-btn" onclick="filterSafaris('multi', this)">Grand Expeditions (4+ Days)</button>
-  </div>
 
 </div>
 
@@ -692,10 +687,10 @@ let selectedSafariForInquiry = "General Coastal Inquiry";
 let selectedPriceForInquiry = "Custom";
 
 const CURRENCIES = { 
-    EUR: { symbol: "€", rate: 1 }, 
-    USD: { symbol: "$", rate: 1.08 }, 
-    GBP: { symbol: "£", rate: 0.85 },
-    KES: { symbol: "KSh ", rate: 147.41 } 
+    'EUR': { symbol: "€", rate: 1 }, 
+    'USD': { symbol: "$", rate: 1.08 }, 
+    'GBP': { symbol: "£", rate: 0.85 },
+    'KES': { symbol: "KSh ", rate: 147.41 } 
 };
 
 const EXCURSIONS_DATA = {
@@ -731,16 +726,130 @@ const EXCURSIONS_DATA = {
   }
 };
 
-const SAFARI_PACKAGES = [
-  { name: "Mombasa Historic City & Fort Jesus", destination: "Mombasa Island", days: 1, type: "short", basePriceEUR: 120, desc: "Immerse yourself in centuries of Swahili, Portuguese, and Arab history, narrow alleys, and vibrant spice markets.", image: "https://images.unsplash.com/photo-1512100356356-de1b84283e18", itinerary: [{ day: "Day 1", title: "Cultural & Heritage Discovery", details: "Morning pickup from your coastal hotel. Guided tour of the historic Fort Jesus UNESCO site, walk through Mombasa Old Town's winding alleys, view the iconic Tusks monument, and visit the bustling spice market with lunch at a traditional Swahili restaurant." }], includedList: ["Hotel transfers", "Professional tour guide", "Fort Jesus entrance fee", "Swahili lunch"], excludedList: ["Personal souvenirs", "Tips"] },
-  { name: "Shimba Hills & Elephant Sanctuary", destination: "Shimba Hills National Reserve", days: 2, type: "short", basePriceEUR: 380, desc: "A lush coastal rainforest safari featuring rare sable antelopes, waterfalls, and panoramic ocean viewpoints.", image: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d", itinerary: [{ day: "Day 1", title: "Rainforest Game Drive", details: "Depart to Shimba Hills. Afternoon game drive searching for sable antelope. Short guided hike down to the scenic Sheldrick Falls." }, { day: "Day 2", title: "Elephant Sanctuary", details: "Early morning nature walk, breakfast at the Lodge, final game viewing, and afternoon return." }], includedList: ["Park entry fees", "Guide and transport", "Full board accommodation", "Water"], excludedList: ["Drinks", "Tips"] },
-  { name: "Tsavo East Red Elephants Getaway", destination: "Tsavo East National Park", days: 3, type: "multi", basePriceEUR: 790, desc: "A seamless escape from the beach into Kenya's largest national park to witness the famous dust-red elephants.", image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e", itinerary: [{ day: "Day 1", title: "Into the Wilderness", details: "Morning departure from the coast. Check-in and lunch at the Lodge, followed by an afternoon game drive." }, { day: "Day 2", title: "Galana River Explorer", details: "Full-day game drive along the scenic Galana River. Spot hippos, crocodiles, and lions." }, { day: "Day 3", title: "Coastal Return", details: "Sunrise game drive, hearty breakfast, and return transfer to your beach hotel." }], includedList: ["Park entrance fees", "Professional driver/guide", "4x4 Safari vehicle", "Full board stay"], excludedList: ["Alcoholic drinks", "Tips"] },
-  { name: "Tsavo West & Amboseli Expedition", destination: "Tsavo West & Amboseli", days: 4, type: "multi", basePriceEUR: 1250, desc: "Volcanic springs, subterranean streams, and majestic views of Mount Kilimanjaro.", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801", itinerary: [{ day: "Day 1", title: "Mzima Springs", details: "Depart to Tsavo West. Visit Mzima Springs to watch hippos. Afternoon game drive." }, { day: "Day 2", title: "Journey to Amboseli", details: "Drive towards Amboseli, arriving in time for lunch with views of Mount Kilimanjaro." }, { day: "Day 3", title: "Observation Hill", details: "Full-day exploring Amboseli's marshlands and climbing Observation Hill." }, { day: "Day 4", title: "Final Sunrise", details: "Early morning game drive, breakfast, and return journey." }], includedList: ["Park fees", "Guide and 4x4 transport", "Full board accommodation", "Water"], excludedList: ["International flights", "Tips"] },
-  { name: "Southern Circuit Luxury Safari", destination: "Tsavo East, Taita Hills & Amboseli", days: 5, type: "multi", basePriceEUR: 1600, desc: "The ultimate southern combination featuring stilted luxury lodges and massive elephant herds.", image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53", itinerary: [{ day: "Day 1", title: "Tsavo East", details: "Pick up from coastal hotel, drive to Tsavo East for afternoon game drive." }, { day: "Day 2", title: "Salt Lick Sanctuary", details: "Transfer to Taita Hills. Check-in at Salt Lick Safari Lodge for unique viewing." }, { day: "Day 3", title: "Under Kilimanjaro", details: "Drive to Amboseli National Park, afternoon game drive." }, { day: "Day 4", title: "Amboseli Full-Day", details: "Full-day game drive tracking large bull elephants and big cats." }, { day: "Day 5", title: "Return to Base", details: "Morning game drive and drive back to the Indian Ocean coast." }], includedList: ["All park entry fees", "Full board stay", "4x4 transport", "Professional guide"], excludedList: ["Drinks", "Gratuities"] },
-  { name: "Coastal Explorer & Tsavo Safari", destination: "Watamu, Malindi & Tsavo East", days: 6, type: "multi", basePriceEUR: 1950, desc: "Combining the best of coastal marine wonders with an immersive wildlife safari.", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5", itinerary: [{ day: "Day 1", title: "Marine Discovery", details: "Explore Malindi Marine Park and Gede Ruins." }, { day: "Day 2", title: "Wasini Island", details: "Dolphin spotting and snorkeling in Kisite Mpunguti." }, { day: "Day 3", title: "Safari Transition", details: "Leave the coast and check into Tsavo East." }, { day: "Day 4", title: "Big Game Tracking", details: "Full day tracking lions, leopards, and elephants." }, { day: "Day 5", title: "Sunset Cruise", details: "Drive back to coastal resort, evening sunset cruise." }, { day: "Day 6", title: "Departure", details: "Relax on white sands before departure." }], includedList: ["Marine & safari park fees", "Accommodation", "Transport", "Guide"], excludedList: ["Tips", "Personal expenses"] },
-  { name: "The Classic Grand Safari", destination: "Masai Mara, Nakuru & Amboseli", days: 7, type: "multi", basePriceEUR: 2450, desc: "The classic Kenyan safari covering the country's most iconic wildlife sanctuaries.", image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9", itinerary: [{ day: "Day 1", title: "Arrival in Nairobi", details: "Flight or transfer from coast to Nairobi, visit Giraffe Centre." }, { day: "Day 2", title: "To Masai Mara", details: "Drive to Masai Mara, check-in and evening game drive." }, { day: "Day 3", title: "Mara Big Cats", details: "Full day game drive across the Mara river basins." }, { day: "Day 4", title: "Lake Nakuru", details: "Drive to Lake Nakuru for rhinos and birdlife." }, { day: "Day 5", title: "To Amboseli", details: "Transfer to Amboseli National Park." }, { day: "Day 6", title: "Elephant Herds", details: "Full day game drive in Amboseli marshes." }, { day: "Day 7", title: "Departure", details: "Morning game drive and departure transfer." }], includedList: ["All park entrance fees", "Full board safari lodges", "4x4 Safari Landcruiser", "Professional guide"], excludedList: ["International flights", "Tips"] },
-  { name: "The Master Expedition", destination: "Coast, Tsavo, Amboseli, Mara", days: 9, type: "multi", basePriceEUR: 3200, desc: "The ultimate 9-day journey starting from the warm ocean shores through all major wildlife capitals.", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801", itinerary: [{ day: "Day 1", title: "Coastal Arrival", details: "Arrival in Mombasa/Diani, glass-bottom boat tour." }, { day: "Day 2", title: "Wasini Excursion", details: "Dolphin safari and snorkeling day trip." }, { day: "Day 3", title: "Tsavo East", details: "Transfer to Tsavo East for red elephant tracking." }, { day: "Day 4", title: "Salt Lick Lodge", details: "Overnight animal viewing at Salt Lick waterhole." }, { day: "Day 5", title: "Amboseli Park", details: "Travel to Amboseli for Kilimanjaro sunset views." }, { day: "Day 6", title: "Amboseli Full-Day", details: "Explore swamps, marshes, and elephant families." }, { day: "Day 7", title: "Nairobi Transit", details: "Drive to Nairobi, visit Elephant Orphanage." }, { day: "Day 8", title: "Masai Mara", details: "Drive to Masai Mara for game drives." }, { day: "Day 9", title: "Farewell", details: "Sunrise game drive and transfer back." }], includedList: ["Park & marine fees", "Full board accommodation", "4x4 transport", "Professional guide"], excludedList: ["International flights", "Tips"] }
-];
+    const SAFARI_PACKAGES = [
+        {
+            name: "Mombasa Old Town & Cultural Day Tour",
+            destination: "Mombasa Coastal City",
+            days: 1,
+            type: "short",
+            basePriceEUR: 120,
+            desc: "Immerse yourself in centuries of Swahili culture, historic architecture, spice markets, and Fort Jesus.",
+            image: "https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/da2f5386-5e8f-479b-abb4-ac0259ef1f24.jpg",
+            itinerary: [
+                { day: "Day 1", title: "Cultural Heritage & Fort Jesus", details: "Morning pickup from your coastal hotel. Guided tour of the historic Fort Jesus UNESCO site, walk through Mombasa Old Town's winding alleys, view the iconic Tusks monument, and visit the bustling spice market with lunch at a traditional Swahili restaurant." }
+            ],
+            includedList: ["Hotel transfers", "Professional tour guide", "Fort Jesus entrance fee", "Swahili lunch"],
+            excludedList: ["Personal souvenirs", "Tips"]
+        },
+        {
+            name: "Shimba Hills & Elephant Sanctuary",
+            destination: "Shimba Hills National Reserve",
+            days: 2,
+            type: "short",
+            basePriceEUR: 380,
+            desc: "A lush coastal rainforest safari featuring rare sable antelopes, waterfalls, and panoramic ocean viewpoints.",
+            image: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d",
+            itinerary: [
+                { day: "Day 1", title: "Rainforest Game Drive", details: "Depart to Shimba Hills. Afternoon game drive searching for sable antelope. Short guided hike down to the scenic Sheldrick Falls." },
+                { day: "Day 2", title: "Elephant Sanctuary", details: "Early morning nature walk, breakfast at the Lodge, final game viewing, and afternoon return." }
+            ],
+            includedList: ["Park entry fees", "Guide and transport", "Full board accommodation", "Water"],
+            excludedList: ["Drinks", "Tips"]
+        },
+        {
+            name: "Tsavo East Red Elephants Getaway",
+            destination: "Tsavo East National Park",
+            days: 3,
+            type: "multi",
+            basePriceEUR: 790,
+            desc: "A seamless escape from the beach into Kenya's largest national park to witness the famous dust-red elephants.",
+            image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+            itinerary: [
+                { day: "Day 1", title: "Coastal Departure to Tsavo East", details: "Early morning departure from Diani or Mombasa. Arrive at Tsavo East in time for lunch at a luxury lodge. Afternoon game drive across the vast plains." },
+                { day: "Day 2", title: "Galana River Exploration", details: "Full day game drive along the Galana River, visiting Lugard Falls and Aruba Dam to spot lions, leopards, and elephant herds." },
+                { day: "Day 3", title: "Sunrise Game Drive & Return", details: "Sunrise game drive, hearty breakfast, and scenic drive back to the Indian Ocean coast." }
+            ],
+            includedList: ["Park entrance fees", "4x4 Safari Landcruiser", "Full board lodge stay", "Professional guide"],
+            excludedList: ["International flights", "Tips"]
+        },
+        {
+            name: "Amboseli Kilimanjaro Expedition",
+            destination: "Amboseli National Park",
+            days: 4,
+            type: "multi",
+            basePriceEUR: 1250,
+            desc: "Majestic snow-capped Mount Kilimanjaro backdrops for massive herds of free-roaming elephants.",
+            image: "https://images.unsplash.com/photo-1516426122078-c23e76319801",
+            itinerary: [
+                { day: "Day 1", title: "Journey to Amboseli", details: "Scenic drive from the coast or Nairobi to Amboseli National Park. Afternoon game drive with views of Mount Kilimanjaro." },
+                { day: "Day 2", title: "Elephant Herds & Swamps", details: "Full-day game drive tracking large bull elephants across the lush swamppacks and acacia woodlands." },
+                { day: "Day 3", title: "Observation Hill Vista", details: "Full-day exploring Amboseli's marshlands and climbing Observation Hill for panoramic wildlife views." },
+                { day: "Day 4", title: "Final Sunrise & Departure", details: "Early morning game drive, breakfast, and return journey." }
+            ],
+            includedList: ["Park fees", "Guide and 4x4 transport", "Full board accommodation", "Water"],
+            excludedList: ["International flights", "Tips"]
+        },
+        {
+            name: "Southern Circuit Luxury Safari",
+            destination: "Tsavo East, Taita Hills & Amboseli",
+            days: 5,
+            type: "multi",
+            basePriceEUR: 1600,
+            desc: "The ultimate southern combination featuring stilted luxury lodges and massive elephant herds.",
+            image: "https://images.unsplash.com/photo-1523805009345-7448845a9e53",
+            itinerary: [
+                { day: "Day 1", title: "Tsavo East", details: "Pick up from coastal hotel, drive to Tsavo East for afternoon game drive." },
+                { day: "Day 2", title: "Salt Lick Sanctuary", details: "Transfer to Taita Hills. Check-in at Salt Lick Safari Lodge for unique viewing." },
+                { day: "Day 3", title: "Under Kilimanjaro", details: "Drive to Amboseli National Park, afternoon game drive." },
+                { day: "Day 4", title: "Amboseli Full-Day", details: "Full-day game drive tracking large bull elephants and big cats." },
+                { day: "Day 5", title: "Return to Base", details: "Morning game drive and drive back to the Indian Ocean coast." }
+            ],
+            includedList: ["All park fees", "Full board luxury lodges", "4x4 transport", "Professional guide"],
+            excludedList: ["International flights", "Tips"]
+        },
+        {
+            name: "Kenya Grand Wildlife Safari",
+            destination: "Masai Mara, Nakuru & Amboseli",
+            days: 7,
+            type: "multi",
+            basePriceEUR: 2450,
+            desc: "The classic Kenyan safari covering the country's most iconic wildlife sanctuaries.",
+            image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9",
+            itinerary: [
+                { day: "Day 1", title: "Arrival in Nairobi", details: "Flight or transfer from coast to Nairobi, visit Giraffe Centre." },
+                { day: "Day 2", title: "To Masai Mara", details: "Drive to Masai Mara, check-in and evening game drive." },
+                { day: "Day 3", title: "Mara Big Cats", details: "Full day game drive across the Mara river basins." },
+                { day: "Day 4", title: "Lake Nakuru", details: "Drive to Lake Nakuru for rhinos and birdlife." },
+                { day: "Day 5", title: "To Amboseli", details: "Transfer to Amboseli National Park." },
+                { day: "Day 6", title: "Elephant Herds", details: "Full day game drive in Amboseli marshes." },
+                { day: "Day 7", title: "Departure", details: "Morning game drive and departure transfer." }
+            ],
+            includedList: ["All park entrance fees", "Full board safari lodges", "4x4 Safari Landcruiser", "Professional guide"],
+            excludedList: ["International flights", "Tips"]
+        },
+        {
+            name: "The Master Expedition",
+            destination: "Coast, Tsavo, Amboseli, Mara",
+            days: 9,
+            type: "multi",
+            basePriceEUR: 3200,
+            desc: "The ultimate 9-day journey starting from the warm ocean shores through all major wildlife capitals.",
+            image: "https://images.unsplash.com/photo-1516426122078-c23e76319801",
+            itinerary: [
+                { day: "Day 1", title: "Coastal Arrival", details: "Arrival in Mombasa/Diani, glass-bottom boat tour." },
+                { day: "Day 2", title: "Wasini Excursion", details: "Dolphin safari and snorkeling day trip." },
+                { day: "Day 3", title: "Tsavo East", details: "Transfer to Tsavo East for red elephant tracking." },
+                { day: "Day 4", title: "Salt Lick Lodge", details: "Overnight animal viewing at Salt Lick waterhole." },
+                { day: "Day 5", title: "Amboseli Park", details: "Travel to Amboseli for Kilimanjaro sunset views." },
+                { day: "Day 6", title: "Amboseli Swamps", details: "Full day wildlife photography and elephant observation." },
+                { day: "Day 7", title: "Flight to Masai Mara", details: "Fly or drive to Masai Mara Game Reserve." },
+                { day: "Day 8", title: "Mara Plains Safari", details: "Full day exploring the great savannah ecosystems." },
+                { day: "Day 9", title: "Return Flight", details: "Morning game drive and return flight to coast or Nairobi." }
+            ],
+            includedList: ["All internal flights/transfers", "Park fees", "Full board luxury lodges", "Private 4x4 Landcruiser"],
+            excludedList: ["International flights", "Gratuities"]
+        }
+    ];
 
 let currentFilter = 'all';
 
@@ -797,7 +906,9 @@ function changeCurrency() { renderSafaris(currentFilter); }
 
 function openModal(index) {
   const pkg = SAFARI_PACKAGES[index];
-  const currency = CURRENCIES[document.getElementById("currencySelect").value];
+  const currSelect = document.getElementById("currencySelect") || document.getElementById("wealthCurrencySelector");
+  const currencyKey = currSelect ? currSelect.value : 'EUR';
+  const currency = (typeof CURRENCIES !== 'undefined' && CURRENCIES[currencyKey]) ? CURRENCIES[currencyKey] : { symbol: '€', rate: 1.0 };
   const price = Math.round(pkg.basePriceEUR * currency.rate);
 
   document.getElementById("modalImg").src = pkg.image;
