@@ -882,21 +882,31 @@ function openGalleryModal() {
 function openFaqModal() {
   document.getElementById("infoModalTitle").innerText = "Frequently Asked Questions";
   document.getElementById("infoModalBody").innerHTML = `
-    <div class="day-box" style="margin-top:0;">
-      <div class="day-title">Q: What is the best time to visit Kenya's coast for marine safaris?</div>
-      <div style="font-size:14px; color:var(--text-muted);">A: The Kenyan coast is wonderful year-round. However, July through March offers exceptional calm seas for snorkeling/diving and peak wildlife migration viewing in national parks.</div>
+    <style>
+        .faq-item .faq-answer { display: none; padding-top: 15px; font-size: 14px; color: var(--text-muted); }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-btn { width: 100%; text-align: left; background: none; border: none; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--primary-dark); cursor: pointer; padding: 0; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; }
+        .faq-btn:hover { color: var(--accent-gold); }
+    </style>
+
+    <div class="day-box faq-item" style="margin-top:0;">
+      <button class="faq-btn" onclick="toggleFaq(this)">What is the best time to visit Kenya's coast? <span>+</span></button>
+      <div class="faq-answer">The Kenyan coast is wonderful year-round. However, July through March offers exceptional calm seas for snorkeling/diving and peak wildlife migration viewing in national parks.</div>
     </div>
-    <div class="day-box">
-      <div class="day-title">Q: Are park entry fees and hotel transfers included?</div>
-      <div style="font-size:14px; color:var(--text-muted);">A: Yes! All our standard package rates include professional guides, 4x4 transport or boat charters, full-board accommodation, and all applicable national park or marine reserve entry fees unless stated otherwise.</div>
+
+    <div class="day-box faq-item">
+      <button class="faq-btn" onclick="toggleFaq(this)">Are park entry fees and hotel transfers included? <span>+</span></button>
+      <div class="faq-answer">Yes! All our standard package rates include professional guides, 4x4 transport or boat charters, full-board accommodation, and all applicable national park or marine reserve entry fees unless stated otherwise.</div>
     </div>
-    <div class="day-box">
-      <div class="day-title">Q: Can itineraries be customized for families or dietary needs?</div>
-      <div style="font-size:14px; color:var(--text-muted);">A: Absolutely. We regularly accommodate family groups with children, as well as specific dietary requirements such as vegetarian, vegan, and halal.</div>
+
+    <div class="day-box faq-item">
+      <button class="faq-btn" onclick="toggleFaq(this)">Can itineraries be customized for families or dietary needs? <span>+</span></button>
+      <div class="faq-answer">Absolutely. We regularly accommodate family groups with children, as well as specific dietary requirements such as vegetarian, vegan, and halal.</div>
     </div>
-    <div class="day-box">
-      <div class="day-title">Q: How do I secure my booking?</div>
-      <div style="font-size:14px; color:var(--text-muted);">A: You can book directly via WhatsApp or email. A deposit is required to secure accommodations and permits, with flexible balance terms prior to departure.</div>
+
+    <div class="day-box faq-item">
+      <button class="faq-btn" onclick="toggleFaq(this)">How do I secure my booking? <span>+</span></button>
+      <div class="faq-answer">You can book directly via WhatsApp or email. A deposit is required to secure accommodations and permits, with flexible balance terms prior to departure.</div>
     </div>
   `;
   showModal('infoModal');
