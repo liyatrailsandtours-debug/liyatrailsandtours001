@@ -1046,18 +1046,5 @@ window.onclick = function(event) {
 
 renderSafaris('all');
 </script>
-<script src="https://sheetdb.io/handlebars.js"></script>
-
-<script>
-  // This automatically fetches your Google Sheet data and populates your tour cards
-  fetch('https://sheetdb.io/api/v1/stse6g1z4tu6c')
-    .then(response => response.json())
-    .then(data => {
-      console.log("Liya Tours Database Connected Successfully:", data);
-      // Your data is ready here! Each row from your spreadsheet can now be mapped to your page layout.
-    })
-    .catch(error => console.error('Error loading database:', error));
-</script>
-
 </body>
 </html>
