@@ -65,14 +65,15 @@
 
     <style>
         :root {
-            --primary-dark: #0A2F1D;
-            --accent-gold: #C5A059;
-            --bg-light: #E8F1E945;
-            --text-main: #2C2C2C;
-            --text-muted: #666546;
-            --white: #E8F1E5;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+    --primary-dark: #04140D;
+    --accent-gold: #C5A059;
+    --bg-light: #1E1E1E;
+    --text-main: #2C2C2C;
+    --text-muted: #E0E0E0;
+    --white: #E0E0E0;
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 
         html { scroll-behavior: smooth; overflow-x: hidden; }
         
@@ -170,7 +171,10 @@
 
         /* --- SECTIONS & HORIZONTAL SCROLL --- */
         .section-header { text-align: center; margin: 100px 0 30px 0; }
-        .section-header h2 { font-size: 36px; color: var(--primary-dark); }
+        .section-header h2 { 
+    font-size: 36px; 
+    color: #B7D3C2 !important; 
+}
         .section-header p { color: var(--accent-gold); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-top: 15px; }
 
         .excursions-wrapper { max-width: 1100px; margin: auto; padding: 0 20px; position: relative; }
@@ -183,42 +187,55 @@
         .excursions-scroll-container::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 10px; }
         
         .excursion-card { 
-            background: var(--white); min-width: 270px; max-width: 270px; border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); flex-shrink: 0; scroll-snap-align: start; overflow: hidden; transition: var(--transition);
-            display: flex; flex-direction: column; border: 1px solid #eee; cursor: pointer;
-        }
-        .excursion-card:hover { transform: translateY(-8px); border-color: var(--accent-gold); }
-        .excursion-card .card-img-wrap { height: 180px; position: relative; overflow: hidden; }
-        .excursion-card .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-        .excursion-card:hover .card-img { transform: scale(1.08); }
-        .excursion-card .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--primary-dark); margin-bottom: 10px; }
-        .desc { color: var(--text-muted); font-size: 13px; line-height: 1.6; flex-grow: 1; }
+    background: #151C18; 
+    min-width: 270px; 
+    max-width: 270px; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    flex-shrink: 0; 
+    scroll-snap-align: start; 
+    overflow: hidden; 
+    transition: var(--transition);
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid rgba(183, 211, 194, 0.1); 
+    cursor: pointer;
+}
+.excursion-card:hover { transform: translateY(-8px); border-color: var(--accent-gold); }
+.excursion-card .card-img-wrap { height: 180px; position: relative; overflow: hidden; }
+.excursion-card .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+.excursion-card:hover .card-img { transform: scale(1.08); }
+.excursion-card .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.excursion-card .title { font-family: 'Playfair Display', serif; font-size: 18px; color: #B7D3C2; margin-bottom: 10px; }
+.excursion-card .desc { color: #A0B0A8; font-size: 13px; line-height: 1.6; flex-grow: 1; }
+
 
         .excursion-controls { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 10px; padding: 0 20px; max-width: 1100px; margin: 0 auto; }
         .exc-nav-btn { background: var(--primary-dark); color: var(--white); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 14px; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
         .exc-nav-btn:hover { background: var(--accent-gold); }
 
         /* --- MODALS --- */
-        .modal { 
+                .modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 47, 29, 0.95); 
             display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; box-sizing: border-box; backdrop-filter: blur(10px);
             opacity: 0; transition: opacity 0.4s ease;
         }
         .modal.show { opacity: 1; }
         .modal-content { 
-            background: var(--white); width: 100%; max-width: 800px; max-height: 90vh; 
+            background: #151C18; color: #A0B0A8; width: 100%; max-width: 800px; max-height: 90vh; 
             border-radius: 16px; padding: 50px; overflow-y: auto; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
             transform: translateY(30px); opacity: 0; transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
+            border: 1px solid rgba(183, 211, 194, 0.1);
         }
         .modal.show .modal-content { transform: translateY(0); opacity: 1; }
         .close-btn { 
-            position: absolute; top: 25px; right: 25px; background: #f5f5f5; color: var(--text-main); 
+            position: absolute; top: 25px; right: 25px; background: #1E2721; color: #B7D3C2; 
             border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; transition: var(--transition);
         }
         .close-btn:hover { background: var(--accent-gold); color: var(--white); transform: rotate(90deg); }
-        .day-box { background: var(--bg-light); padding: 25px; margin: 20px 0; border-radius: 8px; border-left: 4px solid var(--accent-gold); }
-        .day-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--primary-dark); margin-bottom: 10px; }
+        .day-box { background: #1A231D; padding: 25px; margin: 20px 0; border-radius: 8px; border-left: 4px solid var(--accent-gold); }
+        .day-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #B7D3C2; margin-bottom: 10px; }
+
 
         /* Smooth Lightbox Zoom Animation */
         #lightboxModal .modal-content {
@@ -237,8 +254,19 @@
         .inquiry-form input:focus, .inquiry-form textarea:focus { border-color: var(--accent-gold); outline: none; background: var(--white); box-shadow: 0 5px 15px rgba(197, 160, 89, 0.1); }
         
         .contact-section { 
-            background: var(--white); padding: 80px 40px; margin: 100px auto; max-width: 1000px; 
-            border-radius: 16px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.02);
+            background: #151C18; padding: 80px 40px; margin: 100px auto; max-width: 1000px; 
+            border-radius: 16px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(183, 211, 194, 0.1); color: #A0B0A8;
+        }
+        .contact-section h2 {
+            color: #B7D3C2 !important;
+        }
+        .contact-section p {
+            color: #A0B0A8 !important;
+        }
+        .btn-whatsapp { background: #115e2e; color: var(--white); }
+        .btn-whatsapp:hover { background: #0d4a24; }
+;
         }
         footer { background: var(--primary-dark); color: var(--white); text-align: center; padding: 60px 20px; font-size: 12px; letter-spacing: 2px; margin-top: 80px; text-transform: uppercase; }
 
@@ -398,13 +426,15 @@
 </div>
 
 <div class="contact-section reveal" id="contactSection">
-    <h2 class="playfair" style="font-size: 36px; color: var(--primary-dark); margin-bottom: 15px;">Begin Your Journey</h2>
-    <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 16px;">Reach out to our concierge team to design your bespoke East African adventure.</p>
+    <h2 class="playfair" style="font-size: 36px; color: #B7D3C2; margin-bottom: 15px;">Begin Your Journey</h2>
+    <p style="color: #A0B0A8; margin-bottom: 40px; font-size: 16px;">Reach out to our concierge team to design your bespoke East African adventure.</p>
     
-    <p style="font-size: 16px; line-height: 2.2;">
-        <strong>Phone:</strong> +254743331598 / +254790077602<br>
-        <strong>📧:</strong> info.liyatrailsandtours@zohomail.com<br>
-        <strong>Web:</strong> liyatrailandtours.vercel.app
+    <p style="font-size: 16px; line-height: 2.2; color: #A0B0A8;">
+        <strong style="color: #B7D3C2;">Phone:</strong> +254743331598 / +254790077602<br>
+        <strong style="color: #B7D3C2;">📧:</strong> info.liyatrailsandtours@zohomail.com<br>
+        <strong style="color: #B7D3C2;">Web:</strong> liyatrailandtours.vercel.app
+    </p>
+
     </p>
 
     <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">

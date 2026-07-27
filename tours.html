@@ -18,12 +18,15 @@
 
     <style>
         :root {
-            --primary-dark: #0A2F1D;
+            --primary-dark: #B7D3C2;
             --accent-gold: #C5A059;
-            --bg-light: #E8F1E945;
+            .tours-banner p {
+    color: #FFFFFF !important;
+}
+            --bg-light: #1E1E1E;
             --text-main: #2C2C2C;
-            --text-muted: #666546;
-            --white: #E8F1E5;
+            --text-muted: #A88B;
+            --white: #222222;
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
@@ -70,25 +73,38 @@
         /* --- NAVIGATION --- */
         .glass-nav {
             position: fixed; top: 0; left: 0; width: 100%;
-            background: rgba(10, 47, 29, 0.92); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            z-index: 1000; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.08);
-            display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;
+            background: rgba(10, 47, 29, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 1000; padding: 15px 20px; border-bottom: 1px solid rgba(183, 211, 194, 0.15);
+            display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap;
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
-        .glass-nav.scrolled { background: rgba(10, 47, 29, 0.98); padding: 8px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
-        .glass-nav a { color: var(--white); text-decoration: none; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; transition: var(--transition); cursor: pointer; white-space: nowrap; }
-        .glass-nav a:hover, .glass-nav a.active { color: var(--accent-gold); }
+        .glass-nav.scrolled { background: rgba(10, 47, 29, 0.98); padding: 10px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+        .glass-nav a { 
+            color: #B7D3C2 !important; 
+            text-decoration: none; 
+            font-size: 11px; 
+            font-weight: 500;
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            transition: var(--transition); 
+            cursor: pointer; 
+            white-space: nowrap; 
+        }
+        .glass-nav a:hover, .glass-nav a.active { 
+            color: var(--accent-gold) !important; 
+        }
 
         .nav-brand {
             color: var(--accent-gold) !important;
             font-family: 'Playfair Display', serif !important;
-            font-size: 14px !important;
+            font-size: 16px !important;
             letter-spacing: 1.5px !important;
             font-weight: 700;
-            margin-right: 10px;
+            margin-right: 15px;
             text-transform: none !important;
         }
+
 
         /* --- FLOATING WHATSAPP WIDGET --- */
         .floating-whatsapp {
@@ -209,9 +225,23 @@
         .day-box { background: var(--bg-light); padding: 25px; margin: 20px 0; border-radius: 8px; border-left: 4px solid var(--accent-gold); }
         .day-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--primary-dark); margin-bottom: 10px; }
         .inclusion-section { display: flex; gap: 20px; margin-top: 35px; flex-wrap: wrap; }
-        .included, .excluded { padding: 25px; border-radius: 8px; flex: 1; min-width: 250px; font-size: 14px; border: 1px solid #eaeaea; }
-        .included { background: #FCFFFA; border-left: 3px solid #4CAF50; }
-        .excluded { background: #FFFDFD; border-left: 3px solid #E53935; }
+        .included, .excluded { 
+    padding: 25px; 
+    border-radius: 8px; 
+    flex: 1; 
+    min-width: 250px; 
+    font-size: 14px; 
+    border: 1px solid #333; 
+    color: #E8F1E5; /* Ensures list text is white/light */
+}
+.included { 
+    background: #1A1F1B; /* Dark green-tinted background */
+    border-left: 3px solid #2E7D32; 
+}
+.excluded { 
+    background: #1F1A1A; /* Dark red-tinted background */
+    border-left: 3px solid #E53935; 
+}
 
         .inquiry-form input, .inquiry-form textarea { 
             width: 100%; padding: 18px; margin: 10px 0; border: 1px solid #eee; border-radius: 4px; 
@@ -219,8 +249,7 @@
         }
         .inquiry-form input:focus, .inquiry-form textarea:focus { border-color: var(--accent-gold); outline: none; background: var(--white); box-shadow: 0 5px 15px rgba(197, 160, 89, 0.1); }
 
-        footer { background: var(--primary-dark); color: var(--white); text-align: center; padding: 60px 20px; font-size: 12px; letter-spacing: 2px; margin-top: 80px; text-transform: uppercase; }
-
+        footer { background: #0A3A1E; color: #FFFFFF; text-align: center; padding: 60px 20px; font-size: 12px; letter-spacing: 2px; margin-top: 80px; text-transform: uppercase; }
         .custom-lang-select {
             background: rgba(255, 255, 255, 0.1) !important;
             color: #fff !important;
