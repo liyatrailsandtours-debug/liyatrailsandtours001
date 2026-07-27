@@ -253,6 +253,16 @@
 
         /* --- MODALS --- */
         .modal { 
+          
+          /* Smooth Lightbox Zoom Animation */
+#lightboxModal .modal-content {
+    transform: scale(0.85) !important;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s ease !important;
+}
+#lightboxModal.show .modal-content {
+    transform: scale(1) !important;
+}
+
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 47, 29, 0.95); 
             display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; box-sizing: border-box; backdrop-filter: blur(10px);
             opacity: 0; transition: opacity 0.4s ease;
@@ -1033,21 +1043,46 @@ function openGalleryModal() {
   document.getElementById("infoModalTitle").innerText = "Guest Moments & Gallery";
   document.getElementById("infoModalBody").innerHTML = `
     <p style="margin-bottom:20px;">A glimpse into recent guest experiences across our coastal excursions and wildlife safaris (Click any photo to enlarge):</p>
-    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:15px;">
-      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Wasini Dolphin" onclick="openLightbox(this.src)">
-      <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/35c1f090-8637-4f81-b88b-5d1e847270c2.png" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Coastal View" onclick="openLightbox(this.src)">
-      <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Shimba Hills" onclick="openLightbox(this.src)">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Deep Sea Fishing" onclick="openLightbox(this.src)">
-      <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Sunset Dhow" onclick="openLightbox(this.src)">
-      <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Tsavo Elephant" onclick="openLightbox(this.src)">
-      <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/d61bd829-5475-4235-bee4-2610c0127c52.png" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Coastal View" onclick="openLightbox(this.src)">
+    
+    <div style="display: flex; overflow-x: auto; gap: 15px; padding-bottom: 15px; scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+      
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Wasini Dolphin" onclick="openLightbox(this.src)">
+      
+      <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/35c1f090-8637-4f81-b88b-5d1e847270c2.png" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Coastal View" onclick="openLightbox(this.src)">
+      
+      <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Shimba Hills" onclick="openLightbox(this.src)">
+      
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Deep Sea Fishing" onclick="openLightbox(this.src)">
+      
+      <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Sunset Dhow" onclick="openLightbox(this.src)">
+      
+      <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Tsavo Elephant" onclick="openLightbox(this.src)">
+      
+      <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/d61bd829-5475-4235-bee4-2610c0127c52.png" style="width: 260px; height: 180px; object-fit: cover; border-radius: 8px; cursor: pointer; flex-shrink: 0; scroll-snap-align: start;" alt="Coastal View" onclick="openLightbox(this.src)">
+      
     </div>
+
+    <p style="font-size: 11px; text-align: center; color: var(--accent-gold); margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;">&larr; Swipe to explore &rarr;</p>
   `;
   showModal('infoModal');
 }
 
 function openLightbox(imageSrc) {
-    document.getElementById("lightboxImg").src = imageSrc;
+    const lightboxImg = document.getElementById("lightboxImg");
+    
+    // Reset the image state so it doesn't pop in abruptly
+    lightboxImg.style.opacity = "0";
+    lightboxImg.style.transition = "opacity 0.4s ease-out";
+    
+    // Set the new image source
+    lightboxImg.src = imageSrc;
+    
+    // Wait until the image is fully downloaded by the browser, then fade it in
+    lightboxImg.onload = function() {
+        lightboxImg.style.opacity = "1";
+    };
+    
+    // Trigger the modal background to appear
     showModal("lightboxModal");
 }
 
