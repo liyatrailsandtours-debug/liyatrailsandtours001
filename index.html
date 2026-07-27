@@ -893,10 +893,22 @@ function renderSafaris(filter = 'all') {
                 <div class="desc">${pkg.desc}</div>
                 <div class="card-actions" onclick="event.stopPropagation()">
                     <button class="btn-whatsapp" onclick="bookWhatsApp('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">WhatsApp</button>
+                    <button class="btn" style="background: transparent; color: var(--primary-dark); border: 1px solid var(--primary-dark);" onclick="toggleCardShareMenu(${originalIndex})">📤 Share</button>
                     <button class="btn-dark" onclick="openInquiryModal('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">Inquire</button>
+                    
+                    <div id="cardShareMenu-${originalIndex}" style="display: none; width: 100%; margin-top: 10px; background: #f9f9f9; padding: 12px; border-radius: 6px; border: 1px solid #ddd; text-align: left;">
+                        <p style="font-size: 11px; font-weight: bold; margin-bottom: 8px; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 1px;">Share to:</p>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                            <a href="https://api.whatsapp.com/send?text=${encodeURIComponent('Check out this amazing safari package: ' + pkg.name + ' - ' + window.location.origin + window.location.pathname + '?safari=' + originalIndex)}" target="_blank" class="btn" style="background: #25D366; color: white; font-size: 10px; padding: 6px 10px; flex: 1; text-align: center; text-decoration: none; border-radius: 4px;">WhatsApp</a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + window.location.pathname + '?safari=' + originalIndex)}" target="_blank" class="btn" style="background: #1877F2; color: white; font-size: 10px; padding: 6px 10px; flex: 1; text-align: center; text-decoration: none; border-radius: 4px;">Facebook</a>
+                            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out ' + pkg.name)}&url=${encodeURIComponent(window.location.origin + window.location.pathname + '?safari=' + originalIndex)}" target="_blank" class="btn" style="background: #000000; color: white; font-size: 10px; padding: 6px 10px; flex: 1; text-align: center; text-decoration: none; border-radius: 4px;">X</a>
+                            <button onclick="copyPkgLink(${originalIndex})" class="btn btn-gold" style="font-size: 10px; padding: 6px 10px; flex: 1; border-radius: 4px;">Copy</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
+
         container.appendChild(card);
         setTimeout(() => {
             const windowHeight = window.innerHeight;
@@ -1357,6 +1369,13 @@ function sharePackage(index) {
 }
 
 // --- SOCIAL SHARE & DEEP LINKING LOGIC ---
+function toggleCardShareMenu(index) {
+    const menu = document.getElementById(`cardShareMenu-${index}`);
+    if (menu) {
+        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
 function toggleShareMenu(index) {
     const menu = document.getElementById(`shareMenu-${index}`);
     if (menu) {
