@@ -941,6 +941,7 @@ function openModal(index) {
     <button class="btn btn-whatsapp" onclick="bookWhatsApp('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">Book via WhatsApp</button>
     <button class="btn btn-dark" onclick="sendEmail('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">Book via Email</button>
     <button class="btn btn-gold" onclick="openInquiryModal('${pkg.name}', '${currency.symbol}${price.toLocaleString()}')">Custom Inquiry</button>
+    <button class="btn" style="background: transparent; color: var(--primary-dark); border: 1px solid var(--primary-dark);" id="shareBtn" onmouseover="this.style.background='var(--primary-dark)'; this.style.color='var(--white)';" onmouseout="if(this.innerHTML.includes('Share')){this.style.background='transparent'; this.style.color='var(--primary-dark)';}" onclick="sharePackage(${index})">📤 Share Package</button>
   `;
   showModal('modal');
 }
@@ -1314,6 +1315,54 @@ function showVipDashboard(clientEmail) {
     document.getElementById('vipUserDisplay').innerText = `Authenticated Session: ${clientEmail}`;
     showModal('vipDashboardModal');
 }
+
+// --- SHARE & DEEP LINKING LOGIC ---
+function sharePackage(index) {
+    // Construct a unique URL with the package index
+    const url = new URL(window.location.href);
+    url.searchParams.set('safari', index);
+    const shareUrl = url.href;
+
+    // Copy the URL to the clipboard
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        const shareBtn = document.getElementById('shareBtn');
+        const originalText = shareBtn.innerHTML;
+        
+        // Give visual feedback that it worked
+        shareBtn.innerHTML = '✅ Link Copied!';
+        shareBtn.style.background = 'var(--primary-dark)';
+        shareBtn.style.color = 'var(--white)';
+        
+        // Revert button text after 2.5 seconds
+        setTimeout(() => {
+            shareBtn.innerHTML = originalText;
+            shareBtn.style.background = 'transparent';
+            shareBtn.style.color = 'var(--primary-dark)';
+        }, 2500);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert("Copy this link to share: " + shareUrl);
+    });
+}
+
+// Check URL for a specific safari package on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const safariIndex = urlParams.get('safari');
+    
+    if (safariIndex !== null && !isNaN(safariIndex)) {
+        const index = parseInt(safariIndex);
+        
+        // Ensure the index exists in your package list before trying to open it
+        if (index >= 0 && index < SAFARI_PACKAGES.length) {
+            // Add a small 800ms delay so the background site fully loads visually before the modal pops up
+            setTimeout(() => {
+                openModal(index);
+            }, 800);
+        }
+    }
+});
+
 </script>
 
 </body>
