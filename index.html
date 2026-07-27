@@ -1032,17 +1032,23 @@ function openSeasonalityModal() {
 function openGalleryModal() {
   document.getElementById("infoModalTitle").innerText = "Guest Moments & Gallery";
   document.getElementById("infoModalBody").innerHTML = `
-    <p style="margin-bottom:20px;">A glimpse into recent guest experiences across our coastal excursions and wildlife safaris:</p>
+    <p style="margin-bottom:20px;">A glimpse into recent guest experiences across our coastal excursions and wildlife safaris (Click any photo to enlarge):</p>
     <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:15px;">
-      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5" style="width:100%; height:130px; object-fit:cover; border-radius:6px;" alt="Wasini Dolphin">
-      <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d" style="width:100%; height:130px; object-fit:cover; border-radius:6px;" alt="Shimba Hills">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" style="width:100%; height:130px; object-fit:cover; border-radius:6px;" alt="Deep Sea Fishing">
-      <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090" style="width:100%; height:130px; object-fit:cover; border-radius:6px;" alt="Sunset Dhow">
-      <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e" style="width:100%; height:130px; object-fit:cover; border-radius:6px;" alt="Tsavo Elephant">
-      <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801" style="width:100%; height:130px; object-fit:cover; border-radius:6px;" alt="Amboseli Kilimanjaro">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Wasini Dolphin" onclick="openLightbox(this.src)">
+      <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/35c1f090-8637-4f81-b88b-5d1e847270c2.png" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Coastal View" onclick="openLightbox(this.src)">
+      <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Shimba Hills" onclick="openLightbox(this.src)">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Deep Sea Fishing" onclick="openLightbox(this.src)">
+      <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Sunset Dhow" onclick="openLightbox(this.src)">
+      <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Tsavo Elephant" onclick="openLightbox(this.src)">
+      <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/d61bd829-5475-4235-bee4-2610c0127c52.png" style="width:100%; height:130px; object-fit:cover; border-radius:6px; cursor:pointer;" alt="Coastal View" onclick="openLightbox(this.src)">
     </div>
   `;
   showModal('infoModal');
+}
+
+function openLightbox(imageSrc) {
+    document.getElementById("lightboxImg").src = imageSrc;
+    showModal("lightboxModal");
 }
 
 function openFaqModal() {
@@ -1176,6 +1182,13 @@ renderSafaris('all');
             <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Access Digital Logs & Itineraries</button>
         </div>
     </div>
+</div>
+
+<div class="modal" id="lightboxModal" style="z-index: 3000;">
+  <div class="modal-content" style="max-width: 900px; padding: 20px; background: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center;">
+    <button class="close-btn" onclick="closeModal('lightboxModal')" style="top: 20px; right: 20px; background: #fff; z-index: 3001;">&times;</button>
+    <img id="lightboxImg" src="" alt="Expanded View" style="max-width: 100%; max-height: 85vh; border-radius: 12px; object-fit: contain; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+  </div>
 </div>
 
 <script>
