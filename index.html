@@ -509,12 +509,12 @@
     <div class="modal-content" style="max-width: 450px; text-align: center;">
         <button class="close-btn" onclick="closeModal('liyaCircleModal')">&times;</button>
         <h2 style="color: var(--primary-dark); margin-bottom: 10px;">Liya Circle</h2>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive portal for past VIP clients</p>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6;">Access is verified by our concierge. Enter your registered email and we will open a secure WhatsApp channel to confirm your membership.</p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 22px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive Member Portal for Past VIP Clients</p>
         <div class="inquiry-form">
             <input type="email" placeholder="VIP Member Email *" id="vipEmail">
-            <input type="password" placeholder="Passkey (if issued)" id="vipPass">
-            <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Request Access via WhatsApp</button>
+            <input type="password" placeholder="Access Code / Passkey *" id="vipPass">
+            <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Access Digital Logs & Itineraries</button>
+            <button onclick="requestVipViaWhatsApp()" class="btn btn-whatsapp" style="width: 100%; margin-top: 10px; padding: 12px;">Request Access via WhatsApp</button>
         </div>
     </div>
 </div>
@@ -744,17 +744,26 @@ function switchWealthCurrency(currency) {
 function authenticateVipUser() {
     const email = document.getElementById('vipEmail').value;
     const pass = document.getElementById('vipPass').value;
+    const secretPasskey = "LIYA-VIP-2026";
 
     if (!email) {
         alert("Please enter your VIP registered email address.");
         return;
     }
 
-    // No client-side password — access is verified by concierge only
-    closeModal('liyaCircleModal');
+    if (pass === secretPasskey) {
+        closeModal('liyaCircleModal');
+        showVipDashboard(email);
+    } else {
+        alert("Invalid Passkey. Please verify your credentials or request access via WhatsApp.");
+    }
+}
+
+function requestVipViaWhatsApp() {
+    const email = document.getElementById('vipEmail').value || "";
     const msg = encodeURIComponent(
-        "Hello Liya Trails Concierge, I am requesting Liya Circle access.\nEmail: " + email +
-        (pass ? "\n(I have a passkey on file.)" : "\nPlease send me access instructions.")
+        "Hello Liya Trails Concierge, I am requesting Liya Circle VIP access." +
+        (email ? "\nEmail: " + email : "")
     );
     window.open("https://wa.me/254743331598?text=" + msg, "_blank");
 }
