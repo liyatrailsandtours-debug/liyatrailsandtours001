@@ -770,41 +770,140 @@ function requestVipViaWhatsApp() {
 
 function showVipDashboard(clientEmail) {
     let dashModal = document.getElementById('vipDashboardModal');
-    if (!dashModal) {
-        dashModal = document.createElement('div');
-        dashModal.id = 'vipDashboardModal';
-        dashModal.className = 'modal';
-        dashModal.innerHTML = `
-            <div class="modal-content" style="max-width: 600px; text-align: left; background: #fff; border: 1px solid var(--accent-gold);">
-                <button class="close-btn" onclick="closeModal('vipDashboardModal')">&times;</button>
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <span style="font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-gold);">Liya Circle Member Vault</span>
-                    <h2 style="color: var(--primary-dark); margin-top: 5px;">Welcome Back</h2>
-                    <p style="font-size: 12px; color: var(--text-muted);" id="vipUserDisplay"></p>
-                </div>
-                
-                <div style="background: #fdfbf7; border-left: 3px solid var(--accent-gold); padding: 15px; margin-bottom: 20px; font-size: 13px;">
-                    <strong>🔒 Tier Status:</strong> Ultra-Luxury Elite Concierge Active. All private marine charters and multi-sig crypto settlements enjoy priority clearance.
-                </div>
+    if (dashModal) dashModal.remove();
 
-                <h3 style="font-size: 14px; color: var(--primary-dark); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Your Private Unlisted Privileges</h3>
-                <ul style="font-size: 13px; color: #555; line-height: 1.8; margin-bottom: 25px; padding-left: 20px;">
-                    <li>Priority Private Dhow & Yacht Charters in Mombasa/Zanzibar</li>
-                    <li>Complimentary On-Board Private Chef & Sommelier Services</li>
-                    <li>Direct Secure Channel with Senior Expedition Leaders</li>
-                </ul>
+    dashModal = document.createElement('div');
+    dashModal.id = 'vipDashboardModal';
+    dashModal.className = 'modal';
+    dashModal.innerHTML = `
+      <div class="modal-content" style="max-width: 720px; text-align: left; background: #151C18; border: 1px solid rgba(197,160,89,0.35); color: #A0B0A8; max-height: 92vh; overflow-y: auto;">
+        <button class="close-btn" onclick="closeModal('vipDashboardModal')">&times;</button>
 
-                <div style="display: flex; gap: 10px;">
-                    <button onclick="window.open('https://wa.me/254769253454?text=Hello%20Boss%20I%20am%20logged%20into%20Liya%20Circle%20and%20require%20bespoke%20arrangements.')" class="btn btn-gold" style="flex: 1; font-size: 11px; padding: 12px;">💬 Direct WhatsApp Concierge</button>
-                    <button onclick="closeModal('vipDashboardModal')" class="btn btn-outline" style="flex: 1; font-size: 11px; padding: 12px; border-color: #333; color: #333;">Close Vault</button>
-                </div>
+        <div style="text-align: center; margin-bottom: 22px;">
+          <span style="font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-gold);">Liya Circle Member Vault</span>
+          <h2 style="color: #B7D3C2; margin-top: 6px; font-size: 26px;">Welcome Back</h2>
+          <p style="font-size: 12px; color: #A0B0A8;" id="vipUserDisplay"></p>
+        </div>
+
+        <div style="background: #1A231D; border-left: 3px solid var(--accent-gold); padding: 14px 16px; margin-bottom: 24px; font-size: 13px; border-radius: 0 8px 8px 0;">
+          <strong style="color: #B7D3C2;">Tier:</strong> Ultra-Luxury Elite · Priority concierge · Member rates active
+        </div>
+
+        <!-- UPCOMING BOOKING -->
+        <div style="margin-bottom: 28px;">
+          <h3 style="font-size: 13px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Upcoming Booking</h3>
+          <div style="background: #1A231D; border-radius: 10px; padding: 18px; border: 1px solid rgba(183,211,194,0.12);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+              <strong style="color: #B7D3C2; font-size: 16px; font-family: 'Playfair Display', serif;">Amboseli Kilimanjaro Expedition</strong>
+              <span style="font-size: 11px; color: #2E7D32; background: rgba(46,125,50,0.15); padding: 3px 10px; border-radius: 12px;">Confirmed</span>
             </div>
-        `;
-        document.body.appendChild(dashModal);
-    }
-    
-    document.getElementById('vipUserDisplay').innerText = `Authenticated Session: ${clientEmail}`;
+            <p style="font-size: 13px; margin: 0 0 8px 0; line-height: 1.7;">
+              <strong style="color: #B7D3C2;">Dates:</strong> 14 – 17 Sep 2026<br>
+              <strong style="color: #B7D3C2;">Lodge:</strong> Amboseli Sopa Lodge (full board)<br>
+              <strong style="color: #B7D3C2;">Pickup:</strong> 06:30 · Diani / Mombasa hotel<br>
+              <strong style="color: #B7D3C2;">Guide:</strong> James K. · Private 4×4
+            </p>
+            <button onclick="window.open('https://wa.me/254743331598?text=' + encodeURIComponent('Hello Concierge — regarding my upcoming Amboseli trip (14–17 Sep 2026). I am logged into Liya Circle.'))" class="btn btn-whatsapp" style="font-size: 11px; padding: 10px 16px; margin-top: 8px;">Message Concierge about this trip</button>
+          </div>
+        </div>
+
+        <!-- PAST TRIPS -->
+        <div style="margin-bottom: 28px;">
+          <h3 style="font-size: 13px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Past Journeys</h3>
+          
+          <div style="background: #1A231D; border-radius: 10px; padding: 16px; margin-bottom: 12px; border: 1px solid rgba(183,211,194,0.1);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+              <strong style="color: #B7D3C2;">Wasini Island Dolphin & Snorkeling</strong>
+              <span style="font-size: 11px; color: #888;">12 Mar 2026</span>
+            </div>
+            <p style="font-size: 12px; margin: 8px 0 10px 0; line-height: 1.6;">Full-day dhow · Kisite Marine Park · Seafood lunch on Wasini · Dolphin sightings morning run.</p>
+            <button onclick="vipRebook('Wasini Island Dolphin & Snorkeling', 'Full-day dhow, Kisite snorkeling, Wasini seafood lunch')" class="btn" style="background: transparent; border: 1px solid rgba(197,160,89,0.5); color: var(--accent-gold); font-size: 10px; padding: 8px 12px;">Book similar again</button>
+          </div>
+
+          <div style="background: #1A231D; border-radius: 10px; padding: 16px; margin-bottom: 12px; border: 1px solid rgba(183,211,194,0.1);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+              <strong style="color: #B7D3C2;">Tsavo East Red Elephants Getaway</strong>
+              <span style="font-size: 11px; color: #888;">3 – 5 Nov 2025</span>
+            </div>
+            <p style="font-size: 12px; margin: 8px 0 10px 0; line-height: 1.6;">3 days · Ashnil Aruba Lodge · Galana River & Lugard Falls · Private Landcruiser · Red elephant herds.</p>
+            <button onclick="vipRebook('Tsavo East Red Elephants Getaway', '3-day Tsavo East, Ashnil Aruba, private 4x4, full board')" class="btn" style="background: transparent; border: 1px solid rgba(197,160,89,0.5); color: var(--accent-gold); font-size: 10px; padding: 8px 12px;">Book similar again</button>
+          </div>
+
+          <div style="background: #1A231D; border-radius: 10px; padding: 16px; border: 1px solid rgba(183,211,194,0.1);">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+              <strong style="color: #B7D3C2;">Romantic Sunset Dhow</strong>
+              <span style="font-size: 11px; color: #888;">8 Nov 2025</span>
+            </div>
+            <p style="font-size: 12px; margin: 8px 0 10px 0; line-height: 1.6;">Private evening dhow · coastal creeks · snacks & drinks · sunset on the Indian Ocean.</p>
+            <button onclick="vipRebook('Romantic Sunset Dhow', 'Private sunset dhow cruise, snacks and drinks')" class="btn" style="background: transparent; border: 1px solid rgba(197,160,89,0.5); color: var(--accent-gold); font-size: 10px; padding: 8px 12px;">Book similar again</button>
+          </div>
+        </div>
+
+        <!-- PRIVATE RATE SHEET -->
+        <div style="margin-bottom: 28px;">
+          <h3 style="font-size: 13px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Your Member Rates</h3>
+          <div style="background: #1A231D; border-radius: 10px; padding: 16px; border: 1px solid rgba(197,160,89,0.2); font-size: 13px; line-height: 1.85;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px; margin-bottom: 8px;">
+              <span>Coastal day excursions</span>
+              <strong style="color: #B7D3C2;">10% off published</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px; margin-bottom: 8px;">
+              <span>Multi-day safaris (private 4×4)</span>
+              <strong style="color: #B7D3C2;">8% off · free room upgrade*</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px; margin-bottom: 8px;">
+              <span>Private dhow / sunset charter</span>
+              <strong style="color: #B7D3C2;">Complimentary soft drinks</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Repeat booking within 12 months</span>
+              <strong style="color: #B7D3C2;">Priority lodge holds</strong>
+            </div>
+            <p style="font-size: 11px; color: #777; margin: 12px 0 0 0;">*Subject to availability. Mention Liya Circle when inquiring.</p>
+          </div>
+        </div>
+
+        <!-- CONCIERGE CHANNEL -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 13px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Direct Concierge</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;">
+            <button onclick="window.open('https://wa.me/254743331598?text=' + encodeURIComponent('Hello Liya Trails Concierge — I am logged into Liya Circle (' + (document.getElementById('vipUserDisplay')?.innerText || '') + ').'))" class="btn btn-whatsapp" style="flex: 1; min-width: 140px; font-size: 11px; padding: 12px;">WhatsApp Concierge</button>
+            <button onclick="closeModal('vipDashboardModal')" class="btn" style="flex: 1; min-width: 120px; font-size: 11px; padding: 12px; background: transparent; border: 1px solid rgba(183,211,194,0.3); color: #B7D3C2;">Close</button>
+          </div>
+          <form action="https://api.web3forms.com/submit" method="POST" class="inquiry-form" style="background: #1A231D; padding: 16px; border-radius: 10px; border: 1px solid rgba(183,211,194,0.1);">
+            <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
+            <input type="hidden" name="subject" value="Liya Circle VIP Concierge Message">
+            <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?vip=sent">
+            <input type="hidden" name="vip_email" id="vipFormEmail" value="">
+            <p style="font-size: 12px; margin: 0 0 10px 0; color: #A0B0A8;">Email the team (your VIP email is included automatically):</p>
+            <textarea name="message" rows="3" placeholder="How can we help with your next journey?" required style="width:100%; padding:12px; border:1px solid #333; border-radius:4px; background:#151C18; color:#E8F1E5; font-family:Montserrat,sans-serif; font-size:13px; box-sizing:border-box;"></textarea>
+            <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 10px; padding: 12px; font-size: 12px;">Send Secure Message</button>
+          </form>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(dashModal);
+
+    document.getElementById('vipUserDisplay').innerText = clientEmail;
+    const vipFormEmail = document.getElementById('vipFormEmail');
+    if (vipFormEmail) vipFormEmail.value = clientEmail;
     showModal('vipDashboardModal');
+}
+
+function vipRebook(tripName, summary) {
+    closeModal('vipDashboardModal');
+    const subtitle = document.getElementById('inquiryPackageSubtitle');
+    if (subtitle) {
+        subtitle.innerText = 'Liya Circle rebook: ' + tripName;
+    }
+    // Prefill message if inquiry modal fields exist after open
+    showModal('inquiryModal');
+    setTimeout(() => {
+        const msg = document.querySelector('#inquiryModal textarea[name="message"]');
+        if (msg) {
+            msg.value = 'Liya Circle member — please rebook a similar trip:\n\n' + tripName + '\n' + summary + '\n\nPreferred dates: ';
+        }
+    }, 300);
 }
 
 window.onclick = function(event) { 
