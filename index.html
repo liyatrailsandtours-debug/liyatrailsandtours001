@@ -11,6 +11,8 @@
     <meta name="author" content="Liya Trails and Tours">
 
     <link rel="canonical" href="https://liyatrailandtours.vercel.app/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230A2F1D' width='100' height='100' rx='12'/%3E%3Ctext x='50' y='62' font-size='48' text-anchor='middle' fill='%23C5A059' font-family='Georgia,serif'%3EL%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230A2F1D' width='100' height='100' rx='12'/%3E%3Ctext x='50' y='62' font-size='48' text-anchor='middle' fill='%23C5A059' font-family='Georgia,serif'%3EL%3C/text%3E%3C/svg%3E">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://liyatrailandtours.vercel.app/">
@@ -151,7 +153,11 @@
         .hero h1 { font-size: 56px; line-height: 1.1; margin-bottom: 35px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         @media (max-width: 768px) {
             .hero h1 { font-size: 36px; }
-            .glass-nav { gap: 12px; padding: 12px; }
+            .glass-nav { gap: 8px 10px; padding: 10px 12px; }
+            .glass-nav a { font-size: 10px; letter-spacing: 1px; }
+        }
+        @media (max-width: 480px) {
+            .glass-nav a { font-size: 9px; letter-spacing: 0.5px; }
         }
 
         /* --- BUTTONS --- */
@@ -160,7 +166,7 @@
             font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500;
             text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: var(--transition); text-decoration: none;
         }
-        .btn-gold { background: var(--accent-gold); color: var(--white); }
+        .btn-gold { background: var(--accent-gold); color: #1A1A1A; }
         .btn-gold:hover { background: #B38E46; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--white); color: var(--white); }
         .btn-outline:hover { background: var(--white); color: var(--primary-dark); }
@@ -326,6 +332,7 @@
 
   <a href="index.html" class="active">Home</a>
   <a href="tours.html">Explore Tours</a>
+  <a href="about.html">About</a>
   <a href="#journalsSection">Journals</a>
   <a href="#contactSection">Concierge</a>
 
@@ -374,7 +381,7 @@
 <div class="reveal" style="max-width: 1100px; margin: 40px auto 10px auto; padding: 0 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
     <a href="tours.html#excursionsSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Excursions</a>
     <a href="tours.html#safariList" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Itineraries</a>
-    <button onclick="openAboutModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">About Us</button>
+    <a href="about.html" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">About Us</a>
     <button onclick="openWhyUsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Why Us</button>
     <button onclick="openSeasonalityModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Best Time to Visit</button>
     <button onclick="openGalleryModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Gallery</button>
@@ -440,12 +447,30 @@
     <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
         <a href="tel:+254743331598" class="btn btn-dark">Call Direct</a>
         <a href="mailto:info.liyatrailsandtours@zohomail.com" class="btn btn-dark">Email Us</a>
-        <a href="https://wa.me/254743331598" target="_blank" class="btn btn-whatsapp">WhatsApp Concierge</a>
+        <a href="https://wa.me/254743331598" target="_blank" rel="noopener" class="btn btn-whatsapp">WhatsApp Concierge</a>
     </div>
 </div>
 
+<!-- Newsletter / lead magnet -->
+<section class="reveal" id="newsletter" style="max-width: 700px; margin: 60px auto 20px; padding: 40px 28px; text-align: center; background: #151C18; border-radius: 16px; border: 1px solid rgba(183,211,194,0.12);">
+    <h3 class="playfair" style="color: #B7D3C2; font-size: 26px; margin-bottom: 10px;">Coastal Safari Guide 2026</h3>
+    <p style="color: #A0B0A8; font-size: 14px; margin-bottom: 22px;">Free guide: best months for dolphins, Great Migration timing from the coast, and what to pack.</p>
+    <form action="https://api.web3forms.com/submit" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+        <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
+        <input type="hidden" name="subject" value="Newsletter Signup - Coastal Safari Guide">
+        <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?newsletter=true">
+        <input type="email" name="email" placeholder="Your email address" required aria-label="Email" style="flex: 1; min-width: 220px; padding: 14px 18px; border: 1px solid #333; border-radius: 4px; background: #1A1F1B; color: #E8F1E5; font-family: Montserrat, sans-serif; font-size: 14px;">
+        <button type="submit" class="btn btn-gold" style="padding: 14px 24px;">Send Me the Guide</button>
+    </form>
+</section>
+
 <footer>
-    &copy; 2026 Liya Trails and Tours. Premium East African Safaris.<br><br>All rights reserved.
+        &copy; 2026 Liya Trails and Tours. Premium East African Safaris.<br><br>
+        <a href="index.html" style="color:#C5A059;text-decoration:none;margin:0 8px;">Home</a> ·
+        <a href="about.html" style="color:#C5A059;text-decoration:none;margin:0 8px;">About</a> ·
+        <a href="tours.html" style="color:#C5A059;text-decoration:none;margin:0 8px;">Tours</a> ·
+        <a href="#contactSection" style="color:#C5A059;text-decoration:none;margin:0 8px;">Contact</a>
+        <br><br>All rights reserved.
 </footer>
 
 <!-- MODALS -->
@@ -484,11 +509,12 @@
     <div class="modal-content" style="max-width: 450px; text-align: center;">
         <button class="close-btn" onclick="closeModal('liyaCircleModal')">&times;</button>
         <h2 style="color: var(--primary-dark); margin-bottom: 10px;">Liya Circle</h2>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive Member Portal for Past VIP Clients</p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive portal for past VIP clients</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6;">Access is verified by our concierge. Enter your registered email and we will open a secure WhatsApp channel to confirm your membership.</p>
         <div class="inquiry-form">
-            <input type="email" placeholder="Enter VIP Member Email" id="vipEmail">
-            <input type="password" placeholder="Access Code / Passkey" id="vipPass">
-            <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Access Digital Logs & Itineraries</button>
+            <input type="email" placeholder="VIP Member Email *" id="vipEmail">
+            <input type="password" placeholder="Passkey (if issued)" id="vipPass">
+            <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Request Access via WhatsApp</button>
         </div>
     </div>
 </div>
@@ -718,19 +744,19 @@ function switchWealthCurrency(currency) {
 function authenticateVipUser() {
     const email = document.getElementById('vipEmail').value;
     const pass = document.getElementById('vipPass').value;
-    const secretPasskey = "LIYA-VIP-2026"; 
 
     if (!email) {
         alert("Please enter your VIP registered email address.");
         return;
     }
 
-    if (pass === secretPasskey) {
-        closeModal('liyaCircleModal');
-        showVipDashboard(email);
-    } else {
-        alert("Invalid Passkey. Please verify your credentials or contact your private concierge via WhatsApp.");
-    }
+    // No client-side password — access is verified by concierge only
+    closeModal('liyaCircleModal');
+    const msg = encodeURIComponent(
+        "Hello Liya Trails Concierge, I am requesting Liya Circle access.\nEmail: " + email +
+        (pass ? "\n(I have a passkey on file.)" : "\nPlease send me access instructions.")
+    );
+    window.open("https://wa.me/254743331598?text=" + msg, "_blank");
 }
 
 function showVipDashboard(clientEmail) {
