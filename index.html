@@ -392,7 +392,7 @@
     <button onclick="openGeneralInquiryModal()" class="btn btn-gold" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Send Inquiry</button>
 
     <div style="text-align: center; margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; width: 100%;">
-        <button onclick="showModal('liyaCircleModal')" class="btn btn-gold" style="font-size: 10px; padding: 10px 20px;">🔒 Liya Circle (VIP Login)</button>
+        <button id="vipLoginBtn" onclick="openVipLogin()" class="btn btn-gold" style="font-size: 10px; padding: 10px 20px;">🔒 Liya Circle (VIP Login)</button>
     </div>
 </div>
 
@@ -508,9 +508,18 @@
 <div id="liyaCircleModal" class="modal">
     <div class="modal-content" style="max-width: 450px; text-align: center;">
         <button class="close-btn" onclick="closeModal('liyaCircleModal')">&times;</button>
-        <h2 style="color: var(--primary-dark); margin-bottom: 10px;">Liya Circle</h2>
+        <h2 style="color: #B7D3C2; margin-bottom: 10px;">Liya Circle</h2>
         <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 22px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive Member Portal for Past VIP Clients</p>
-        <div class="inquiry-form">
+        
+        <!-- Shown when a remembered session exists -->
+        <div id="vipSessionContinue" style="display: none; margin-bottom: 20px; padding: 16px; background: #1A231D; border-radius: 8px; border: 1px solid rgba(197,160,89,0.3);">
+            <p style="font-size: 13px; color: #A0B0A8; margin: 0 0 12px 0;">Welcome back</p>
+            <p id="vipSessionEmail" style="font-size: 15px; color: #B7D3C2; margin: 0 0 14px 0; font-weight: 500;"></p>
+            <button onclick="continueVipSession()" class="btn btn-gold" style="width: 100%; margin-bottom: 8px;">Continue to Dashboard</button>
+            <button onclick="logoutVip(true)" class="btn" style="width: 100%; background: transparent; border: 1px solid rgba(183,211,194,0.3); color: #A0B0A8; font-size: 11px; padding: 10px;">Use a different account</button>
+        </div>
+
+        <div id="vipLoginForm" class="inquiry-form">
             <input type="email" placeholder="VIP Member Email *" id="vipEmail">
             <input type="password" placeholder="Access Code / Passkey *" id="vipPass">
             <button onclick="authenticateVipUser()" class="btn btn-gold" style="width: 100%; margin-top: 15px;">Access Digital Logs & Itineraries</button>
@@ -537,7 +546,10 @@ function dismissPreloader() {
     }
 }
 
-window.addEventListener('load', dismissPreloader);
+window.addEventListener('load', function() {
+    dismissPreloader();
+    if (typeof updateVipButton === 'function') updateVipButton();
+});
 setTimeout(dismissPreloader, 2000);
 
 window.addEventListener('scroll', function() {
@@ -741,8 +753,151 @@ function switchWealthCurrency(currency) {
     }
 }
 
+/* ─── VIP Circle: persistent session + admin notification ─── */
+const VIP_STORAGE_KEY = 'liyaVipSession';
+
+/**
+ * BLOCKED EMAILS — add any address (lowercase) to deny Liya Circle access.
+ * After editing this list, redeploy the site for the change to take effect.
+ * Example: 'someone@example.com',
+ */
+const VIP_BLOCKED_EMAILS = [
+    'vickybonny733@gmail.com'
+];
+
+function isVipBlocked(email) {
+    if (!email) return false;
+    const normalized = String(email).trim().toLowerCase();
+    return VIP_BLOCKED_EMAILS.some(function (blocked) {
+        return blocked.trim().toLowerCase() === normalized;
+    });
+}
+
+function saveVipSession(email) {
+    try {
+        localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify({
+            email: email.trim().toLowerCase(),
+            loggedAt: new Date().toISOString()
+        }));
+    } catch (e) { /* private mode / quota */ }
+}
+
+function getVipSession() {
+    try {
+        const raw = localStorage.getItem(VIP_STORAGE_KEY);
+        if (!raw) return null;
+        const data = JSON.parse(raw);
+        return (data && data.email) ? data : null;
+    } catch (e) { return null; }
+}
+
+function clearVipSession() {
+    try { localStorage.removeItem(VIP_STORAGE_KEY); } catch (e) {}
+}
+
+function notifyVipLogin(email) {
+    /* Silent notification to your Web3Forms inbox so you know who signed in */
+    const formData = new FormData();
+    formData.append('access_key', '09b96f82-31bf-4b91-8ade-e1be9fd91f7f');
+    formData.append('subject', 'VIP Circle Login — ' + email);
+    formData.append('from_name', 'Liya Circle System');
+    formData.append('email', email);
+    formData.append('message',
+        'A member accessed Liya Circle.\n\n' +
+        'Email: ' + email + '\n' +
+        'Time: ' + new Date().toLocaleString('en-KE', { timeZone: 'Africa/Nairobi' }) + ' (EAT)\n\n' +
+        'This is an automated notification from the website.'
+    );
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+        .catch(function () { /* fail silently — never block the user */ });
+}
+
+function updateVipButton() {
+    const btn = document.getElementById('vipLoginBtn');
+    if (!btn) return;
+    const session = getVipSession();
+    if (session) {
+        btn.innerHTML = '🔒 VIP · ' + session.email.split('@')[0];
+        btn.title = 'Logged in as ' + session.email;
+    } else {
+        btn.innerHTML = '🔒 Liya Circle (VIP Login)';
+        btn.title = '';
+    }
+}
+
+function openVipLogin() {
+    const session = getVipSession();
+    const continueBox = document.getElementById('vipSessionContinue');
+    const loginForm = document.getElementById('vipLoginForm');
+    const emailDisplay = document.getElementById('vipSessionEmail');
+    const emailInput = document.getElementById('vipEmail');
+    const passInput = document.getElementById('vipPass');
+
+    /* If remembered email is now blocked, clear it and force login form */
+    if (session && isVipBlocked(session.email)) {
+        clearVipSession();
+        updateVipButton();
+        if (continueBox) continueBox.style.display = 'none';
+        if (loginForm) loginForm.style.display = 'block';
+        if (emailInput) emailInput.value = '';
+        if (passInput) passInput.value = '';
+        showModal('liyaCircleModal');
+        return;
+    }
+
+    if (session && continueBox && loginForm) {
+        continueBox.style.display = 'block';
+        loginForm.style.display = 'none';
+        if (emailDisplay) emailDisplay.textContent = session.email;
+    } else {
+        if (continueBox) continueBox.style.display = 'none';
+        if (loginForm) loginForm.style.display = 'block';
+        if (emailInput) emailInput.value = session ? session.email : '';
+        if (passInput) passInput.value = '';
+    }
+    showModal('liyaCircleModal');
+}
+
+function continueVipSession() {
+    const session = getVipSession();
+    if (session && session.email) {
+        if (isVipBlocked(session.email)) {
+            clearVipSession();
+            updateVipButton();
+            alert('Access for this account has been revoked. Please contact Concierge if you believe this is an error.');
+            openVipLogin();
+            return;
+        }
+        closeModal('liyaCircleModal');
+        showVipDashboard(session.email);
+    } else {
+        clearVipSession();
+        openVipLogin();
+    }
+}
+
+function logoutVip(fromModal) {
+    clearVipSession();
+    updateVipButton();
+    const dash = document.getElementById('vipDashboardModal');
+    if (dash) closeModal('vipDashboardModal');
+    if (fromModal) {
+        /* Switch the login modal to the form view */
+        const continueBox = document.getElementById('vipSessionContinue');
+        const loginForm = document.getElementById('vipLoginForm');
+        if (continueBox) continueBox.style.display = 'none';
+        if (loginForm) loginForm.style.display = 'block';
+        const emailInput = document.getElementById('vipEmail');
+        const passInput = document.getElementById('vipPass');
+        if (emailInput) emailInput.value = '';
+        if (passInput) passInput.value = '';
+    } else {
+        alert('You have been logged out of Liya Circle.');
+    }
+}
+
 function authenticateVipUser() {
-    const email = document.getElementById('vipEmail').value;
+    const email = (document.getElementById('vipEmail').value || '').trim();
     const pass = document.getElementById('vipPass').value;
     const secretPasskey = "LIYA-VIP-2026";
 
@@ -751,7 +906,17 @@ function authenticateVipUser() {
         return;
     }
 
+    if (isVipBlocked(email)) {
+        clearVipSession();
+        updateVipButton();
+        alert("Access for this account has been revoked. Please contact Concierge if you believe this is an error.");
+        return;
+    }
+
     if (pass === secretPasskey) {
+        saveVipSession(email);
+        notifyVipLogin(email);
+        updateVipButton();
         closeModal('liyaCircleModal');
         showVipDashboard(email);
     } else {
@@ -868,7 +1033,8 @@ function showVipDashboard(clientEmail) {
           <h3 style="font-size: 13px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Direct Concierge</h3>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;">
             <button onclick="window.open('https://wa.me/254743331598?text=' + encodeURIComponent('Hello Liya Trails Concierge — I am logged into Liya Circle (' + (document.getElementById('vipUserDisplay')?.innerText || '') + ').'))" class="btn btn-whatsapp" style="flex: 1; min-width: 140px; font-size: 11px; padding: 12px;">WhatsApp Concierge</button>
-            <button onclick="closeModal('vipDashboardModal')" class="btn" style="flex: 1; min-width: 120px; font-size: 11px; padding: 12px; background: transparent; border: 1px solid rgba(183,211,194,0.3); color: #B7D3C2;">Close</button>
+            <button onclick="closeModal('vipDashboardModal')" class="btn" style="flex: 1; min-width: 100px; font-size: 11px; padding: 12px; background: transparent; border: 1px solid rgba(183,211,194,0.3); color: #B7D3C2;">Close</button>
+            <button onclick="logoutVip(false)" class="btn" style="flex: 1; min-width: 100px; font-size: 11px; padding: 12px; background: transparent; border: 1px solid rgba(197,160,89,0.4); color: var(--accent-gold);">Logout</button>
           </div>
           <form action="https://api.web3forms.com/submit" method="POST" class="inquiry-form" style="background: #1A231D; padding: 16px; border-radius: 10px; border: 1px solid rgba(183,211,194,0.1);">
             <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
