@@ -189,9 +189,20 @@
         .chat-wa-hint { font-size: 11px; color: #888; text-align: center; padding: 0 12px 10px; margin: 0; }
         .chat-wa-hint a { color: #25D366; text-decoration: none; }
         @media (max-width: 480px) {
-            .chat-panel { right: 12px; bottom: 160px; width: calc(100vw - 24px); }
-            .chat-fab { right: 22px; bottom: 96px; }
-            .floating-whatsapp { right: 22px; bottom: 24px; }
+            .chat-panel {
+                right: 10px; left: 10px; width: auto; bottom: 150px;
+                height: min(420px, calc(100vh - 170px)); max-height: calc(100vh - 170px);
+            }
+            .chat-fab {
+                right: max(16px, env(safe-area-inset-right));
+                bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+                width: 52px; height: 52px;
+            }
+            .floating-whatsapp {
+                right: max(16px, env(safe-area-inset-right));
+                bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+                width: 52px; height: 52px;
+            }
         }
 
         /* --- HERO SECTION WITH VIDEO --- */
@@ -220,10 +231,40 @@
             .hero h1 { font-size: 36px; }
             .glass-nav { gap: 8px 10px; padding: 10px 12px; }
             .glass-nav a { font-size: 10px; letter-spacing: 1px; }
+            .custom-lang-select { font-size: 9px; padding: 5px 6px; max-width: 110px; }
         }
         @media (max-width: 480px) {
             .glass-nav a { font-size: 9px; letter-spacing: 0.5px; }
+            .custom-lang-select { font-size: 8px; padding: 4px 5px; max-width: 96px; }
+            #guideForm { flex-direction: column; align-items: stretch; }
+            #guideForm input, #guideForm button { width: 100%; min-width: 0; box-sizing: border-box; }
+            .excursion-card { min-width: 240px; max-width: 240px; }
+            .excursions-scroll-container { padding-bottom: 24px; -webkit-overflow-scrolling: touch; }
         }
+
+        /* Guest notes */
+        .guest-notes { max-width: 1100px; margin: 70px auto 10px; padding: 0 20px; }
+        .guest-notes-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px;
+        }
+        @media (max-width: 800px) {
+            .guest-notes-grid { grid-template-columns: 1fr; }
+        }
+        .guest-note {
+            background: #151C18; border: 1px solid rgba(183,211,194,0.12); border-radius: 12px;
+            padding: 26px 22px; position: relative;
+        }
+        .guest-note .quote-mark {
+            font-family: 'Playfair Display', serif; font-size: 42px; line-height: 1;
+            color: rgba(197,160,89,0.35); margin-bottom: 8px;
+        }
+        .guest-note p {
+            color: #C5D4CC; font-size: 14px; line-height: 1.65; margin: 0 0 18px 0; font-style: italic;
+        }
+        .guest-note .guest-meta {
+            font-size: 12px; color: var(--accent-gold); letter-spacing: 0.5px;
+        }
+        .guest-note .guest-meta span { color: #888; font-style: normal; }
 
         /* --- BUTTONS --- */
         .btn {
@@ -570,6 +611,31 @@
     </div>
 </section>
 
+<!-- GUEST NOTES -->
+<section class="guest-notes reveal" id="guestNotes">
+    <div class="section-header" style="margin: 40px 0 0 0;">
+        <h2>Guest Notes</h2>
+        <p>What travellers say after coast &amp; safari days with us</p>
+    </div>
+    <div class="guest-notes-grid">
+        <div class="guest-note">
+            <div class="quote-mark">“</div>
+            <p>Wasini was seamless from hotel pickup to the seafood lunch. Dolphins in the morning, clear briefing, and we never felt rushed. Exactly what we wanted from Diani.</p>
+            <div class="guest-meta">Sophie <span>· United Kingdom</span></div>
+        </div>
+        <div class="guest-note">
+            <div class="quote-mark">“</div>
+            <p>Private Tsavo East from our beach hotel — red elephants, no airport chaos. The guide knew when to stop and when to drive. We will come back for Amboseli next time.</p>
+            <div class="guest-meta">Wei <span>· China</span></div>
+        </div>
+        <div class="guest-note">
+            <div class="quote-mark">“</div>
+            <p>WhatsApp planning made everything easy before we landed. Clear quote, private vehicle, and someone always reachable. Felt like a real concierge, not a big tour desk.</p>
+            <div class="guest-meta">Marcus <span>· Germany</span></div>
+        </div>
+    </div>
+</section>
+
 <!-- FEATURED FROM THE COAST -->
 <section class="featured-dest reveal" id="featuredDestinations">
     <div class="section-header" style="margin: 40px 0 0 0;">
@@ -596,7 +662,7 @@
             </div>
         </a>
         <a href="amboseli-safari-from-mombasa.html" class="featured-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Amboseli_National_Park_and_Mt._Kilimanjaro.jpg/800px-Amboseli_National_Park_and_Mt._Kilimanjaro.jpg" alt="Amboseli safari from Mombasa with Kilimanjaro" loading="lazy">
+            <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/24667fd2-a950-4fc2-8ee9-4e065a99ab18.jpg" alt="Amboseli safari from Mombasa with Kilimanjaro" loading="lazy">
             <div class="fc-body">
                 <div class="fc-tag">Safari · Kilimanjaro</div>
                 <h3>Amboseli from Mombasa</h3>
