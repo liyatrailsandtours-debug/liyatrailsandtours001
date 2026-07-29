@@ -653,7 +653,7 @@
             </div>
         </a>
         <a href="tsavo-east-from-diani.html" class="featured-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Majestic_red_elephant_of_Tsavo_East_%285232098119%29.jpg" alt="Tsavo East safari from Diani" loading="lazy">
+            <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/2cfb75ec-fd49-42da-afa9-2761c977045e.jpg" alt="Tsavo East safari from Diani" loading="lazy">
             <div class="fc-body">
                 <div class="fc-tag">Safari · 2–3 days</div>
                 <h3>Tsavo East from Diani</h3>
@@ -842,10 +842,17 @@ function dismissPreloader() {
 }
 
 window.addEventListener('load', function() {
+    // Keep preloader visible for 2 seconds after the page has fully loaded
+    setTimeout(function() {
+        dismissPreloader();
+        if (typeof updateVipButton === 'function') updateVipButton();
+    }, 2000);
+});
+// Safety fallback if load event is delayed (e.g. slow images)
+setTimeout(function() {
     dismissPreloader();
     if (typeof updateVipButton === 'function') updateVipButton();
-});
-setTimeout(dismissPreloader, 2000);
+}, 6000);
 
 window.addEventListener('scroll', function() {
     const nav = document.getElementById('navbar');
