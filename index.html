@@ -447,34 +447,22 @@
             background: #0A2F1D !important;
             color: #fff !important;
         }
-        .goog-te-banner-frame, .goog-logo-link, .goog-te-gadget span { display: none !important; }
-        .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
-    </style>
-    
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,zh-CN,sw,fr,de,es,it',
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
+            
+        /* Hide Google Translate chrome — keep only our dropdown */
+        .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-te-gadget,
+        .goog-logo-link, .goog-te-balloon-frame, .skiptranslate,
+        iframe.goog-te-banner-frame { display: none !important; visibility: hidden !important; height: 0 !important; }
+        body { top: 0 !important; position: static !important; }
+        .goog-text-highlight { background: none !important; box-shadow: none !important; }
 
-      function changeLanguage(langCode) {
-        var selectField = document.querySelector(".goog-te-combo");
-        if (selectField) {
-          selectField.value = langCode;
-          selectField.dispatchEvent(new Event('change'));
-        }
-      }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </style>
+
 </head>
 <body>
 
 <div id="preloader">
     <div class="preloader-text">Liya Trails</div>
-    <div style="color: var(--white); font-size: 10px; letter-spacing: 3px; margin-top: 15px; text-transform: uppercase;">Curating your journey...</div>
+    <div style="color: var(--white); font-size: 10px; letter-spacing: 3px; margin-top: 15px; text-transform: uppercase;" data-i18n="preloader_sub">Curating your journey...</div>
 </div>
 
 <!-- Chatbot + WhatsApp (bottom right) -->
@@ -484,8 +472,8 @@
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Liya Trails chat">
     <div class="chat-header">
         <div>
-            <h4>Liya Concierge</h4>
-            <span>Quick answers · then WhatsApp</span>
+            <h4 data-i18n="chat_title">Liya Concierge</h4>
+            <span data-i18n="chat_sub">Quick answers · then WhatsApp</span>
         </div>
         <button type="button" class="chat-close" onclick="toggleChatPanel()" aria-label="Close">&times;</button>
     </div>
@@ -513,20 +501,20 @@
 <nav class="glass-nav" id="navbar">
   <a href="index.html" style="color: var(--accent-gold); font-family: 'Playfair Display', serif; font-size: 14px; letter-spacing: 2px; text-decoration: none; text-transform: none;">Liya Trails & Tours</a>
 
-  <a href="index.html" class="active">Home</a>
-  <a href="tours.html">Explore Tours</a>
-  <a href="about.html">About</a>
-  <a href="#journalsSection">Journals</a>
-  <a href="#contactSection">Concierge</a>
+  <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+  <a href="tours.html" data-i18n="nav_tours">Explore Tours</a>
+  <a href="about.html" data-i18n="nav_about">About</a>
+  <a href="#journalsSection" data-i18n="nav_journals">Journals</a>
+  <a href="#contactSection" data-i18n="nav_concierge">Concierge</a>
 
-  <select id="customLangDropdown" class="custom-lang-select" onchange="changeLanguage(this.value)" aria-label="Language">
+  <select id="customLangDropdown" class="custom-lang-select" onchange="setLanguage(this.value)" aria-label="Language">
     <option value="en">English</option>
-    <option value="zh-CN">中文 (Chinese)</option>
-    <option value="sw">Swahili</option>
-    <option value="fr">French</option>
-    <option value="de">German</option>
-    <option value="es">Spanish</option>
-    <option value="it">Italian</option>
+    <option value="sw">Kiswahili</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="de">Deutsch</option>
+    <option value="es">Español</option>
+    <option value="zh">中文</option>
   </select>
   <select id="wealthCurrencySelector" class="custom-lang-select" style="border-color: var(--accent-gold); color: var(--accent-gold);" onchange="switchWealthCurrency(this.value)" aria-label="Currency">
       <option value="EUR">EUR (€)</option>
@@ -551,40 +539,40 @@
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%); z-index: 2;"></div>
     
     <div class="hero-content" id="heroText" style="position: relative; z-index: 10; margin-bottom: 25px; padding: 0 20px;">
-      <span class="hero-tag" style="color: #d4af37; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 8px;">Liya Trails and Tours — Coast Base</span>
-      <h1 style="color: #D4AF37; font-size: clamp(24px, 3vw, 42px); font-weight: 600; line-height: 1.25; margin: 0;">Bespoke Marine Safaris & Luxury Expeditions</h1>
+      <span class="hero-tag" style="color: #d4af37; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 8px;" data-i18n="hero_tag">Liya Trails and Tours — Coast Base</span>
+      <h1 style="color: #D4AF37; font-size: clamp(24px, 3vw, 42px); font-weight: 600; line-height: 1.25; margin: 0;" data-i18n="hero_title">Bespoke Marine Safaris & Luxury Expeditions</h1>
     </div>
 
     <div style="position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1400px; padding: 0 50px; box-sizing: border-box;">
-        <a href="tours.html#excursionsSection" class="btn btn-gold" style="font-size: 10px; padding: 11px 22px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none;">Explore Excursions</a>
-        <a href="tours.html#safariList" class="btn btn-outline" style="font-size: 10px; padding: 11px 22px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: #fff; border-color: #fff;">View Itineraries</a>
+        <a href="tours.html#excursionsSection" class="btn btn-gold" style="font-size: 10px; padding: 11px 22px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none;" data-i18n="btn_explore_excursions">Explore Excursions</a>
+        <a href="tours.html#safariList" class="btn btn-outline" style="font-size: 10px; padding: 11px 22px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: #fff; border-color: #fff;" data-i18n="btn_view_itineraries">View Itineraries</a>
     </div>
 
   </div>
 </div>
 
 <div class="reveal" style="max-width: 1100px; margin: 40px auto 10px auto; padding: 0 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-    <a href="tours.html#excursionsSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Excursions</a>
-    <a href="tours.html#safariList" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Itineraries</a>
-    <a href="about.html" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">About Us</a>
-    <button onclick="openWhyUsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Why Us</button>
-    <button onclick="openSeasonalityModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Best Time to Visit</button>
-    <button onclick="openGalleryModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Gallery</button>
-    <button onclick="openFaqModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">FAQ</button>
-    <button onclick="openReviewsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Reviews</button>
-    <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Blog</button>
-    <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;">Concierge</a>
-    <button onclick="openGeneralInquiryModal()" class="btn btn-gold" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;">Send Inquiry</button>
+    <a href="tours.html#excursionsSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;" data-i18n="btn_excursions">Excursions</a>
+    <a href="tours.html#safariList" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;" data-i18n="btn_itineraries">Itineraries</a>
+    <a href="about.html" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;" data-i18n="btn_about_us">About Us</a>
+    <button onclick="openWhyUsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_why_us">Why Us</button>
+    <button onclick="openSeasonalityModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_best_time">Best Time to Visit</button>
+    <button onclick="openGalleryModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_gallery">Gallery</button>
+    <button onclick="openFaqModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_faq">FAQ</button>
+    <button onclick="openReviewsModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_reviews">Reviews</button>
+    <button onclick="openBlogModal()" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_blog">Blog</button>
+    <a href="#contactSection" class="btn btn-dark" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; text-decoration: none;" data-i18n="btn_concierge">Concierge</a>
+    <button onclick="openGeneralInquiryModal()" class="btn btn-gold" style="font-size: 10px; padding: 10px 18px; letter-spacing: 1.5px; border: none; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 500;" data-i18n="btn_send_inquiry">Send Inquiry</button>
 
     <div style="text-align: center; margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; width: 100%;">
-        <button id="vipLoginBtn" onclick="openVipLogin()" class="btn btn-gold" style="font-size: 10px; padding: 10px 20px;">🔒 Liya Circle (VIP Login)</button>
+        <button id="vipLoginBtn" onclick="openVipLogin()" class="btn btn-gold" style="font-size: 10px; padding: 10px 20px;" data-i18n="btn_vip_login">🔒 Liya Circle (VIP Login)</button>
     </div>
 </div>
 
 <!-- HOW WE WORK -->
 <section class="how-we-work reveal" id="howWeWork">
     <div class="section-header" style="margin: 40px 0 0 0;">
-        <h2>How We Work With You</h2>
+        <h2 data-i18n="sec_how">How We Work With You</h2>
         <p>A clear path from first message to your return home</p>
     </div>
     <div class="how-steps">
@@ -614,7 +602,7 @@
 <!-- GUEST NOTES -->
 <section class="guest-notes reveal" id="guestNotes">
     <div class="section-header" style="margin: 40px 0 0 0;">
-        <h2>Guest Notes</h2>
+        <h2 data-i18n="sec_guest_notes">Guest Notes</h2>
         <p>What travellers say after coast &amp; safari days with us</p>
     </div>
     <div class="guest-notes-grid">
@@ -639,7 +627,7 @@
 <!-- FEATURED FROM THE COAST -->
 <section class="featured-dest reveal" id="featuredDestinations">
     <div class="section-header" style="margin: 40px 0 0 0;">
-        <h2>Popular from the Coast</h2>
+        <h2 data-i18n="sec_featured">Popular from the Coast</h2>
         <p>Wasini · Tsavo East · Amboseli — direct from Diani &amp; Mombasa</p>
     </div>
     <div class="featured-dest-grid">
@@ -674,7 +662,7 @@
 </section>
 
 <div class="section-header reveal" id="journalsSection" style="margin-top: 80px;">
-    <h2>Travel Journals</h2>
+    <h2 data-i18n="sec_journals">Travel Journals</h2>
     <p>Stories &amp; Insights from Our Recent Expeditions</p>
 </div>
 
@@ -730,8 +718,8 @@
 </div>
 
 <div class="contact-section reveal" id="contactSection">
-    <h2 class="playfair" style="font-size: 36px; color: #B7D3C2; margin-bottom: 15px;">Begin Your Journey</h2>
-    <p style="color: #A0B0A8; margin-bottom: 40px; font-size: 16px;">Reach out to our concierge team to design your bespoke East African adventure.</p>
+    <h2 class="playfair" style="font-size: 36px; color: #B7D3C2; margin-bottom: 15px;" data-i18n="sec_begin">Begin Your Journey</h2>
+    <p style="color: #A0B0A8; margin-bottom: 40px; font-size: 16px;" data-i18n="contact_blurb">Reach out to our concierge team to design your bespoke East African adventure.</p>
     
     <p style="font-size: 16px; line-height: 2.2; color: #A0B0A8;">
         <strong style="color: #B7D3C2;">Phone:</strong> +254743331598 / +254790077602<br>
@@ -742,19 +730,19 @@
     </p>
 
     <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
-        <a href="tel:+254743331598" class="btn btn-dark">Call Direct</a>
-        <a href="mailto:info.liyatrailsandtours@zohomail.com" class="btn btn-dark">Email Us</a>
-        <a href="https://wa.me/254743331598" target="_blank" rel="noopener" class="btn btn-whatsapp">WhatsApp Concierge</a>
+        <a href="tel:+254743331598" class="btn btn-dark" data-i18n="btn_call">Call Direct</a>
+        <a href="mailto:info.liyatrailsandtours@zohomail.com" class="btn btn-dark" data-i18n="btn_email">Email Us</a>
+        <a href="https://wa.me/254743331598" target="_blank" rel="noopener" class="btn btn-whatsapp" data-i18n="btn_wa">WhatsApp Concierge</a>
     </div>
 </div>
 
 <!-- Newsletter / lead magnet -->
 <section class="reveal" id="newsletter" style="max-width: 700px; margin: 60px auto 20px; padding: 40px 28px; text-align: center; background: #151C18; border-radius: 16px; border: 1px solid rgba(183,211,194,0.12);">
-    <h3 class="playfair" style="color: #B7D3C2; font-size: 26px; margin-bottom: 10px;">Coastal Safari Guide 2026</h3>
-    <p style="color: #A0B0A8; font-size: 14px; margin-bottom: 22px;">Free guide: best months for dolphins, Great Migration timing from the coast, and what to pack.</p>
+    <h3 class="playfair" style="color: #B7D3C2; font-size: 26px; margin-bottom: 10px;" data-i18n="guide_title">Coastal Safari Guide 2026</h3>
+    <p style="color: #A0B0A8; font-size: 14px; margin-bottom: 22px;" data-i18n="guide_blurb">Free guide: best months for dolphins, Great Migration timing from the coast, and what to pack.</p>
     <form id="guideForm" onsubmit="return submitGuideForm(event)" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-        <input type="email" id="guideEmail" name="email" placeholder="Your email address" required aria-label="Email" style="flex: 1; min-width: 220px; padding: 14px 18px; border: 1px solid #333; border-radius: 4px; background: #1A1F1B; color: #E8F1E5; font-family: Montserrat, sans-serif; font-size: 14px;">
-        <button type="submit" id="guideSubmitBtn" class="btn btn-gold" style="padding: 14px 24px;">Send Me the Guide</button>
+        <input type="email" id="guideEmail" name="email" placeholder="Your email address" data-i18n-placeholder="guide_email_ph" required aria-label="Email" style="flex: 1; min-width: 220px; padding: 14px 18px; border: 1px solid #333; border-radius: 4px; background: #1A1F1B; color: #E8F1E5; font-family: Montserrat, sans-serif; font-size: 14px;">
+        <button type="submit" id="guideSubmitBtn" class="btn btn-gold" style="padding: 14px 24px;" data-i18n="btn_guide">Send Me the Guide</button>
     </form>
     <p id="guideFormMsg" style="display:none; margin-top: 18px; font-size: 14px; color: #B7D3C2; line-height: 1.6;"></p>
 </section>
@@ -803,8 +791,8 @@
 <div id="liyaCircleModal" class="modal">
     <div class="modal-content" style="max-width: 450px; text-align: center;">
         <button class="close-btn" onclick="closeModal('liyaCircleModal')">&times;</button>
-        <h2 style="color: #B7D3C2; margin-bottom: 10px;">Liya Circle</h2>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 22px; text-transform: uppercase; letter-spacing: 1.5px;">Exclusive Member Portal for Past VIP Clients</p>
+        <h2 style="color: #B7D3C2; margin-bottom: 10px;" data-i18n="vip_title">Liya Circle</h2>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 22px; text-transform: uppercase; letter-spacing: 1.5px;" data-i18n="vip_sub">Exclusive Member Portal for Past VIP Clients</p>
         
         <!-- Shown when a remembered session exists -->
         <div id="vipSessionContinue" style="display: none; margin-bottom: 20px; padding: 16px; background: #1A231D; border-radius: 8px; border: 1px solid rgba(197,160,89,0.3);">
@@ -1594,5 +1582,67 @@ function submitGuideForm(e) {
     return false;
 }
 </script>
+
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,sw,fr,it,de,es,zh-CN',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  function setLanguage(code) {
+    var googleCode = (code === 'zh') ? 'zh-CN' : code;
+    try { localStorage.setItem('liyaLang', code); } catch (e) {}
+    var sel = document.getElementById('customLangDropdown');
+    if (sel && sel.value !== code) sel.value = code;
+    function apply() {
+      var field = document.querySelector('.goog-te-combo');
+      if (!field) return false;
+      if (field.value !== googleCode) {
+        field.value = googleCode;
+        field.dispatchEvent(new Event('change'));
+      }
+      return true;
+    }
+    if (!apply()) {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (apply() || n > 40) clearInterval(t);
+      }, 250);
+    }
+  }
+  (function restoreLang() {
+    var saved = 'en';
+    try { saved = localStorage.getItem('liyaLang') || 'en'; } catch (e) {}
+    if (!saved || saved === 'en') return;
+    function tryRestore() {
+      if (document.querySelector('.goog-te-combo')) {
+        setLanguage(saved);
+        return true;
+      }
+      return false;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var n = 0;
+        var t = setInterval(function () {
+          n++;
+          if (tryRestore() || n > 40) clearInterval(t);
+        }, 250);
+      });
+    } else {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (tryRestore() || n > 40) clearInterval(t);
+      }, 250);
+    }
+  })();
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
 </body>
 </html>
