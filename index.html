@@ -414,7 +414,7 @@
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({
           pageLanguage: 'en',
-          includedLanguages: 'en,sw,fr,de,es,it',
+          includedLanguages: 'en,zh-CN,sw,fr,de,es,it',
           autoDisplay: false
         }, 'google_translate_element');
       }
@@ -478,21 +478,23 @@
   <a href="#journalsSection">Journals</a>
   <a href="#contactSection">Concierge</a>
 
-  <select id="customLangDropdown" class="custom-lang-select" onchange="changeLanguage(this.value)">
+  <select id="customLangDropdown" class="custom-lang-select" onchange="changeLanguage(this.value)" aria-label="Language">
     <option value="en">English</option>
+    <option value="zh-CN">中文 (Chinese)</option>
     <option value="sw">Swahili</option>
     <option value="fr">French</option>
     <option value="de">German</option>
     <option value="es">Spanish</option>
     <option value="it">Italian</option>
   </select>
-  <select id="wealthCurrencySelector" class="custom-lang-select" style="border-color: var(--accent-gold); color: var(--accent-gold);" onchange="switchWealthCurrency(this.value)">
+  <select id="wealthCurrencySelector" class="custom-lang-select" style="border-color: var(--accent-gold); color: var(--accent-gold);" onchange="switchWealthCurrency(this.value)" aria-label="Currency">
       <option value="EUR">EUR (€)</option>
       <option value="USD">USD ($)</option>
       <option value="GBP">GBP (£)</option>
+      <option value="YUAN">CNY (¥)</option>
       <option value="AED">AED (د.إ)</option>
       <option value="KES">KES (KSH)</option>
-      <option value="USDT">USDT (Stable)</option>
+      <option value="USDT">USDT</option>
   </select>
 
   <div id="google_translate_element" style="display:none;"></div>
