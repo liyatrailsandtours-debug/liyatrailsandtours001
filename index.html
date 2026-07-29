@@ -120,14 +120,79 @@
         /* --- FLOATING WHATSAPP WIDGET --- */
         .floating-whatsapp {
             position: fixed; bottom: 30px; right: 30px; z-index: 1500;
-            background: #25D366; color: var(--white); width: 60px; height: 60px;
+            background: #25D366; color: var(--white); width: 56px; height: 56px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            font-size: 28px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
             transition: var(--transition); text-decoration: none;
             animation: bounce 3s infinite ease-in-out;
         }
         .floating-whatsapp:hover { transform: scale(1.1); background: #1eb956; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-8px);} 60% {transform: translateY(-4px);} }
+
+        /* Chatbot near WhatsApp */
+        .chat-fab {
+            position: fixed; bottom: 100px; right: 30px; z-index: 1500;
+            width: 56px; height: 56px; border-radius: 50%; border: none; cursor: pointer;
+            background: var(--accent-gold); color: #1A1A1A;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.35);
+            transition: var(--transition);
+        }
+        .chat-fab:hover { transform: scale(1.08); background: #B38E46; }
+        .chat-fab.open { background: #1E2721; color: #B7D3C2; }
+        .chat-panel {
+            position: fixed; bottom: 170px; right: 30px; z-index: 1501;
+            width: 340px; max-width: calc(100vw - 24px);
+            height: 420px; max-height: calc(100vh - 200px);
+            background: #151C18; border-radius: 16px;
+            border: 1px solid rgba(183,211,194,0.15);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            display: none; flex-direction: column; overflow: hidden;
+            opacity: 0; transform: translateY(12px); transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .chat-panel.show { display: flex; opacity: 1; transform: translateY(0); }
+        .chat-header {
+            background: #0A2F1D; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid rgba(183,211,194,0.1);
+        }
+        .chat-header h4 { margin: 0; color: #B7D3C2; font-family: 'Playfair Display', serif; font-size: 16px; }
+        .chat-header span { font-size: 11px; color: #A0B0A8; display: block; margin-top: 2px; }
+        .chat-close { background: transparent; border: none; color: #A0B0A8; font-size: 20px; cursor: pointer; line-height: 1; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .chat-bubble { max-width: 88%; padding: 10px 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+        .chat-bubble.bot { background: #1A231D; color: #E8F1E5; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-bubble.user { background: rgba(197,160,89,0.2); color: #E8F1E5; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px; }
+        .chat-quick button {
+            background: transparent; border: 1px solid rgba(183,211,194,0.3); color: #B7D3C2;
+            font-size: 11px; padding: 6px 10px; border-radius: 20px; cursor: pointer; font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+        .chat-quick button:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .chat-input-row {
+            display: flex; gap: 8px; padding: 12px; border-top: 1px solid rgba(183,211,194,0.1); background: #1A231D;
+        }
+        .chat-input-row input {
+            flex: 1; border: 1px solid #333; border-radius: 8px; padding: 10px 12px;
+            background: #151C18; color: #E8F1E5; font-family: 'Montserrat', sans-serif; font-size: 13px; outline: none;
+        }
+        .chat-input-row input:focus { border-color: var(--accent-gold); }
+        .chat-input-row button {
+            border: none; border-radius: 8px; padding: 10px 12px;
+            font-size: 11px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px;
+            font-family: 'Montserrat', sans-serif; white-space: nowrap;
+        }
+        .chat-btn-send { background: var(--accent-gold); color: #1A1A1A; }
+        .chat-btn-send:hover { background: #B38E46; }
+        .chat-btn-wa { background: #25D366; color: #fff; }
+        .chat-btn-wa:hover { background: #1eb956; }
+        .chat-wa-hint { font-size: 11px; color: #888; text-align: center; padding: 0 12px 10px; margin: 0; }
+        .chat-wa-hint a { color: #25D366; text-decoration: none; }
+        @media (max-width: 480px) {
+            .chat-panel { right: 12px; bottom: 160px; width: calc(100vw - 24px); }
+            .chat-fab { right: 22px; bottom: 96px; }
+            .floating-whatsapp { right: 22px; bottom: 24px; }
+        }
 
         /* --- HERO SECTION WITH VIDEO --- */
         .hero {
@@ -371,8 +436,37 @@
     <div style="color: var(--white); font-size: 10px; letter-spacing: 3px; margin-top: 15px; text-transform: uppercase;">Curating your journey...</div>
 </div>
 
-<a href="https://wa.me/254743331598?text=Hello%20Liya%20Trails%20Concierge,%20I%20would%20like%20to%20inquire%20about%20your%20tours." target="_blank" class="floating-whatsapp" title="Chat on WhatsApp">
-    <svg width="34" height="34" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+<!-- Chatbot + WhatsApp (bottom right) -->
+<button type="button" class="chat-fab" id="chatFab" onclick="toggleChatPanel()" title="Chat with Liya Trails" aria-label="Open chat">
+    <svg id="chatFabIcon" width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+</button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Liya Trails chat">
+    <div class="chat-header">
+        <div>
+            <h4>Liya Concierge</h4>
+            <span>Quick answers · then WhatsApp</span>
+        </div>
+        <button type="button" class="chat-close" onclick="toggleChatPanel()" aria-label="Close">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="chat-bubble bot">Karibu — welcome to Liya Trails. Ask about Wasini, Tsavo, Amboseli, prices, or best time to visit. For bookings we connect you on WhatsApp.</div>
+    </div>
+    <div class="chat-quick" id="chatQuick">
+        <button type="button" onclick="chatQuick('Wasini Island day trip')">Wasini day trip</button>
+        <button type="button" onclick="chatQuick('Tsavo East from Diani')">Tsavo from Diani</button>
+        <button type="button" onclick="chatQuick('Amboseli safari')">Amboseli</button>
+        <button type="button" onclick="chatQuick('Best time to visit')">Best time</button>
+        <button type="button" onclick="chatQuick('How do I book?')">How to book</button>
+    </div>
+    <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Type a message..." maxlength="500" onkeydown="if(event.key==='Enter')chatSend()">
+        <button type="button" class="chat-btn-send" onclick="chatSend()">Send</button>
+        <button type="button" class="chat-btn-wa" onclick="chatToWhatsApp()" title="Continue on WhatsApp">WA</button>
+    </div>
+    <p class="chat-wa-hint">Chat here first — or <a href="https://wa.me/254743331598?text=Hello%20Liya%20Trails%20Concierge" target="_blank" rel="noopener">open WhatsApp</a> anytime</p>
+</div>
+<a href="https://wa.me/254743331598?text=Hello%20Liya%20Trails%20Concierge,%20I%20would%20like%20to%20inquire%20about%20your%20tours." target="_blank" class="floating-whatsapp" title="Chat on WhatsApp" aria-label="WhatsApp">
+    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
 </a>
 
 <nav class="glass-nav" id="navbar">
@@ -491,7 +585,7 @@
             </div>
         </a>
         <a href="tsavo-east-from-diani.html" class="featured-card">
-            <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/2cfb75ec-fd49-42da-afa9-2761c977045e.jpg" alt="Tsavo East safari from Diani" loading="lazy">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Majestic_red_elephant_of_Tsavo_East_%285232098119%29.jpg" alt="Tsavo East safari from Diani" loading="lazy">
             <div class="fc-body">
                 <div class="fc-tag">Safari · 2–3 days</div>
                 <h3>Tsavo East from Diani</h3>
@@ -500,7 +594,7 @@
             </div>
         </a>
         <a href="amboseli-safari-from-mombasa.html" class="featured-card">
-            <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/24667fd2-a950-4fc2-8ee9-4e065a99ab18.jpg" alt="Amboseli safari from Mombasa with Kilimanjaro" loading="lazy">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Amboseli_National_Park_and_Mt._Kilimanjaro.jpg/800px-Amboseli_National_Park_and_Mt._Kilimanjaro.jpg" alt="Amboseli safari from Mombasa with Kilimanjaro" loading="lazy">
             <div class="fc-body">
                 <div class="fc-tag">Safari · Kilimanjaro</div>
                 <h3>Amboseli from Mombasa</h3>
@@ -1216,6 +1310,153 @@ window.onclick = function(event) {
     if (event.target.classList.contains('modal')) { 
         closeModal(event.target.id); 
     } 
+}
+
+/* ─── Lightweight chat (FAQ + WhatsApp handoff) ─── */
+function toggleChatPanel() {
+    const panel = document.getElementById('chatPanel');
+    const fab = document.getElementById('chatFab');
+    if (!panel) return;
+    const open = panel.classList.contains('show');
+    if (open) {
+        panel.classList.remove('show');
+        setTimeout(function() { panel.style.display = 'none'; }, 250);
+        if (fab) fab.classList.remove('open');
+    } else {
+        panel.style.display = 'flex';
+        setTimeout(function() { panel.classList.add('show'); }, 10);
+        if (fab) fab.classList.add('open');
+    }
+}
+
+function chatAddBubble(text, who) {
+    const box = document.getElementById('chatMessages');
+    if (!box) return;
+    const div = document.createElement('div');
+    div.className = 'chat-bubble ' + who;
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}
+
+function chatPick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function chatReply(userText) {
+    const raw = (userText || '').trim();
+    const t = raw.toLowerCase();
+    let reply = '';
+
+    if (/^(hi+|hello|hey+|yo|hola|hallo|karibu|jambo|habari|good\s*(morning|afternoon|evening)|howdy)[\s!.,?]*$/i.test(raw) ||
+        (/^(hi|hello|hey)\b/.test(t) && t.length < 24)) {
+        reply = chatPick([
+            'Hi there — welcome to Liya Trails. How can I help you today?',
+            'Hello! Good to meet you. Looking for a beach day, a safari, or a bit of both?',
+            'Karibu! I am the Liya Concierge assistant. Ask me anything about our coast and safari trips.',
+            'Hey — thanks for stopping by. What kind of journey are you dreaming of?'
+        ]);
+    } else if (/how are you|how's it going|how r u|how are u/.test(t)) {
+        reply = chatPick([
+            'Doing well, thank you — ready to help plan your Kenya trip. What are you curious about?',
+            'All good on the coast! How can I help you today?'
+        ]);
+    } else if (/thank|thanks|asante|thx/.test(t)) {
+        reply = chatPick([
+            'You are very welcome. Anything else I can help with?',
+            'Happy to help. When you are ready to lock dates, WhatsApp is the fastest way to reach the team.'
+        ]);
+    } else if (/bye|goodbye|see you|later|tutaonana/.test(t)) {
+        reply = chatPick([
+            'Safe travels — we hope to host you on the Kenyan coast soon.',
+            'Take care! Message us anytime on WhatsApp when you are ready to book.'
+        ]);
+    } else if (/who are you|what are you|are you (a )?bot|are you real|human/.test(t)) {
+        reply = 'I am the Liya Trails website assistant — I can answer common questions about our tours. For bookings and personal planning, our real concierge team replies on WhatsApp.';
+    } else if (/wasini|dolphin|snorkel|kisite|island day|dhow/.test(t)) {
+        reply = chatPick([
+            'Wasini is one of our favourites: a full day with dolphin watching, snorkeling in Kisite Mpunguti, a boat or dhow run, and Swahili seafood lunch on the island. We pick up from Diani, Ukunda or Shimoni. Want the full day-trip page, or shall we talk dates on WhatsApp?',
+            'For Wasini: expect wild dolphins on many mornings, reef time in the marine park, and a relaxed lunch on the island. Private or shared options depending on the day. Tell me your hotel area and rough date if you would like next steps.'
+        ]);
+    } else if (/tsavo|red elephant/.test(t)) {
+        reply = chatPick([
+            'Tsavo East is perfect from the coast — private 4x4, red elephants, open plains, usually 2–3 days, no domestic flight from Diani or Mombasa. Lodge nights are full board on our standard packages. Which month were you thinking?',
+            'From Diani you can be in Tsavo East for afternoon game drives the same day. It is our most natural short safari from the south coast. Happy to outline a sample itinerary if you share group size and dates.'
+        ]);
+    } else if (/amboseli|kilimanjaro|kili\b/.test(t)) {
+        reply = chatPick([
+            'Amboseli is the classic elephant-and-Kilimanjaro landscape. We arrange private trips from Mombasa or Diani so beach and safari fit in one holiday. Clear mountain views depend on weather, but the herds are reliable. When are you hoping to travel?',
+            'For Amboseli we focus on private 4x4, swamp-edge game drives and lodge stays with those big Kilimanjaro views on good mornings. Tell me your dates and we will shape a coast-to-Amboseli plan.'
+        ]);
+    } else if (/mara|masai mara|maasai/.test(t)) {
+        reply = 'We do longer circuits that can include the Masai Mara (often combined with Amboseli or the coast). It is a bigger trip than a short Tsavo run — usually needs internal flights or longer road days. Share your total trip length and we can suggest a realistic route.';
+    } else if (/fish|marlin|sailfish|fishing/.test(t)) {
+        reply = 'Deep-sea fishing from Diani is a strong half- or full-day option — marlin, sailfish and tuna depending on season. Charters are usually private. July through March is often more reliable for offshore days. Want an intro to what a fishing day looks like, or jump to WhatsApp for rates?';
+    } else if (/best time|when to (go|visit|come)|season|weather|rain|climate/.test(t)) {
+        reply = 'For the coast and marine days, roughly July to March brings calmer seas and lovely beach weather. Safaris work year-round; the drier months often mean easier game viewing. Shoulder periods can be quieter and good value. Which month are you considering?';
+    } else if (/price|cost|how much|rate|expensive|cheap|budget|quote/.test(t)) {
+        reply = 'Pricing depends on dates, group size, private vs shared, and lodges. We do not publish one fixed number here because every trip is tailored — but we always send a clear quote with inclusions before you commit. Message dates and number of travellers on WhatsApp and the team will reply with figures.';
+    } else if (/book|reserv|deposit|pay|payment|confirm/.test(t)) {
+        reply = 'Booking is simple: you share dates and interests, we send a custom quote, then a deposit holds lodges and boats. Balance is agreed before travel. WhatsApp is the fastest path — or use the inquiry form on the site. What dates did you have in mind?';
+    } else if (/where are you|location|based|office|diani|mombasa|coast/.test(t)) {
+        reply = 'We are based on the Kenyan coast — Diani / Mombasa region — so marine days and short safaris like Tsavo are our everyday territory. Pickups are usually from south-coast hotels.';
+    } else if (/contact|phone|whatsapp|email|call|reach/.test(t)) {
+        reply = 'You can reach the real team anytime on WhatsApp at +254 743 331 598, or email info.liyatrailsandtours@zohomail.com. The green button opens WhatsApp with a pre-filled hello.';
+    } else if (/family|kids|children|child/.test(t)) {
+        reply = 'We regularly host families. Wasini works well if kids are comfortable in the water (snorkeling is optional). Safaris are private 4x4 so we can pace the day. Tell us ages and we will suggest a gentle plan.';
+    } else if (/private|shared|group|alone|couple|honeymoon/.test(t)) {
+        reply = 'Most of our safaris are private by default. Marine days can be private charter or shared departure depending on the date. Couples and honeymoons are very common — we can keep the pace romantic and unhurried.';
+    } else if (/include|what's included|what is included|exclusion/.test(t)) {
+        reply = 'Standard packages list inclusions clearly — typically guides, park or marine fees, transport or boat, and meals as stated (for example full board on multi-day safaris). Extras like tips, drinks or optional activities are noted separately. Check the package page or ask us for a specific trip.';
+    } else if (/recommend|suggest|what should|ideas|options|tour|package|safari|trip|excursion/.test(t)) {
+        reply = chatPick([
+            'Happy to help narrow it down. A classic combo is one Wasini marine day plus a short Tsavo East safari from Diani. If you want Kilimanjaro views, Amboseli is the one. How many days do you have, and is it just beach, just wildlife, or both?',
+            'If you only have one free day: Wasini. If you have 2–3 days inland: Tsavo East from the coast. Longer stays can add Amboseli or fishing. What is your rough timeline?'
+        ]);
+    } else if (/^(ok|okay|sure|yes|yeah|yep|cool|great|nice|perfect|sounds good)[\s!.,]*$/i.test(raw)) {
+        reply = chatPick([
+            'Great. When you are ready, share dates or tap WhatsApp so the team can take over with a real quote.',
+            'Perfect. Anything else you would like to know before you message the concierge?'
+        ]);
+    } else if (/^(no|nope|not really)[\s!.,]*$/i.test(raw)) {
+        reply = 'No problem. I am here if a question comes up — or say hi on WhatsApp whenever you like.';
+    } else {
+        reply = chatPick([
+            'I want to make sure I help properly. Are you asking about a marine day (Wasini), a short safari (Tsavo), Amboseli, prices, or best time to visit? Or type a bit more detail and I will do my best.',
+            'I might need a little more context. You can ask about Wasini, Tsavo East, Amboseli, fishing, seasons, or how booking works. For anything personal or urgent, WhatsApp reaches our human team fastest.'
+        ]);
+    }
+
+    const delay = 450 + Math.floor(Math.random() * 550);
+    setTimeout(function() { chatAddBubble(reply, 'bot'); }, delay);
+}
+
+function chatQuick(label) {
+    chatAddBubble(label, 'user');
+    chatReply(label);
+}
+
+function chatSend() {
+    const input = document.getElementById('chatInput');
+    const text = (input && input.value) ? input.value.trim() : '';
+    if (!text) return;
+    chatAddBubble(text, 'user');
+    if (input) input.value = '';
+    chatReply(text);
+}
+
+function chatToWhatsApp() {
+    const input = document.getElementById('chatInput');
+    const text = (input && input.value) ? input.value.trim() : '';
+    const msg = text
+        ? 'Hello Liya Trails Concierge — from the website chat:\n\n' + text
+        : 'Hello Liya Trails Concierge, I would like to inquire about your tours.';
+    if (text) {
+        chatAddBubble(text, 'user');
+        if (input) input.value = '';
+        chatReply(text);
+    }
+    window.open('https://wa.me/254743331598?text=' + encodeURIComponent(msg), '_blank');
 }
 </script>
 </body>
