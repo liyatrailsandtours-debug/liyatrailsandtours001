@@ -684,13 +684,11 @@
 <section class="reveal" id="newsletter" style="max-width: 700px; margin: 60px auto 20px; padding: 40px 28px; text-align: center; background: #151C18; border-radius: 16px; border: 1px solid rgba(183,211,194,0.12);">
     <h3 class="playfair" style="color: #B7D3C2; font-size: 26px; margin-bottom: 10px;">Coastal Safari Guide 2026</h3>
     <p style="color: #A0B0A8; font-size: 14px; margin-bottom: 22px;">Free guide: best months for dolphins, Great Migration timing from the coast, and what to pack.</p>
-    <form action="https://api.web3forms.com/submit" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-        <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
-        <input type="hidden" name="subject" value="Newsletter Signup - Coastal Safari Guide">
-        <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/?newsletter=true">
-        <input type="email" name="email" placeholder="Your email address" required aria-label="Email" style="flex: 1; min-width: 220px; padding: 14px 18px; border: 1px solid #333; border-radius: 4px; background: #1A1F1B; color: #E8F1E5; font-family: Montserrat, sans-serif; font-size: 14px;">
-        <button type="submit" class="btn btn-gold" style="padding: 14px 24px;">Send Me the Guide</button>
+    <form id="guideForm" onsubmit="return submitGuideForm(event)" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+        <input type="email" id="guideEmail" name="email" placeholder="Your email address" required aria-label="Email" style="flex: 1; min-width: 220px; padding: 14px 18px; border: 1px solid #333; border-radius: 4px; background: #1A1F1B; color: #E8F1E5; font-family: Montserrat, sans-serif; font-size: 14px;">
+        <button type="submit" id="guideSubmitBtn" class="btn btn-gold" style="padding: 14px 24px;">Send Me the Guide</button>
     </form>
+    <p id="guideFormMsg" style="display:none; margin-top: 18px; font-size: 14px; color: #B7D3C2; line-height: 1.6;"></p>
 </section>
 
 <footer>
@@ -1457,6 +1455,68 @@ function chatToWhatsApp() {
         chatReply(text);
     }
     window.open('https://wa.me/254743331598?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* Coastal Safari Guide — notify admin + deliver PDF to guest */
+function submitGuideForm(e) {
+    e.preventDefault();
+    const emailInput = document.getElementById('guideEmail');
+    const btn = document.getElementById('guideSubmitBtn');
+    const msg = document.getElementById('guideFormMsg');
+    const email = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+    if (!email) return false;
+
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+    }
+
+    const formData = new FormData();
+    formData.append('access_key', '09b96f82-31bf-4b91-8ade-e1be9fd91f7f');
+    formData.append('subject', 'Coastal Safari Guide 2026 — new request');
+    formData.append('from_name', 'Liya Trails Website');
+    formData.append('email', email);
+    formData.append('message',
+        'Someone requested the Coastal Safari Guide 2026.\n\n' +
+        'Email: ' + email + '\n\n' +
+        'Please forward or confirm the guide was delivered.\n' +
+        'Guide PDF: https://liyatrailandtours.vercel.app/Coastal_Safari_Guide_2026.pdf'
+    );
+
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (msg) {
+                msg.style.display = 'block';
+                msg.innerHTML = 'Thank you! Your <strong>Coastal Safari Guide 2026</strong> is ready.<br>' +
+                    '<a href="Coastal_Safari_Guide_2026.pdf" download="Coastal_Safari_Guide_2026.pdf" style="color:var(--accent-gold);">Download the PDF</a> · ' +
+                    '<a href="Coastal_Safari_Guide_2026.pdf" target="_blank" rel="noopener" style="color:var(--accent-gold);">Open in browser</a>';
+            }
+            // Trigger download for the guest
+            const a = document.createElement('a');
+            a.href = 'Coastal_Safari_Guide_2026.pdf';
+            a.download = 'Coastal_Safari_Guide_2026.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Send Me the Guide';
+            }
+            if (emailInput) emailInput.value = '';
+        })
+        .catch(function() {
+            if (msg) {
+                msg.style.display = 'block';
+                msg.innerHTML = 'You can still get the guide here: ' +
+                    '<a href="Coastal_Safari_Guide_2026.pdf" download style="color:var(--accent-gold);">Download Coastal Safari Guide 2026</a>';
+            }
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Send Me the Guide';
+            }
+        });
+    return false;
 }
 </script>
 </body>
