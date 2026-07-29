@@ -183,6 +183,54 @@
 }
         .section-header p { color: var(--accent-gold); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-top: 15px; }
 
+        /* --- HOW WE WORK 4-STEP --- */
+        .how-we-work {
+            max-width: 1100px; margin: 70px auto 20px auto; padding: 0 20px;
+        }
+        .how-steps {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 28px;
+        }
+        @media (max-width: 800px) {
+            .how-steps { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .how-steps { grid-template-columns: 1fr; }
+        }
+        .how-step {
+            background: #151C18; border: 1px solid rgba(183,211,194,0.12); border-radius: 12px;
+            padding: 28px 22px; text-align: center; position: relative; transition: var(--transition);
+        }
+        .how-step:hover { border-color: rgba(197,160,89,0.4); transform: translateY(-4px); }
+        .how-step-num {
+            width: 36px; height: 36px; border-radius: 50%; background: rgba(197,160,89,0.15);
+            color: var(--accent-gold); font-family: 'Playfair Display', serif; font-size: 16px;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto;
+            border: 1px solid rgba(197,160,89,0.35);
+        }
+        .how-step h3 { color: #B7D3C2; font-size: 16px; margin-bottom: 8px; }
+        .how-step p { color: #A0B0A8; font-size: 13px; line-height: 1.6; margin: 0; }
+
+        /* Featured coast destinations */
+        .featured-dest { max-width: 1100px; margin: 70px auto 10px auto; padding: 0 20px; }
+        .featured-dest-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 28px;
+        }
+        @media (max-width: 800px) {
+            .featured-dest-grid { grid-template-columns: 1fr; }
+        }
+        .featured-card {
+            background: #151C18; border-radius: 12px; overflow: hidden;
+            border: 1px solid rgba(183,211,194,0.12); text-decoration: none; color: inherit;
+            display: flex; flex-direction: column; transition: var(--transition);
+        }
+        .featured-card:hover { transform: translateY(-6px); border-color: rgba(197,160,89,0.45); box-shadow: 0 16px 40px rgba(0,0,0,0.25); }
+        .featured-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .featured-card .fc-body { padding: 20px 18px 22px; flex-grow: 1; display: flex; flex-direction: column; }
+        .featured-card .fc-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-gold); margin-bottom: 8px; }
+        .featured-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #B7D3C2; margin: 0 0 10px 0; }
+        .featured-card p { font-size: 13px; color: #A0B0A8; line-height: 1.6; margin: 0 0 16px 0; flex-grow: 1; }
+        .featured-card .fc-link { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--accent-gold); }
+
         .excursions-wrapper { max-width: 1100px; margin: auto; padding: 0 20px; position: relative; }
         .excursions-scroll-container { 
             display: flex; overflow-x: auto; gap: 20px; padding: 20px 5px 40px 5px; 
@@ -396,9 +444,76 @@
     </div>
 </div>
 
-<div class="section-header reveal" id="journalsSection" style="margin-top: 60px;">
+<!-- HOW WE WORK -->
+<section class="how-we-work reveal" id="howWeWork">
+    <div class="section-header" style="margin: 40px 0 0 0;">
+        <h2>How We Work With You</h2>
+        <p>A clear path from first message to your return home</p>
+    </div>
+    <div class="how-steps">
+        <div class="how-step">
+            <div class="how-step-num">1</div>
+            <h3>Inquire</h3>
+            <p>WhatsApp, email, or the form — tell us dates, group size, and what you want to experience on the coast or inland.</p>
+        </div>
+        <div class="how-step">
+            <div class="how-step-num">2</div>
+            <h3>Customize</h3>
+            <p>We shape a private itinerary around your pace, lodges, dietary needs, and whether you prefer shared or fully private transport.</p>
+        </div>
+        <div class="how-step">
+            <div class="how-step-num">3</div>
+            <h3>Confirm &amp; Deposit</h3>
+            <p>You receive a clear quote with inclusions. A deposit secures lodges, boats, and park permits. Balance terms are agreed before travel.</p>
+        </div>
+        <div class="how-step">
+            <div class="how-step-num">4</div>
+            <h3>Travel</h3>
+            <p>Your guide or captain meets you on the day. Concierge stays reachable by WhatsApp for the whole journey and after you return.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED FROM THE COAST -->
+<section class="featured-dest reveal" id="featuredDestinations">
+    <div class="section-header" style="margin: 40px 0 0 0;">
+        <h2>Popular from the Coast</h2>
+        <p>Wasini · Tsavo East · Amboseli — direct from Diani &amp; Mombasa</p>
+    </div>
+    <div class="featured-dest-grid">
+        <a href="wasini-island-day-trip.html" class="featured-card">
+            <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Wasini Island day trip from Diani" loading="lazy">
+            <div class="fc-body">
+                <div class="fc-tag">Marine · Full day</div>
+                <h3>Wasini Island Day Trip</h3>
+                <p>Dolphins, Kisite snorkeling, dhow and Swahili seafood lunch — from Diani, Ukunda or Shimoni.</p>
+                <span class="fc-link">View day trip →</span>
+            </div>
+        </a>
+        <a href="tsavo-east-from-diani.html" class="featured-card">
+            <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/2cfb75ec-fd49-42da-afa9-2761c977045e.jpg" alt="Tsavo East safari from Diani" loading="lazy">
+            <div class="fc-body">
+                <div class="fc-tag">Safari · 2–3 days</div>
+                <h3>Tsavo East from Diani</h3>
+                <p>Red elephants and open plains by private 4×4 — no domestic flight required from the south coast.</p>
+                <span class="fc-link">View safari →</span>
+            </div>
+        </a>
+        <a href="amboseli-safari-from-mombasa.html" class="featured-card">
+            <img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/24667fd2-a950-4fc2-8ee9-4e065a99ab18.jpg" alt="Amboseli safari from Mombasa with Kilimanjaro" loading="lazy">
+            <div class="fc-body">
+                <div class="fc-tag">Safari · Kilimanjaro</div>
+                <h3>Amboseli from Mombasa</h3>
+                <p>Elephant herds under Mount Kilimanjaro — private coast-to-Amboseli expeditions.</p>
+                <span class="fc-link">View expedition →</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<div class="section-header reveal" id="journalsSection" style="margin-top: 80px;">
     <h2>Travel Journals</h2>
-    <p>Stories & Insights from Our Recent Expeditions</p>
+    <p>Stories &amp; Insights from Our Recent Expeditions</p>
 </div>
 
 <div class="excursion-controls reveal">
@@ -409,25 +524,45 @@
 <div class="excursions-wrapper reveal">
     <div class="excursions-scroll-container" id="journalsScroll">
         
-        <div class="excursion-card" onclick="openJournalModal('The Diani Marine Retreat', 'https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/cda77cb0-b73b-4962-9e91-12313ec9f9dc.jpg', 'Our recent excursion to Diani Beach was nothing short of spectacular. The warm Indian Ocean waters provided the perfect backdrop for our marine safaris. Guests enjoyed exclusive snorkeling sessions, discovering vibrant coral reefs teeming with life. In the evening, the sunset over the coast painted the sky in brilliant hues of orange and purple.')">
-            <div class="card-img-wrap"><img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/cda77cb0-b73b-4962-9e91-12313ec9f9dc.jpg" alt="Diani Marine Retreat" class="card-img"></div>
+        <a href="journal-marine-parks.html" class="excursion-card" style="text-decoration:none; color:inherit;">
+            <div class="card-img-wrap"><img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/cda77cb0-b73b-4962-9e91-12313ec9f9dc.jpg" alt="Kenyan Coast Marine Parks" class="card-img"></div>
             <div class="card-body">
-                <div class="meta-info" style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">Coastal Excursion • Recent Log</div>
-                <div class="title" style="font-size:16px;">The Diani Marine Retreat</div>
-                <div class="desc" style="font-size:13px;">Read about our marine excursion, wild dolphin sightings, and coral reef snorkeling adventures.</div>
-                <button class="btn btn-dark" style="margin-top: 15px; width: 100%; font-size: 10px; padding: 10px;">Read Journal</button>
+                <div class="meta-info" style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">Guide · Snorkeling</div>
+                <div class="title" style="font-size:16px;">Top 5 Marine Parks on the Kenyan Coast</div>
+                <div class="desc" style="font-size:13px;">Kisite Mpunguti, Mombasa Marine Park, Watamu and more — where to snorkel and dive.</div>
+                <span class="btn btn-dark" style="margin-top: 15px; width: 100%; font-size: 10px; padding: 10px; display:block; text-align:center; box-sizing:border-box;">Read Journal</span>
             </div>
-        </div>
+        </a>
 
-        <div class="excursion-card" onclick="openJournalModal('Tracking Elephants in Tsavo East', 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e', 'An immersive journey into Kenya’s largest national park with our expert guiding team. We tracked herds of dust-red elephants along the Galana River, spotted prides of lions resting under acacia trees, and enjoyed luxury bush dinners under the starlit African sky.')">
-            <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e" alt="Tsavo Safari" class="card-img"></div>
+        <a href="journal-deep-sea-fishing.html" class="excursion-card" style="text-decoration:none; color:inherit;">
+            <div class="card-img-wrap"><img src="https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/251da215-2821-48a3-9e7a-ccd76e75e18f.jpg" alt="Deep sea fishing Diani" class="card-img"></div>
             <div class="card-body">
-                <div class="meta-info" style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">Wildlife Safari • Field Notes</div>
-                <div class="title" style="font-size:16px;">Tracking Elephants in Tsavo</div>
-                <div class="desc" style="font-size:13px;">An immersive journey into Kenya's largest national park, featuring big game tracking and bush dinners.</div>
-                <button class="btn btn-dark" style="margin-top: 15px; width: 100%; font-size: 10px; padding: 10px;">Read Journal</button>
+                <div class="meta-info" style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">Guide · Sport Fishing</div>
+                <div class="title" style="font-size:16px;">Deep Sea Fishing in Diani</div>
+                <div class="desc" style="font-size:13px;">Marlin, sailfish and tuna — seasons, what to expect, and how a day on the water runs.</div>
+                <span class="btn btn-dark" style="margin-top: 15px; width: 100%; font-size: 10px; padding: 10px; display:block; text-align:center; box-sizing:border-box;">Read Journal</span>
             </div>
-        </div>
+        </a>
+
+        <a href="journal-wasini-island.html" class="excursion-card" style="text-decoration:none; color:inherit;">
+            <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800" alt="Wasini Island dhow" class="card-img"></div>
+            <div class="card-body">
+                <div class="meta-info" style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">Guide · Island Day</div>
+                <div class="title" style="font-size:16px;">A Day on Wasini Island</div>
+                <div class="desc" style="font-size:13px;">Dolphins, dhows, Kisite reefs and Swahili seafood — our most requested coastal day.</div>
+                <span class="btn btn-dark" style="margin-top: 15px; width: 100%; font-size: 10px; padding: 10px; display:block; text-align:center; box-sizing:border-box;">Read Journal</span>
+            </div>
+        </a>
+
+        <a href="journal-tsavo-east.html" class="excursion-card" style="text-decoration:none; color:inherit;">
+            <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e" alt="Tsavo East elephants" class="card-img"></div>
+            <div class="card-body">
+                <div class="meta-info" style="font-size:10px; color:var(--text-muted); margin-bottom:8px;">Field Notes · Safari</div>
+                <div class="title" style="font-size:16px;">Tracking Elephants in Tsavo East</div>
+                <div class="desc" style="font-size:13px;">Red elephants, Galana River and why a 3-day run from Diani works so well.</div>
+                <span class="btn btn-dark" style="margin-top: 15px; width: 100%; font-size: 10px; padding: 10px; display:block; text-align:center; box-sizing:border-box;">Read Journal</span>
+            </div>
+        </a>
 
     </div>
 </div>
@@ -706,17 +841,22 @@ function openBlogModal() {
   document.getElementById("infoModalTitle").innerText = "Travel Journal & Blog";
   document.getElementById("infoModalBody").innerHTML = `
     <div class="day-box" style="margin-top:0;">
-      <div class="day-title">Top 5 Marine Parks & Snorkeling Spots on the Kenyan Coast</div>
-      <div style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">Explore Kisite Mpunguti, Mombasa Marine National Park, Watamu, and more hidden underwater paradises.</div>
+      <div class="day-title"><a href="journal-marine-parks.html" style="color:#B7D3C2; text-decoration:none;">Top 5 Marine Parks &amp; Snorkeling Spots on the Kenyan Coast →</a></div>
+      <div style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">Kisite Mpunguti, Mombasa Marine National Park, Watamu and more — full guide.</div>
     </div>
     <div class="day-box">
-      <div class="day-title">Deep Sea Fishing in Diani: What to Expect on Your Marlin Quest</div>
-      <div style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">Essential tips, seasonal insights, and big-game sports fishing highlights in the Indian Ocean deep channels.</div>
+      <div class="day-title"><a href="journal-deep-sea-fishing.html" style="color:#B7D3C2; text-decoration:none;">Deep Sea Fishing in Diani →</a></div>
+      <div style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">Marlin seasons, what a day looks like, and how to book from the south coast.</div>
     </div>
     <div class="day-box">
-      <div class="day-title">A Day on Wasini Island: Dolphins, Dhows & Swahili Seafood</div>
-      <div style="font-size:14px; color:var(--text-muted);">An insider look at one of our most beloved coastal excursions combining wild marine life with authentic Swahili culture.</div>
+      <div class="day-title"><a href="journal-wasini-island.html" style="color:#B7D3C2; text-decoration:none;">A Day on Wasini Island →</a></div>
+      <div style="font-size:14px; color:var(--text-muted); margin-bottom:10px;">Dolphins, dhows, Kisite reefs and Swahili seafood lunch.</div>
     </div>
+    <div class="day-box">
+      <div class="day-title"><a href="journal-tsavo-east.html" style="color:#B7D3C2; text-decoration:none;">Tracking Elephants in Tsavo East →</a></div>
+      <div style="font-size:14px; color:var(--text-muted);">Red elephants from Diani — why a short safari works so well.</div>
+    </div>
+    <p style="text-align:center; margin-top:20px;"><a href="tours.html" class="btn btn-gold" style="font-size:11px; padding:12px 20px;">Browse All Tours</a></p>
   `;
   showModal('infoModal');
 }
