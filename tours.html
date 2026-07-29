@@ -330,35 +330,22 @@
             .modal-img { height: 220px; }
         }
 
-        .goog-te-banner-frame, .goog-logo-link, .goog-te-gadget span { display: none !important; }
-        .goog-te-gadget { color: transparent !important; font-size: 0 !important; }
+            
+        /* Hide Google Translate chrome — keep only our dropdown */
+        .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-te-gadget,
+        .goog-logo-link, .goog-te-balloon-frame, .skiptranslate,
+        iframe.goog-te-banner-frame { display: none !important; visibility: hidden !important; height: 0 !important; }
+        body { top: 0 !important; position: static !important; }
+        .goog-text-highlight { background: none !important; box-shadow: none !important; }
+
     </style>
-    
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        try {
-          new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'en,zh-CN,sw,fr,de,es,it',
-            autoDisplay: false
-          }, 'google_translate_element');
-        } catch(e) { console.warn("Google translate deferred"); }
-      }
-      function changeLanguage(langCode) {
-        var selectField = document.querySelector(".goog-te-combo");
-        if (selectField) {
-          selectField.value = langCode;
-          selectField.dispatchEvent(new Event('change'));
-        }
-      }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
 </head>
 <body>
 
 <div id="preloader">
     <div class="preloader-text">Liya Trails</div>
-    <div style="color: #B7D3C2; font-size: 10px; letter-spacing: 3px; margin-top: 15px; text-transform: uppercase;">Loading Destinations...</div>
+    <div style="color: #B7D3C2; font-size: 10px; letter-spacing: 3px; margin-top: 15px; text-transform: uppercase;" data-i18n="preloader_sub">Loading Destinations...</div>
 </div>
 
 <script>
@@ -385,20 +372,20 @@
 <nav class="glass-nav" id="navbar">
   <a href="index.html" class="nav-brand">Liya Trails & Tours</a>
   <div class="nav-links-secondary">
-    <a href="index.html">Home</a>
-    <a href="tours.html" class="active">Explore Tours</a>
-    <a href="about.html">About</a>
-    <a href="index.html#journalsSection">Journals</a>
-    <a href="index.html#contactSection">Concierge</a>
-    <select id="customLangDropdown" class="custom-lang-select" onchange="changeLanguage(this.value)" aria-label="Language">
-      <option value="en">English</option>
-      <option value="zh-CN">中文 (Chinese)</option>
-      <option value="sw">Swahili</option>
-      <option value="fr">French</option>
-      <option value="de">German</option>
-      <option value="es">Spanish</option>
-      <option value="it">Italian</option>
-    </select>
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="tours.html" class="active" data-i18n="nav_tours">Explore Tours</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
+    <a href="index.html#journalsSection" data-i18n="nav_journals">Journals</a>
+    <a href="index.html#contactSection" data-i18n="nav_concierge">Concierge</a>
+    <select id="customLangDropdown" class="custom-lang-select" onchange="setLanguage(this.value)" aria-label="Language">
+    <option value="en">English</option>
+    <option value="sw">Kiswahili</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="de">Deutsch</option>
+    <option value="es">Español</option>
+    <option value="zh">中文</option>
+  </select>
     <select id="wealthCurrencySelector" class="custom-lang-select" style="border-color: var(--accent-gold); color: var(--accent-gold);" onchange="switchWealthCurrency(this.value)" aria-label="Currency">
         <option value="EUR">EUR (€)</option>
         <option value="USD">USD ($)</option>
@@ -409,17 +396,17 @@
         <option value="USDT">USDT</option>
     </select>
   </div>
-  <div id="google_translate_element" style="display:none;"></div>
+<div id="google_translate_element" style="display:none;"></div>
 </nav>
 
 <div class="tours-banner">
-    <h1>Our Safaris & Coastal Excursions</h1>
-    <p>Curated day trips, ocean safaris, and multi-day East African wilderness expeditions</p>
+    <h1 data-i18n="banner_title">Our Safaris & Coastal Excursions</h1>
+    <p data-i18n="banner_sub">Curated day trips, ocean safaris, and multi-day East African wilderness expeditions</p>
 </div>
 
 <div class="section-header reveal" id="excursionsSection">
-    <h2>Exclusive Coastal Experiences</h2>
-    <p>Day trips and ocean adventures — clear from-pricing</p>
+    <h2 data-i18n="sec_excursions">Exclusive Coastal Experiences</h2>
+    <p data-i18n="sec_excursions_sub">Day trips and ocean adventures — clear from-pricing</p>
 </div>
 
 <div class="excursion-controls reveal">
@@ -434,15 +421,15 @@
 </div>
 
 <div class="section-header reveal" id="safariList">
-    <h2>Multi-Day Safaris & Cultural Escapes</h2>
-    <p>Handcrafted itineraries · Private or shared · Transparent inclusions</p>
+    <h2 data-i18n="sec_safaris">Multi-Day Safaris & Cultural Escapes</h2>
+    <p data-i18n="sec_safaris_sub">Handcrafted itineraries · Private or shared · Transparent inclusions</p>
 </div>
 
 <div class="controls-bar reveal">
     <div class="filter-buttons">
-        <button class="filter-btn active" onclick="filterSafaris('all', this)">All Experiences</button>
-        <button class="filter-btn" onclick="filterSafaris('short', this)">Short Escapes</button>
-        <button class="filter-btn" onclick="filterSafaris('multi', this)">Multi-Day Safaris</button>
+        <button class="filter-btn active" onclick="filterSafaris('all', this)" data-i18n="filter_all">All Experiences</button>
+        <button class="filter-btn" onclick="filterSafaris('short', this)" data-i18n="filter_short">Short Escapes</button>
+        <button class="filter-btn" onclick="filterSafaris('multi', this)" data-i18n="filter_multi">Multi-Day Safaris</button>
     </div>
 </div>
 
@@ -450,14 +437,14 @@
 
 <!-- Newsletter -->
 <section class="newsletter-section reveal" id="newsletter">
-    <h3 class="playfair">Coastal Safari Guide 2026</h3>
-    <p>Get our free guide: best months for dolphins, migration timing, and packing lists for the Kenyan coast.</p>
+    <h3 class="playfair" data-i18n="guide_title">Coastal Safari Guide 2026</h3>
+    <p data-i18n="guide_blurb">Get our free guide: best months for dolphins, migration timing, and packing lists for the Kenyan coast.</p>
     <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="09b96f82-31bf-4b91-8ade-e1be9fd91f7f">
         <input type="hidden" name="subject" value="Newsletter Signup - Coastal Safari Guide">
         <input type="hidden" name="redirect" value="https://liyatrailandtours.vercel.app/tours.html?newsletter=true">
-        <input type="email" name="email" placeholder="Your email address" required aria-label="Email for newsletter">
-        <button type="submit" class="btn btn-gold">Send Me the Guide</button>
+        <input type="email" name="email" placeholder="Your email address" data-i18n-placeholder="guide_email_ph" required aria-label="Email for newsletter">
+        <button type="submit" class="btn btn-gold" data-i18n="btn_guide">Send Me the Guide</button>
     </form>
 </section>
 
@@ -885,7 +872,7 @@ function openModal(index) {
     <button class="btn btn-gold" onclick="openInquiryModal('${cleanName}', '${priceStr}')">Custom Inquiry</button>
     <button class="btn" style="background: transparent; color: #B7D3C2; border: 1px solid rgba(183,211,194,0.4);" onclick="toggleShareMenu(${index})">Share Package</button>
     <div id="shareMenu-${index}" style="display: none; width: 100%; margin-top: 10px; background: #1A231D; padding: 15px; border-radius: 8px; border: 1px solid #333; text-align: left;">
-        <p style="font-size: 12px; font-weight: bold; margin-bottom: 10px; color: #B7D3C2; text-transform: uppercase; letter-spacing: 1px;">Share:</p>
+        <p style="font-size: 12px; font-weight: bold; margin-bottom: 10px; color: #B7D3C2; text-transform: uppercase; letter-spacing: 1px;">Share to:</p>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <a href="https://api.whatsapp.com/send?text=${encodeURIComponent('Check out: ' + pkg.name + ' - ' + window.location.origin + window.location.pathname + '?safari=' + index)}" target="_blank" rel="noopener" class="btn" style="background: #25D366; color: white; font-size: 11px; padding: 8px 12px; flex: 1; text-align: center; text-decoration: none; border-radius: 4px;">WhatsApp</a>
             <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + window.location.pathname + '?safari=' + index)}" target="_blank" rel="noopener" class="btn" style="background: #1877F2; color: white; font-size: 11px; padding: 8px 12px; flex: 1; text-align: center; text-decoration: none; border-radius: 4px;">Facebook</a>
@@ -1039,5 +1026,67 @@ window.onclick = function(event) {
     } 
 }
 </script>
+
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,sw,fr,it,de,es,zh-CN',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  function setLanguage(code) {
+    var googleCode = (code === 'zh') ? 'zh-CN' : code;
+    try { localStorage.setItem('liyaLang', code); } catch (e) {}
+    var sel = document.getElementById('customLangDropdown');
+    if (sel && sel.value !== code) sel.value = code;
+    function apply() {
+      var field = document.querySelector('.goog-te-combo');
+      if (!field) return false;
+      if (field.value !== googleCode) {
+        field.value = googleCode;
+        field.dispatchEvent(new Event('change'));
+      }
+      return true;
+    }
+    if (!apply()) {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (apply() || n > 40) clearInterval(t);
+      }, 250);
+    }
+  }
+  (function restoreLang() {
+    var saved = 'en';
+    try { saved = localStorage.getItem('liyaLang') || 'en'; } catch (e) {}
+    if (!saved || saved === 'en') return;
+    function tryRestore() {
+      if (document.querySelector('.goog-te-combo')) {
+        setLanguage(saved);
+        return true;
+      }
+      return false;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var n = 0;
+        var t = setInterval(function () {
+          n++;
+          if (tryRestore() || n > 40) clearInterval(t);
+        }, 250);
+      });
+    } else {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (tryRestore() || n > 40) clearInterval(t);
+      }, 250);
+    }
+  })();
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
 </body>
 </html>
