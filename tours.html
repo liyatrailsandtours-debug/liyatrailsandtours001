@@ -1161,7 +1161,65 @@ window.onclick = function(event) {
 </script>
 
 
-<script src="lang.js"></script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,sw,fr,it,de,es,zh-CN',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  function setLanguage(code) {
+    var googleCode = (code === 'zh') ? 'zh-CN' : code;
+    try { localStorage.setItem('liyaLang', code); } catch (e) {}
+    var sel = document.getElementById('customLangDropdown');
+    if (sel && sel.value !== code) sel.value = code;
+    function apply() {
+      var field = document.querySelector('.goog-te-combo');
+      if (!field) return false;
+      if (field.value !== googleCode) {
+        field.value = googleCode;
+        field.dispatchEvent(new Event('change'));
+      }
+      return true;
+    }
+    if (!apply()) {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (apply() || n > 40) clearInterval(t);
+      }, 250);
+    }
+  }
+  (function restoreLang() {
+    var saved = 'en';
+    try { saved = localStorage.getItem('liyaLang') || 'en'; } catch (e) {}
+    if (!saved || saved === 'en') return;
+    function tryRestore() {
+      if (document.querySelector('.goog-te-combo')) {
+        setLanguage(saved);
+        return true;
+      }
+      return false;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var n = 0;
+        var t = setInterval(function () {
+          n++;
+          if (tryRestore() || n > 40) clearInterval(t);
+        }, 250);
+      });
+    } else {
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        if (tryRestore() || n > 40) clearInterval(t);
+      }, 250);
+    }
+  })();
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 
 </body>
 </html>
