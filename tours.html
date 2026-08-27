@@ -436,7 +436,7 @@ html body footer.liya-footer-v20 .footer-focus { color:#cbd6cf !important; }
 <nav class="glass-nav" id="navbar">
 <a class="nav-brand" href="index.html">Liya Trails &amp; Tours</a>
 <div class="nav-links-secondary">
-<a data-i18n="nav_home" href="index.html">Home</a>
+<a data-i18n="nav_home" href="index.html">Home</a> <a href="gallery.html">Gallery</a>
 <a class="active" data-i18n="nav_tours" href="tours.html">Explore Tours</a>
 <a data-i18n="nav_about" href="about.html">About</a>
 <a data-i18n="nav_journals" href="index.html#journalsSection">Journals</a>
@@ -463,7 +463,9 @@ html body footer.liya-footer-v20 .footer-focus { color:#cbd6cf !important; }
 <div id="google_translate_element" style="display:none;"></div>
 </nav>
 <div class="tours-banner">
-<h1 data-i18n="banner_title">Coast, city &amp; classic private Kenya journeys</h1>
+<h1 data-i18n="banner_title">Coast, city &amp; classic private Kenya journeys</h1><figure class="wildlife-feature-image" style="margin:24px 0;border-radius:10px;overflow:hidden;">
+<img src="https://wild-wings-safaris.com/uploads/files/red_elephants_tsavo.jpg" alt="Kenya safari wildlife" loading="lazy" decoding="async" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;">
+</figure><div class="fee-inclusion-note" style="margin:14px 0 24px;padding:14px 16px;border:1px solid rgba(197,160,89,.45);border-radius:10px;background:rgba(197,160,89,.08);font-size:.94rem;line-height:1.55;"><strong>Included in our quoted rates:</strong> all applicable entry, park, reserve, marine and conservancy fees for the experience, unless a specific package states otherwise.</div>
 <p data-i18n="banner_sub">City breaks · Marine days · Coastal adventures · Classic safaris · Private by default</p>
 </div>
 <div class="section-header reveal" id="excursionsSection">
@@ -585,8 +587,8 @@ const EXCURSIONS_DATA = {
     desc: "A city-edge wildlife drive for rhinos, giraffes, buffalo, lions, plains game and birdlife, with Nairobi's skyline nearby.",
     image: "https://images.pexels.com/photos/29506597/pexels-photo-29506597.jpeg?auto=compress&cs=tinysrgb&w=1400",
     highlights: ["Game Drive", "Rhino & Giraffe Viewing", "Nairobi Skyline", "Private Guide"],
-    includedList: ["Hotel or airport pickup", "Private safari vehicle", "Professional guide"],
-    excludedList: ["Park entry fees", "Meals unless requested", "Tips"],
+    includedList: ["Hotel or airport pickup", "Private safari vehicle", "Professional guide", "Applicable entry, park, reserve or marine fees"],
+    excludedList: ["Meals unless requested", "Tips"],
     addons: ["Airport layover safari", "Giraffe Centre", "Elephant nursery visit"]
   },
   "Giraffe Centre Nairobi": {
@@ -595,8 +597,8 @@ const EXCURSIONS_DATA = {
     desc: "A close-up conservation experience with Rothschild's giraffes in Nairobi's Karen district, ideal for families and short city stays.",
     image: "https://images.pexels.com/photos/29506595/pexels-photo-29506595.jpeg?auto=compress&cs=tinysrgb&w=1400",
     highlights: ["Giraffe Viewing", "Conservation", "Family Friendly", "Karen Area"],
-    includedList: ["Transport on request", "Guide on request"],
-    excludedList: ["Entry fees", "Meals", "Tips"],
+    includedList: ["Transport on request", "Guide on request", "Applicable entry, park, reserve or marine fees"],
+    excludedList: ["Meals", "Tips"],
     addons: ["Nairobi National Park", "Karen Blixen Museum", "City tour"]
   },
   "Mombasa Old Town & Fort Jesus": {
@@ -605,8 +607,8 @@ const EXCURSIONS_DATA = {
     desc: "Explore Fort Jesus, Swahili architecture, historic streets, local markets and the old harbour with a knowledgeable local guide.",
     image: "https://cdn.publish0x.com/prod/fs/cachedimages/4004191306-52595a6ad9c0c28e20d03d2ea9ac9369b2d9e3522a47c16c1dd7ea2e71612445.jpeg",
     highlights: ["Fort Jesus", "Old Town Streets", "Swahili Heritage", "Local Markets"],
-    includedList: ["Professional guide", "Hotel pickup on request"],
-    excludedList: ["Entrance fees", "Lunch", "Tips"],
+    includedList: ["Professional guide", "Hotel pickup on request", "Applicable entry, park, reserve or marine fees"],
+    excludedList: ["Lunch", "Tips"],
     addons: ["Swahili lunch", "Spice market visit", "Old harbour walk"]
   },
   "Haller Park Mombasa": {
@@ -615,8 +617,8 @@ const EXCURSIONS_DATA = {
     desc: "A nature and wildlife escape in Mombasa featuring giraffes, hippos, antelope, reptiles, botanical trails and conservation stories.",
     image: "https://tuliabackpackers.com/img/whattodo/haller1.jpg",
     highlights: ["Giraffes", "Wildlife Trails", "Nature", "Conservation"],
-    includedList: ["Transport on request", "Guide on request"],
-    excludedList: ["Entry fees", "Meals", "Tips"],
+    includedList: ["Transport on request", "Guide on request", "Applicable entry, park, reserve or marine fees"],
+    excludedList: ["Meals", "Tips"],
     addons: ["Mombasa city tour", "Fort Jesus", "Marine park"]
   },
   "Mombasa Marine National Park": {
@@ -625,8 +627,8 @@ const EXCURSIONS_DATA = {
     desc: "Explore coral gardens and tropical marine life by glass-bottom boat, with snorkeling and time on the coast.",
     image: "https://media.holidify.com/images/cmsuploads/compressed/glassbottom210_20240724123201.jpg",
     highlights: ["Glass Bottom Boat", "Coral Gardens", "Snorkeling", "Marine Life"],
-    includedList: ["Boat", "Guide", "Snorkeling equipment on request"],
-    excludedList: ["Marine park fees", "Meals", "Tips"],
+    includedList: ["Boat", "Guide", "Snorkeling equipment on request", "Applicable entry, park, reserve or marine fees"],
+    excludedList: ["Meals", "Tips"],
     addons: ["Private boat", "Hotel transfer"]
   },
   "Wasini Island Dolphin & Snorkeling Experience": {
@@ -644,8 +646,8 @@ const EXCURSIONS_DATA = {
     desc: "A coastal rainforest safari focused on the rare sable antelope, forest elephants, scenic viewpoints and Sheldrick Falls.",
     image: "https://cdn.getyourguide.com/image/format%3Dauto%2Cfit%3Dcrop%2Cgravity%3Dcenter%2Cquality%3D60%2Cwidth%3D800%2Cheight%3D530%2Cdpr%3D2/tour_img/64a6875cafcbc.jpeg",
     highlights: ["Sable Antelope", "Forest Elephants", "Sheldrick Falls", "Ocean Viewpoints"],
-    includedList: ["Private vehicle", "Guide", "Hotel pickup on request"],
-    excludedList: ["Reserve fees", "Meals", "Tips"], addons: ["Nature walk", "Picnic lunch"]
+    includedList: ["Private vehicle", "Guide", "Hotel pickup on request", "Applicable entry, park, reserve or marine fees"],
+    excludedList: ["Meals", "Tips"], addons: ["Nature walk", "Picnic lunch"]
   },
   "Diani Coastal Quad Bike Adventure": {
     name: "Diani Coastal Quad Adventure", destination: "Diani Beach Hinterlands", duration: "1 to 3 Hours",
@@ -653,7 +655,7 @@ const EXCURSIONS_DATA = {
     desc: "Ride through coastal tracks, villages, palm groves and inland trails on a guided off-road quad adventure.",
     image: "https://i.supaimg.com/99f906e2-b2f9-4bba-8596-159093413c12/3cf33737-4c7a-4076-8e37-4943054a085a.jpg",
     highlights: ["Quad Biking", "Village Trails", "Coastal Hinterland", "Safety Briefing"],
-    includedList: ["Quad bike", "Safety gear", "Professional guide", "Water"],
+    includedList: ["Quad bike", "Safety gear", "Professional guide", "Water", "Applicable entry, park, reserve or marine fees"],
     excludedList: ["Transfers outside Diani", "Tips"], addons: ["Extended route", "Photo package"]
   },
   "Kongo River Sunset": {
@@ -662,7 +664,7 @@ const EXCURSIONS_DATA = {
     desc: "A peaceful sunset paddle through the Kongo River mangroves, with birdlife, coastal scenery and a slow finish to the day.",
     image: "https://cdn.getyourguide.com/img/review/719dcaefb57c2671bb4d8ab4acf3da8a5c4330db128740070ee07ec2b15a9e82.jpg/146.jpg",
     highlights: ["Sunset Canoe", "Mangroves", "Birdlife", "Coastal Culture"],
-    includedList: ["Canoe", "Local guide", "Safety equipment"], excludedList: ["Transfers", "Tips"], addons: ["Village visit", "Private sunset setup"]
+    includedList: ["Canoe", "Local guide", "Safety equipment", "Applicable entry, park, reserve or marine fees"], excludedList: ["Transfers", "Tips"], addons: ["Village visit", "Private sunset setup"]
   },
   "Chale Island Excursion": {
     name: "Chale Island Excursion", destination: "South Coast / Diani", duration: "Full Day",
@@ -670,7 +672,7 @@ const EXCURSIONS_DATA = {
     desc: "A tropical island escape from the South Coast with white sand, turquoise water, coral scenery and time to relax by the ocean.",
     image: "https://www.bravosafari.dk/imagevault/publishedmedia/4h0kv0gls0tlddhz07vz/NBO_TheSandsChaleIsland_Island_2_web.jpg?v=2",
     highlights: ["Island Beach", "Turquoise Water", "Boat Transfer", "Relaxation"],
-    includedList: ["Boat transfer on confirmed package", "Guide on request"], excludedList: ["Meals unless included", "Tips"], addons: ["Snorkeling", "Private boat"]
+    includedList: ["Boat transfer on confirmed package", "Guide on request", "Applicable entry, park, reserve or marine fees"], excludedList: ["Meals unless included", "Tips"], addons: ["Snorkeling", "Private boat"]
   },
   "Deep Sea Fishing & Marlin Quest": {
     name: "Deep Sea Marlin Quest", destination: "Diani / Indian Ocean", duration: "Half Day or Full Day",
@@ -678,7 +680,7 @@ const EXCURSIONS_DATA = {
     desc: "Head offshore with experienced local captains targeting marlin, sailfish, tuna and other Indian Ocean game fish.",
     image: "https://www.sportfishingkenya.net/wp-content/uploads/2021/06/20140209_130028.jpg",
     highlights: ["Marlin", "Sailfish", "Tuna", "Private Charter"],
-    includedList: ["Boat charter", "Fishing gear", "Captain and crew"], excludedList: ["Tips", "Special meals"], addons: ["Full-day upgrade", "Professional photo package"]
+    includedList: ["Boat charter", "Fishing gear", "Captain and crew", "Applicable entry, park, reserve or marine fees"], excludedList: ["Tips", "Special meals"], addons: ["Full-day upgrade", "Professional photo package"]
   },
   "Malindi Marine Park": {
     name: "Malindi Marine National Park", destination: "Malindi", duration: "Half Day or Full Day",
@@ -686,7 +688,7 @@ const EXCURSIONS_DATA = {
     desc: "Discover coral reefs and tropical marine life around Malindi by boat, with glass-bottom viewing and snorkeling options.",
     image: "https://media.holidify.com/images/cmsuploads/compressed/glassbottom210_20240724123201.jpg",
     highlights: ["Marine Park", "Glass Bottom Boat", "Coral Reefs", "Snorkeling"],
-    includedList: ["Boat", "Guide", "Equipment on request"], excludedList: ["Park fees", "Meals", "Tips"], addons: ["Private boat", "Hotel transfer"]
+    includedList: ["Boat", "Guide", "Equipment on request", "Applicable entry, park, reserve or marine fees"], excludedList: ["Meals", "Tips"], addons: ["Private boat", "Hotel transfer"]
   },
   "Malindi Old Town & Vasco da Gama Pillar": {
     name: "Malindi Old Town & Vasco da Gama Pillar", destination: "Malindi", duration: "Half Day",
@@ -694,7 +696,7 @@ const EXCURSIONS_DATA = {
     desc: "A cultural and coastal heritage outing through Malindi's historic streets, old town character and the famous Vasco da Gama Pillar.",
     image: "https://abiri.home.blog/wp-content/uploads/2024/07/vasco-da-gama-pillar-1.jpg?w=1200",
     highlights: ["Vasco da Gama Pillar", "Old Town", "Swahili Heritage", "Indian Ocean Coast"],
-    includedList: ["Professional guide", "Transport on request"], excludedList: ["Entry fees", "Meals", "Tips"], addons: ["Malindi Marine Park", "Gede Ruins"]
+    includedList: ["Professional guide", "Transport on request", "Applicable entry, park, reserve or marine fees"], excludedList: ["Meals", "Tips"], addons: ["Malindi Marine Park", "Gede Ruins"]
   },
   "Watamu Marine Park": {
     name: "Watamu Marine National Park", destination: "Watamu", duration: "Half Day or Full Day",
@@ -702,7 +704,7 @@ const EXCURSIONS_DATA = {
     desc: "Clear-water snorkeling and marine exploration in Watamu, with coral reefs, tropical fish and the chance to encounter sea turtles.",
     image: "https://images.pexels.com/photos/10303313/pexels-photo-10303313.jpeg?auto=compress&cs=tinysrgb&w=1400",
     highlights: ["Sea Turtles", "Snorkeling", "Coral Reefs", "Marine Life"],
-    includedList: ["Boat", "Guide", "Equipment on request"], excludedList: ["Marine fees", "Meals", "Tips"], addons: ["Private boat", "Underwater photography"]
+    includedList: ["Boat", "Guide", "Equipment on request", "Applicable entry, park, reserve or marine fees"], excludedList: ["Meals", "Tips"], addons: ["Private boat", "Underwater photography"]
   },
   "Mida Creek Mangrove Experience": {
     name: "Mida Creek Mangrove Experience", destination: "Watamu", duration: "About 2 to 3 Hours",
@@ -710,7 +712,7 @@ const EXCURSIONS_DATA = {
     desc: "Explore Watamu's mangrove channels by canoe or kayak, with birdlife, tidal scenery and a quiet connection to the coast.",
     image: "https://cdn.unenvironment.org/inline-images/Canoeing%20Mida%20Creek%2C%20Watamu%2C%20Kenya%20credit%20Duncan%20Moore.jpg",
     highlights: ["Mangrove Canoe", "Birdwatching", "Mida Creek", "Eco Experience"],
-    includedList: ["Canoe or kayak", "Local guide", "Safety equipment"], excludedList: ["Transfers", "Tips"], addons: ["Sunset cruise", "Birding guide"]
+    includedList: ["Canoe or kayak", "Local guide", "Safety equipment", "Applicable entry, park, reserve or marine fees"], excludedList: ["Transfers", "Tips"], addons: ["Sunset cruise", "Birding guide"]
   },
   "Watamu Sunset Experience": {
     name: "Mida Creek Sunset", destination: "Watamu", duration: "About 2 Hours",
@@ -718,7 +720,7 @@ const EXCURSIONS_DATA = {
     desc: "Slow down on Mida Creek as the light changes over the mangroves, with a peaceful boat or canoe experience around sunset.",
     image: "https://static.wixstatic.com/media/62ba1f_e7f8c42bf9d246d484ce4524377b3697~mv2.jpg/v1/fill/w_1200%2Ch_900%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_auto/62ba1f_e7f8c42bf9d246d484ce4524377b3697~mv2.jpg",
     highlights: ["Mida Creek", "Sunset", "Mangroves", "Birdlife"],
-    includedList: ["Boat or canoe", "Local guide"], excludedList: ["Transfers", "Meals", "Tips"], addons: ["Private sunset setup", "Seafood dinner"]
+    includedList: ["Boat or canoe", "Local guide", "Applicable entry, park, reserve or marine fees"], excludedList: ["Transfers", "Meals", "Tips"], addons: ["Private sunset setup", "Seafood dinner"]
   },
   "Arabuko Sokoke Forest": {
     name: "Arabuko Sokoke Forest", destination: "Near Watamu / Malindi", duration: "Half Day or Full Day",
@@ -726,7 +728,7 @@ const EXCURSIONS_DATA = {
     desc: "A coastal forest excursion for nature lovers, birdwatchers and wildlife enthusiasts, with forest trails and endemic species.",
     image: "https://cdn.getyourguide.com/image/format%3Dauto%2Cfit%3Dcrop%2Cgravity%3Dauto%2Cquality%3D60%2Cwidth%3D1200%2Cheight%3D800%2Cdpr%3D2/tour_img/26eaa76d1ae27f861a01e1ff1c7b806b54af112a12a5f41d23488905565fc4b9.jpg",
     highlights: ["Coastal Forest", "Birdwatching", "Wildlife", "Nature Trails"],
-    includedList: ["Guide", "Transport on request"], excludedList: ["Entry fees", "Meals", "Tips"], addons: ["Gede Ruins", "Watamu Marine Park"]
+    includedList: ["Guide", "Transport on request", "Applicable entry, park, reserve or marine fees"], excludedList: ["Meals", "Tips"], addons: ["Gede Ruins", "Watamu Marine Park"]
   }
 };
 
@@ -748,7 +750,7 @@ const SAFARI_PACKAGES = [
             { day: "Day 2", title: "Full Day Tsavo East Safari", details: "After an early breakfast, set out with a packed lunch or lodge lunch arrangement for a full day of game viewing. Explore the park\u2019s open plains, seasonal waterholes and riverine areas, with opportunities to see Tsavo\u2019s famous red elephants, lions, buffalo, giraffes and other wildlife. Return to the lodge in the evening for dinner and overnight stay.", accommodation: "Voi Wildlife Lodge" },
             { day: "Day 3", title: "Morning Game Drive & Return to the Coast", details: "Enjoy an early morning game drive when wildlife is most active. Return for breakfast, check out and begin the journey back to the coast, with a final wildlife drive where park routing and time allow. Arrive at your coastal accommodation later in the day.", accommodation: null },
         ],
-        includedList: ["Park entrance fees", "4x4 Safari Landcruiser", "Full board lodge stay", "Professional guide"],
+        includedList: ["Park entrance fees", "4x4 Safari Landcruiser", "Full board lodge stay", "Professional guide", "Applicable entry, park, reserve or marine fees"],
         excludedList: ["International flights", "Tips"],
         addons: ["Balloon safari (seasonal)", "Private bush dinner", "Extra night"]
     },
@@ -818,7 +820,7 @@ const SAFARI_PACKAGES = [
             { day: "Day 6", title: "Full Day Amboseli", details: "Early morning game drive followed by breakfast. Continue exploring the park\u2019s swamps, plains and wildlife corridors, with time for lunch and an afternoon game drive. Return for dinner and overnight stay.", accommodation: "AA Lodge Amboseli" },
             { day: "Day 7", title: "Final Amboseli Drive & Departure", details: "Enjoy a final sunrise game drive, breakfast and check-out. Transfer to Nairobi or your onward destination according to your travel schedule.", accommodation: null },
         ],
-        includedList: ["All park entrance fees", "Full board safari lodges", "4x4 Safari Landcruiser", "Professional guide"],
+        includedList: ["All park entrance fees", "Full board safari lodges", "4x4 Safari Landcruiser", "Professional guide", "Applicable entry, park, reserve or marine fees"],
         excludedList: ["International flights", "Tips"],
         addons: ["Hot air balloon in Mara", "Internal flight Mara–Nairobi", "Cultural Maasai visit"]
     },
@@ -1006,7 +1008,7 @@ const SAFARI_PACKAGES = [
             { day: "Day 9", title: "Full Day Amboseli National Park", details: "Begin with an early morning game drive, then continue exploring Amboseli’s marshes, open plains and acacia areas. Look for large elephant herds, giraffes, zebras, buffalo and predators, with views of Mount Kilimanjaro when weather permits.", accommodation: "AA Lodge Amboseli" },
             { day: "Day 10", title: "Amboseli – Nairobi – Departure", details: "Enjoy a final morning game drive and breakfast before check-out. Transfer to Nairobi. If your flight schedule allows, optional relaxation or a city experience can be arranged before your transfer to Jomo Kenyatta International Airport for departure.", accommodation: null }
         ],
-        includedList: ["Park and conservation fees", "Private 4x4 safari vehicle", "Professional guide", "Accommodation and meals as confirmed", "Airport and scheduled transfers"],
+        includedList: ["Park and conservation fees", "Private 4x4 safari vehicle", "Professional guide", "Accommodation and meals as confirmed", "Airport and scheduled transfers", "Applicable entry, park, reserve or marine fees"],
         excludedList: ["International flights", "Travel insurance", "Tips", "Personal expenses"],
         addons: ["Maasai cultural visit", "Lake Naivasha boat ride", "Additional nights", "Private bush dining where available"]
     }
