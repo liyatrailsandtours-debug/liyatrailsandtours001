@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /404.html
-
 Sitemap: https://liyatrailandtours.vercel.app/sitemap.xml
