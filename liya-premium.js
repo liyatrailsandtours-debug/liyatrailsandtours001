@@ -1,0 +1,1 @@
+(function(){function init(){document.querySelectorAll('img').forEach(function(i){if(!i.hasAttribute('loading')&&!i.hasAttribute('fetchpriority'))i.loading='lazy'});}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();})();
