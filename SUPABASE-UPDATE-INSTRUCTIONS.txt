@@ -1,0 +1,25 @@
+LIYA TRAILS & TOURS — FINAL WEBSITE UPDATE
+
+This package updates the public website to:
+  https://liyatrailsandtours.com
+
+Official email addresses:
+  info@liyatrailsandtours.com
+  bookings@liyatrailsandtours.com
+  partners@liyatrailsandtours.com
+  sales@liyatrailsandtours.com
+
+The website remains connected to the Liya Supabase project used by the admin dashboard.
+
+SUPABASE:
+Run `supabase-email-domain-update.sql` once in the Liya Supabase project. It updates
+existing CMS records/page HTML and creates the reusable contact-email and site-URL
+settings records.
+
+ADMIN:
+The admin page includes a fallback Supabase JS CDN loader and a visible initialization
+error instead of silently doing nothing if the client library cannot load.
+
+DEPLOY:
+Upload the website files from this ZIP to the existing Cloudflare Worker/Pages project.
+Do not create a second project. After deployment, open /admin.html and test sign-in.

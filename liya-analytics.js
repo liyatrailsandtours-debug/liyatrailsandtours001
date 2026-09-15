@@ -18,7 +18,7 @@
     .then(function(r){return r.ok?r.json():[];}).then(function(rows){
       var v=rows&&rows[0]&&rows[0].content_value;
       var id=typeof v==='string'?v:(v&&v.measurement_id);
-      if(!id) id='G-R6R3G5512B';
+      if(!id) id='G-94917Q5N5W';
       start((id||'').trim());
     }).catch(function(){});
 })();
